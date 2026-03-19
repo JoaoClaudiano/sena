@@ -22,56 +22,89 @@
   <link rel="stylesheet" href="estilo/style.css">
   <style>
     /* Estilo específico para a página de leitura */
-    .book-content {
-      max-width: 700px;
-      margin: 2rem auto;
-      font-size: 1.1rem;
-      line-height: 1.8;
-      background-color: #fff;
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    }
-    .book-content h2 {
-      margin-top: 2rem;
-      color: #a67c52;
-      border-bottom: 1px solid #eee;
-      padding-bottom: 0.5rem;
-    }
     .book-nav {
       display: flex;
       justify-content: space-between;
       margin: 1rem 0;
     }
-    .chapter-list {
-      background-color: #f9f7f4;
+
+    /* Visualizador de PDF */
+    .pdf-viewer-container {
+      margin: 2rem auto;
+      max-width: 900px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    .pdf-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      background: #f5f1ec;
+      border-bottom: 1px solid #ddd;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .pdf-nav-controls,
+    .pdf-zoom-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .pdf-page-info {
+      font-size: 0.9rem;
+      color: #555;
+      min-width: 110px;
+      text-align: center;
+    }
+    .pdf-zoom-level {
+      font-size: 0.9rem;
+      color: #555;
+      min-width: 48px;
+      text-align: center;
+    }
+    .pdf-canvas-wrapper {
+      overflow: auto;
+      display: flex;
+      justify-content: center;
       padding: 1rem;
-      border-radius: 4px;
-      margin-bottom: 2rem;
+      min-height: 400px;
+      background: #e0e0e0;
     }
-    .chapter-list ul {
-      columns: 2;
-      list-style: none;
+    .pdf-loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: #666;
+      padding: 3rem;
     }
-    .chapter-list li {
-      margin-bottom: 0.5rem;
+    #pdfCanvas {
+      display: none;
+      max-width: 100%;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+      background: #fff;
     }
-    .chapter-list a {
-      text-decoration: none;
-      color: #2c3e50;
+
+    [data-theme="dark"] .pdf-viewer-container {
+      background: #2a2020;
     }
-    .chapter-list a:hover {
-      color: #a67c52;
+    [data-theme="dark"] .pdf-toolbar {
+      background: #3d2f2f;
+      border-bottom-color: #5a4040;
     }
+    [data-theme="dark"] .pdf-canvas-wrapper {
+      background: #1a1a1a;
+    }
+    [data-theme="dark"] .pdf-page-info,
+    [data-theme="dark"] .pdf-zoom-level {
+      color: #ccc;
+    }
+
     @media (max-width: 767px) {
-      .chapter-list ul { columns: 1; }
-      .book-content { padding: 1rem; }
-    }
-    [data-theme="dark"] .book-content h2 {
-      border-bottom-color: #3d2f3a;
-    }
-    [data-theme="dark"] .chapter-list a {
-      color: #e8ddd5;
+      .pdf-toolbar { justify-content: center; }
     }
   </style>
 </head>
@@ -110,47 +143,29 @@
       <h1>O Diálogo da Divina Providência</h1>
       <div class="book-nav">
         <a href="obras.html" class="btn btn-outline">← Voltar para obras</a>
-        <a href="downloads/dialogo-da-divina-providencia.pdf" download class="btn">Baixar PDF</a>
+        <a href="conteudo/dialogo.pdf" download class="btn">Baixar PDF</a>
       </div>
 
-      <!-- Controles de leitura -->
-      <div class="reading-controls" role="group" aria-label="Controles de tamanho da fonte">
-        <span>Tamanho do texto:</span>
-        <button id="fontDecrease" class="btn btn-outline" aria-label="Diminuir tamanho da fonte">A−</button>
-        <button id="fontReset" class="btn btn-outline" aria-label="Redefinir tamanho da fonte">A</button>
-        <button id="fontIncrease" class="btn btn-outline" aria-label="Aumentar tamanho da fonte">A+</button>
-      </div>
-
-      <!-- Sumário com capítulos -->
-      <div class="chapter-list" aria-label="Índice de capítulos">
-        <h3>Capítulos</h3>
-        <ul>
-          <li><a href="#cap1">Capítulo 1: Como a alma se eleva a Deus</a></li>
-          <li><a href="#cap2">Capítulo 2: Da perfeição</a></li>
-          <li><a href="#cap3">Capítulo 3: Do amor e da dor</a></li>
-          <!-- Adicione mais conforme necessário -->
-        </ul>
-      </div>
-
-      <!-- Conteúdo do livro (exemplo com alguns capítulos) -->
-      <div class="book-content">
-        <section id="cap1" aria-labelledby="cap1-titulo">
-          <h2 id="cap1-titulo">Capítulo 1</h2>
-          <p>Uma alma que se eleva, com imenso desejo, à honra de Deus e à salvação das almas, exercitando-se por algum tempo na morada do conhecimento de si mesma e da bondade de Deus, para melhor se dispor e se unir a Ele, tendo já visto, pela luz do intelecto, o amor inefável que Deus lhe tem...</p>
-          <p>Estando ela assim inflamada de desejo, elevou-se a sua alma com afeto de amor para com Deus, e viu com os olhos do intelecto a sua doçura e a sua bondade. Então compreendeu, mais perfeitamente, a misericórdia de Deus para com os homens, e a providência que Ele exerce sobre todas as coisas.</p>
-        </section>
-
-        <section id="cap2" aria-labelledby="cap2-titulo">
-          <h2 id="cap2-titulo">Capítulo 2</h2>
-          <p>Da perfeição. Deus, então, respondeu à alma: "Filha docemente amada por mim, levanta-te, porque deves ser instrumento para a salvação de muitas almas. Quero que sejas um exemplo de virtude e um farol que ilumine os que estão nas trevas. Sê humilde, porque a humildade é a base de todas as virtudes."</p>
-        </section>
-
-        <section id="cap3" aria-labelledby="cap3-titulo">
-          <h2 id="cap3-titulo">Capítulo 3</h2>
-          <p>Do amor e da dor. "O amor, filha, não pode ser verdadeiro sem a dor. Quem ama verdadeiramente a Mim, ama também as almas, e por elas sofre. Queres tu, filha, sofrer por Mim e pela Igreja?" E a alma respondeu: "Sim, Senhor, desejo sofrer e amar."</p>
-        </section>
-
-        <p><em>Texto adaptado para fins de exemplo. O conteúdo real deve ser inserido conforme a obra completa.</em></p>
+      <!-- Visualizador de PDF -->
+      <div class="pdf-viewer-container" role="region" aria-label="Visualizador de PDF">
+        <div class="pdf-toolbar" role="toolbar" aria-label="Controles do visualizador">
+          <div class="pdf-nav-controls">
+            <button id="pdfPrevPage" class="btn btn-outline" aria-label="Página anterior" disabled>◀ Anterior</button>
+            <span class="pdf-page-info" aria-live="polite">
+              Página <span id="pdfCurrentPage">—</span> de <span id="pdfTotalPages">—</span>
+            </span>
+            <button id="pdfNextPage" class="btn btn-outline" aria-label="Próxima página" disabled>Próxima ▶</button>
+          </div>
+          <div class="pdf-zoom-controls">
+            <button id="pdfZoomOut" class="btn btn-outline" aria-label="Diminuir zoom" disabled>−</button>
+            <span id="pdfZoomLevel" class="pdf-zoom-level">100%</span>
+            <button id="pdfZoomIn" class="btn btn-outline" aria-label="Aumentar zoom" disabled>+</button>
+          </div>
+        </div>
+        <div class="pdf-canvas-wrapper">
+          <p id="pdfLoading" class="pdf-loading" aria-live="polite">Carregando PDF…</p>
+          <canvas id="pdfCanvas" aria-label="Conteúdo do PDF"></canvas>
+        </div>
       </div>
 
       <div class="social-share" aria-label="Compartilhar esta página">
@@ -171,5 +186,113 @@
 
   <script src="scripts/menu.js" defer></script>
   <script src="scripts/features.js" defer></script>
+  <!-- PDF.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      pdfjsLib.GlobalWorkerOptions.workerSrc =
+        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+      const PDF_PATH = 'conteudo/dialogo.pdf';
+      const SCALE_STEP = 0.25;
+      const MIN_SCALE = 0.5;
+      const MAX_SCALE = 3.0;
+
+      let pdfDoc = null;
+      let currentPage = 1;
+      let currentScale = 1.5;
+      let renderTask = null;
+
+      const canvas       = document.getElementById('pdfCanvas');
+      const ctx          = canvas.getContext('2d');
+      const loadingEl    = document.getElementById('pdfLoading');
+      const currentPageEl = document.getElementById('pdfCurrentPage');
+      const totalPagesEl  = document.getElementById('pdfTotalPages');
+      const zoomLevelEl   = document.getElementById('pdfZoomLevel');
+      const prevBtn      = document.getElementById('pdfPrevPage');
+      const nextBtn      = document.getElementById('pdfNextPage');
+      const zoomInBtn    = document.getElementById('pdfZoomIn');
+      const zoomOutBtn   = document.getElementById('pdfZoomOut');
+
+      function updateNavButtons() {
+        prevBtn.disabled  = currentPage <= 1;
+        nextBtn.disabled  = currentPage >= pdfDoc.numPages;
+        zoomInBtn.disabled  = currentScale >= MAX_SCALE;
+        zoomOutBtn.disabled = currentScale <= MIN_SCALE;
+      }
+
+      function renderPage(pageNum) {
+        var renderingPage = pageNum;
+        var prevTask = renderTask;
+        renderTask = null;
+
+        // Wait for any previous render to finish cancelling before starting new one
+        var ready = prevTask
+          ? (prevTask.cancel(), prevTask.promise.catch(function () {}))
+          : Promise.resolve();
+
+        ready.then(function () {
+          return pdfDoc.getPage(renderingPage);
+        }).then(function (page) {
+          var viewport = page.getViewport({ scale: currentScale });
+          canvas.width  = viewport.width;
+          canvas.height = viewport.height;
+
+          var task = page.render({ canvasContext: ctx, viewport: viewport });
+          renderTask = task;
+          return task.promise;
+        }).then(function () {
+          renderTask = null;
+          currentPageEl.textContent = renderingPage;
+          zoomLevelEl.textContent   = Math.round(currentScale * 100) + '%';
+          updateNavButtons();
+        }).catch(function (err) {
+          if (err && err.name !== 'RenderingCancelledException') {
+            console.error('Erro ao renderizar página:', err);
+          }
+        });
+      }
+
+      pdfjsLib.getDocument(PDF_PATH).promise.then(function (doc) {
+        pdfDoc = doc;
+        totalPagesEl.textContent = doc.numPages;
+        loadingEl.style.display  = 'none';
+        canvas.style.display     = 'block';
+        renderPage(currentPage);
+      }).catch(function (err) {
+        console.error('Erro ao carregar PDF:', err);
+        var msg = 'Não foi possível carregar o PDF.';
+        if (err && err.message) { msg += ' (' + err.message + ')'; }
+        msg += ' Por favor, tente o botão "Baixar PDF".';
+        loadingEl.textContent = msg;
+      });
+
+      prevBtn.addEventListener('click', function () {
+        if (currentPage <= 1) return;
+        currentPage--;
+        renderPage(currentPage);
+      });
+
+      nextBtn.addEventListener('click', function () {
+        if (currentPage >= pdfDoc.numPages) return;
+        currentPage++;
+        renderPage(currentPage);
+      });
+
+      zoomInBtn.addEventListener('click', function () {
+        if (currentScale >= MAX_SCALE) return;
+        currentScale = Math.min(MAX_SCALE, currentScale + SCALE_STEP);
+        renderPage(currentPage);
+      });
+
+      zoomOutBtn.addEventListener('click', function () {
+        if (currentScale <= MIN_SCALE) return;
+        currentScale = Math.max(MIN_SCALE, currentScale - SCALE_STEP);
+        renderPage(currentPage);
+      });
+    })();
+  </script>
 </body>
 </html>
