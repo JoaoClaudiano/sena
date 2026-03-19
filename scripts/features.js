@@ -143,10 +143,12 @@
     var days = Math.floor(diff / (1000 * 60 * 60 * 24));
     var months = Math.floor(days / 30);
     var remaining = days % 30;
+    var plural = function (n, s) { return n + ' ' + s + (n !== 1 ? 's' : ''); };
     if (months > 0) {
-      tempoEl.textContent = months + ' mês' + (months > 1 ? 'es' : '') + ' e ' + remaining + ' dia' + (remaining !== 1 ? 's' : '');
+      var mesStr = months + ' mês' + (months > 1 ? 'es' : '');
+      tempoEl.textContent = mesStr + ' e ' + plural(remaining, 'dia');
     } else {
-      tempoEl.textContent = days + ' dia' + (days !== 1 ? 's' : '');
+      tempoEl.textContent = plural(days, 'dia');
     }
   }
 
@@ -281,7 +283,9 @@
   var count = parseInt(localStorage.getItem('candleCount') || '0', 10);
 
   function updateCount() {
-    if (countEl) countEl.textContent = '🕯️ ' + count.toLocaleString('pt-BR') + ' vela' + (count !== 1 ? 's' : '') + ' acesa' + (count !== 1 ? 's' : '') + ' neste dispositivo';
+    if (!countEl) return;
+    var suffix = count !== 1 ? 's' : '';
+    countEl.textContent = '🕯️ ' + count.toLocaleString('pt-BR') + ' vela' + suffix + ' acesa' + suffix + ' neste dispositivo';
   }
   updateCount();
 
