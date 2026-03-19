@@ -3,20 +3,74 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Santa Catarina de Sena</title>
+  <title>Santa Catarina de Sena - Doutora da Igreja</title>
+  <meta name="description" content="Site dedicado a Santa Catarina de Sena: biografia, obras, cartas, orações e downloads. Conheça a vida e os escritos desta grande mística e doutora da Igreja.">
+  <!-- Fontes do Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+  <!-- CSS principal -->
   <link rel="stylesheet" href="estilo/style.css">
 </head>
 <body>
   <header>
-    <nav>
-      <!-- Menu hambúrguer com CSS puro ou JavaScript -->
-    </nav>
+    <div class="header-content container">
+      <div class="logo">
+        <a href="index.html">Catarina de Sena</a>
+      </div>
+      <nav>
+        <button class="menu-toggle" aria-label="Abrir menu">☰</button>
+        <ul class="menu">
+          <li><a href="index.html">Início</a></li>
+          <li><a href="biografia.html">Biografia</a></li>
+          <li><a href="obras.html">Obras</a></li>
+          <li><a href="contato.html">Contato</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
+
   <main>
-    <!-- Conteúdo específico de cada página -->
+    <div class="container">
+      <section class="hero">
+        <h1>Santa Catarina de Sena</h1>
+        <p>Virgem, Doutora da Igreja, padroeira da Itália e da Europa. Sua vida e escritos continuam a iluminar o mundo.</p>
+        <a href="biografia.html" class="btn">Conheça sua história</a>
+      </section>
+
+      <section class="destaques">
+        <h2>Destaques</h2>
+        <div class="card">
+          <h3>O Diálogo da Divina Providência</h3>
+          <p>Sua obra-prima, um diálogo entre a alma e Deus, repleto de ensinamentos espirituais.</p>
+          <a href="dialogo.html" class="btn btn-outline">Ler online</a>
+          <a href="downloads/dialogo-da-divina-providencia.pdf" download class="btn btn-outline">Baixar PDF</a>
+        </div>
+        <div class="card">
+          <h3>Cartas de Santa Catarina</h3>
+          <p>Mais de 380 cartas escritas a papas, reis e pessoas comuns, cheias de sabedoria e coragem.</p>
+          <a href="cartas.html" class="btn btn-outline">Ler online</a>
+          <a href="downloads/cartas-de-santa-catarina.pdf" download class="btn btn-outline">Baixar PDF</a>
+        </div>
+      </section>
+
+      <section class="frase">
+        <blockquote>
+          <p>"Se fores o que deves ser, porás fogo no mundo inteiro."</p>
+          <cite>— Santa Catarina de Sena</cite>
+        </blockquote>
+      </section>
+    </div>
   </main>
+
   <footer>
-    <!-- Rodapé -->
+    <div class="container">
+      <p>Site dedicado a Santa Catarina de Sena</p>
+      <p>Conteúdo para estudo e devoção</p>
+      <p>© 2025 - Todos os direitos reservados</p>
+    </div>
   </footer>
+
+  <script src="scripts/menu.js"></script>
 </body>
 </html>
