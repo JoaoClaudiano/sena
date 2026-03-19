@@ -1,0 +1,13 @@
+{
+  "name": "Santa Catarina de Sena",
+  "short_name": "Catarina de Sena",
+  "description": "Site dedicado a Santa Catarina de Sena: biografia, obras, orações e devoção.",
+  "icons": [
+    {"src": "icons/icon_192x192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "icons/icon_512x512.png", "sizes": "512x512", "type": "image/png"}
+  ],
+  "start_url": "/sena/",
+  "display": "standalone",
+  "background_color": "#f9f7f4",
+  "theme_color": "#a67c52"
+}
