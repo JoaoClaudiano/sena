@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>O Diálogo - Santa Catarina de Sena (leitura online)</title>
+  <meta name="description" content="Leia online a obra O Diálogo da Divina Providência, de Santa Catarina de Sena.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="estilo/style.css">
+  <style>
+    /* Estilo específico para a página de leitura */
+    .book-content {
+      max-width: 700px;
+      margin: 2rem auto;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .book-content h2 {
+      margin-top: 2rem;
+      color: #a67c52;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 0.5rem;
+    }
+    .book-nav {
+      display: flex;
+      justify-content: space-between;
+      margin: 1rem 0;
+    }
+    .chapter-list {
+      background-color: #f9f7f4;
+      padding: 1rem;
+      border-radius: 4px;
+      margin-bottom: 2rem;
+    }
+    .chapter-list ul {
+      columns: 2;
+      list-style: none;
+    }
+    .chapter-list li {
+      margin-bottom: 0.5rem;
+    }
+    .chapter-list a {
+      text-decoration: none;
+      color: #2c3e50;
+    }
+    .chapter-list a:hover {
+      color: #a67c52;
+    }
+    @media (max-width: 767px) {
+      .chapter-list ul { columns: 1; }
+      .book-content { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content container">
+      <div class="logo">
+        <a href="index.html">Catarina de Sena</a>
+      </div>
+      <nav>
+        <button class="menu-toggle" aria-label="Abrir menu">☰</button>
+        <ul class="menu">
+          <li><a href="index.html">Início</a></li>
+          <li><a href="biografia.html">Biografia</a></li>
+          <li><a href="obras.html">Obras</a></li>
+          <li><a href="contato.html">Contato</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <h1>O Diálogo da Divina Providência</h1>
+      <div class="book-nav">
+        <a href="obras.html" class="btn btn-outline">← Voltar para obras</a>
+        <a href="downloads/dialogo-da-divina-providencia.pdf" download class="btn">Baixar PDF</a>
+      </div>
+
+      <!-- Sumário com capítulos -->
+      <div class="chapter-list">
+        <h3>Capítulos</h3>
+        <ul>
+          <li><a href="#cap1">Capítulo 1: Como a alma se eleva a Deus</a></li>
+          <li><a href="#cap2">Capítulo 2: Da perfeição</a></li>
+          <li><a href="#cap3">Capítulo 3: Do amor e da dor</a></li>
+          <!-- Adicione mais conforme necessário -->
+        </ul>
+      </div>
+
+      <!-- Conteúdo do livro (exemplo com alguns capítulos) -->
+      <div class="book-content">
+        <section id="cap1">
+          <h2>Capítulo 1</h2>
+          <p>Uma alma que se eleva, com imenso desejo, à honra de Deus e à salvação das almas, exercitando-se por algum tempo na morada do conhecimento de si mesma e da bondade de Deus, para melhor se dispor e se unir a Ele, tendo já visto, pela luz do intelecto, o amor inefável que Deus lhe tem...</p>
+          <p>Estando ela assim inflamada de desejo, elevou-se a sua alma com afeto de amor para com Deus, e viu com os olhos do intelecto a sua doçura e a sua bondade. Então compreendeu, mais perfeitamente, a misericórdia de Deus para com os homens, e a providência que Ele exerce sobre todas as coisas.</p>
+        </section>
+
+        <section id="cap2">
+          <h2>Capítulo 2</h2>
+          <p>Da perfeição. Deus, então, respondeu à alma: "Filha docemente amada por mim, levanta-te, porque deves ser instrumento para a salvação de muitas almas. Quero que sejas um exemplo de virtude e um farol que ilumine os que estão nas trevas. Sê humilde, porque a humildade é a base de todas as virtudes."</p>
+        </section>
+
+        <section id="cap3">
+          <h2>Capítulo 3</h2>
+          <p>Do amor e da dor. "O amor, filha, não pode ser verdadeiro sem a dor. Quem ama verdadeiramente a Mim, ama também as almas, e por elas sofre. Queres tu, filha, sofrer por Mim e pela Igreja?" E a alma respondeu: "Sim, Senhor, desejo sofrer e amar."</p>
+        </section>
+
+        <p><em>Texto adaptado para fins de exemplo. O conteúdo real deve ser inserido conforme a obra completa.</em></p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>Site dedicado a Santa Catarina de Sena</p>
+      <p>© 2025</p>
+    </div>
+  </footer>
+
+  <script src="scripts/menu.js"></script>
+</body>
+</html>
