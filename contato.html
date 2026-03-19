@@ -5,30 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contato - Santa Catarina de Sena</title>
   <meta name="description" content="Entre em contato para sugestões, pedidos de oração ou informações sobre o site.">
-  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://joaoclaudiano.github.io/sena/contato.html">
   <meta property="og:title" content="Contato - Santa Catarina de Sena">
   <meta property="og:description" content="Entre em contato para sugestões, pedidos de oração ou informações sobre o site.">
   <meta property="og:site_name" content="Santa Catarina de Sena">
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Contato - Santa Catarina de Sena">
   <meta name="twitter:description" content="Entre em contato para sugestões, pedidos de oração ou informações sobre o site.">
-  <!-- Preconnect para fontes -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="icons/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/icon_16x16.png">
+  <link rel="apple-touch-icon" href="icons/icon_128x128.png">
+  <link rel="manifest" href="site.webmanifest">
   <link rel="stylesheet" href="estilo/style.css">
 </head>
 <body>
   <a href="#main-content" class="skip-to-content">Ir para o conteúdo</a>
-
   <header>
     <div class="header-content container">
-      <div class="logo">
-        <a href="index.html">Catarina de Sena</a>
-      </div>
+      <div class="logo"><a href="index.html">Catarina de Sena</a></div>
       <nav aria-label="Navegação principal">
         <button class="dark-toggle" id="darkToggle" aria-label="Alternar modo noturno" aria-pressed="false">🌙</button>
         <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-menu">☰</button>
@@ -36,7 +35,10 @@
           <li><a href="index.html">Início</a></li>
           <li><a href="biografia.html">Biografia</a></li>
           <li><a href="obras.html">Obras</a></li>
-          <li><a href="contato.html" aria-current="page">Contato</a></li>
+          <li><a href="oratorio.html">Oratório</a></li>
+          <li><a href="galeria.html">Galeria</a></li>
+          <li><a href="eventos.html">Eventos</a></li>
+          <li><a href="siena.html">Siena</a></li>
         </ul>
       </nav>
     </div>
@@ -51,41 +53,141 @@
         </ol>
       </nav>
 
-      <h1>Entre em contato</h1>
-      <p>Tem alguma sugestão, pedido de oração ou quer compartilhar algo sobre Santa Catarina? Fique à vontade para escrever.</p>
+      <div class="contact-intro">
+        <h1>Entre em Contato</h1>
+        <p>Este site nasceu de um ato de devoção. Se tiver um pedido de oração, uma sugestão para melhorar o conteúdo ou uma dúvida sobre a vida e obra de Santa Catarina, fique à vontade para escrever. Cada mensagem é lida com carinho.</p>
+      </div>
 
-      <form class="contact-form" action="https://formspree.io/f/seu-email-aqui" method="POST" aria-label="Formulário de contato">
-        <div class="form-group">
-          <label for="nome">Nome</label>
-          <input type="text" id="nome" name="nome" required autocomplete="name">
-        </div>
-        <div class="form-group">
-          <label for="email">E-mail</label>
-          <input type="email" id="email" name="email" required autocomplete="email">
-        </div>
-        <div class="form-group">
-          <label for="assunto">Assunto</label>
-          <input type="text" id="assunto" name="assunto" required>
-        </div>
-        <div class="form-group">
-          <label for="mensagem">Mensagem</label>
-          <textarea id="mensagem" name="mensagem" required></textarea>
-        </div>
-        <button type="submit" class="btn">Enviar mensagem</button>
-      </form>
+      <div class="contact-type-tabs" role="tablist" aria-label="Tipo de contato">
+        <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-oracao" id="btn-oracao">🙏 Pedido de Oração</button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-sugestao" id="btn-sugestao">💡 Sugestão</button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-duvida" id="btn-duvida">❓ Dúvida</button>
+      </div>
 
-      <p style="margin-top: 2rem;">Você também pode nos encontrar nas redes sociais (links futuros).</p>
+      <div id="tab-oracao" class="tab-panel active" role="tabpanel" aria-labelledby="btn-oracao">
+        <p style="margin-bottom:1.5rem; color:#6b5a4e; font-style:italic;">"A oração é a chave do coração de Deus." — Santa Catarina de Sena</p>
+        <form class="contact-form prayer-form" action="https://formspree.io/f/placeholder" method="POST" aria-label="Formulário de pedido de oração">
+          <input type="hidden" name="_subject" value="Pedido de Oração - Santa Catarina de Sena">
+          <div class="form-group">
+            <label for="nome-oracao">Nome</label>
+            <input type="text" id="nome-oracao" name="nome" required autocomplete="name" placeholder="Seu nome">
+          </div>
+          <div class="form-group">
+            <label for="email-oracao">E-mail</label>
+            <input type="email" id="email-oracao" name="email" required autocomplete="email" placeholder="seu@email.com">
+          </div>
+          <div class="form-group">
+            <label for="mensagem-oracao">Intenção de Oração</label>
+            <textarea id="mensagem-oracao" name="mensagem" required placeholder="Compartilhe sua intenção. Será mantida em oração com carinho."></textarea>
+          </div>
+          <button type="submit" class="btn">🙏 Enviar pedido de oração</button>
+        </form>
+      </div>
+
+      <div id="tab-sugestao" class="tab-panel" role="tabpanel" aria-labelledby="btn-sugestao">
+        <p style="margin-bottom:1.5rem; color:#6b5a4e; font-style:italic;">Sua sugestão ajuda a tornar este site um espaço de devoção cada vez mais rico e completo.</p>
+        <form class="contact-form prayer-form" action="https://formspree.io/f/placeholder" method="POST" aria-label="Formulário de sugestão">
+          <input type="hidden" name="_subject" value="Sugestão - Santa Catarina de Sena">
+          <div class="form-group">
+            <label for="nome-sug">Nome</label>
+            <input type="text" id="nome-sug" name="nome" required autocomplete="name" placeholder="Seu nome">
+          </div>
+          <div class="form-group">
+            <label for="email-sug">E-mail</label>
+            <input type="email" id="email-sug" name="email" required autocomplete="email" placeholder="seu@email.com">
+          </div>
+          <div class="form-group">
+            <label for="mensagem-sug">Sua Sugestão</label>
+            <textarea id="mensagem-sug" name="mensagem" required placeholder="Conte-nos o que poderia melhorar ou o que gostaria de ver no site."></textarea>
+          </div>
+          <button type="submit" class="btn">💡 Enviar sugestão</button>
+        </form>
+      </div>
+
+      <div id="tab-duvida" class="tab-panel" role="tabpanel" aria-labelledby="btn-duvida">
+        <p style="margin-bottom:1.5rem; color:#6b5a4e; font-style:italic;">Tem uma dúvida sobre a vida, os escritos ou a devoção a Santa Catarina? Vamos tentar responder.</p>
+        <form class="contact-form prayer-form" action="https://formspree.io/f/placeholder" method="POST" aria-label="Formulário de dúvida">
+          <input type="hidden" name="_subject" value="Dúvida - Santa Catarina de Sena">
+          <div class="form-group">
+            <label for="nome-duv">Nome</label>
+            <input type="text" id="nome-duv" name="nome" required autocomplete="name" placeholder="Seu nome">
+          </div>
+          <div class="form-group">
+            <label for="email-duv">E-mail</label>
+            <input type="email" id="email-duv" name="email" required autocomplete="email" placeholder="seu@email.com">
+          </div>
+          <div class="form-group">
+            <label for="mensagem-duv">Sua Dúvida</label>
+            <textarea id="mensagem-duv" name="mensagem" required placeholder="Descreva sua dúvida com o máximo de detalhes possível."></textarea>
+          </div>
+          <button type="submit" class="btn">❓ Enviar dúvida</button>
+        </form>
+      </div>
     </div>
   </main>
 
   <footer>
-    <div class="container">
-      <p>Site dedicado a Santa Catarina de Sena</p>
-      <p>© 2026</p>
+    <div class="footer-grid container">
+      <div class="footer-col">
+        <h4>Navegação</h4>
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="biografia.html">Biografia</a></li>
+          <li><a href="obras.html">Obras</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Espiritualidade</h4>
+        <ul>
+          <li><a href="oratorio.html">Oratório</a></li>
+          <li><a href="pilulas.html">Pílulas de Sabedoria</a></li>
+          <li><a href="eventos.html">Eventos</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Informação</h4>
+        <ul>
+          <li><a href="siena.html">Siena</a></li>
+          <li><a href="galeria.html">Galeria</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="contato.html" aria-current="page">Contato</a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-status">
+        <h4>Status do Site</h4>
+        <p>🚀 Lançamento: Janeiro 2026</p>
+        <p>⏱️ Em funcionamento há <span id="uptime">...</span></p>
+        <p>👥 Visitas: <span id="visitorCount">...</span></p>
+        <blockquote class="footer-quote">"Se fores o que deves ser, porás fogo no mundo inteiro."<cite>— Santa Catarina de Sena</cite></blockquote>
+      </div>
+    </div>
+    <div class="footer-bottom container">
+      <p>© 2026 · Santa Catarina de Sena · Projeto voluntário de devoção</p>
     </div>
   </footer>
 
+  <button class="btn-scroll-top" id="scrollTop" aria-label="Voltar ao topo" title="Voltar ao topo">↑</button>
   <script src="scripts/menu.js" defer></script>
   <script src="scripts/features.js" defer></script>
+  <script>
+    // Tab navigation
+    (function () {
+      var tabBtns = document.querySelectorAll('.tab-btn');
+      var tabPanels = document.querySelectorAll('.tab-panel');
+      tabBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          tabBtns.forEach(function (b) {
+            b.classList.remove('active');
+            b.setAttribute('aria-selected', 'false');
+          });
+          tabPanels.forEach(function (p) { p.classList.remove('active'); });
+          btn.classList.add('active');
+          btn.setAttribute('aria-selected', 'true');
+          var panel = document.getElementById(btn.getAttribute('aria-controls'));
+          if (panel) panel.classList.add('active');
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
