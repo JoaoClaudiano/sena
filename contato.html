@@ -3,44 +3,65 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contato</title>
+  <title>Contato - Santa Catarina de Sena</title>
   <meta name="description" content="Entre em contato para sugestões, pedidos de oração ou informações sobre o site.">
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://joaoclaudiano.github.io/sena/contato.html">
+  <meta property="og:title" content="Contato - Santa Catarina de Sena">
+  <meta property="og:description" content="Entre em contato para sugestões, pedidos de oração ou informações sobre o site.">
+  <meta property="og:site_name" content="Santa Catarina de Sena">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Contato - Santa Catarina de Sena">
+  <meta name="twitter:description" content="Entre em contato para sugestões, pedidos de oração ou informações sobre o site.">
+  <!-- Preconnect para fontes -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="estilo/style.css">
 </head>
 <body>
+  <a href="#main-content" class="skip-to-content">Ir para o conteúdo</a>
+
   <header>
     <div class="header-content container">
       <div class="logo">
         <a href="index.html">Catarina de Sena</a>
       </div>
-      <nav>
-        <button class="menu-toggle" aria-label="Abrir menu">☰</button>
-        <ul class="menu">
+      <nav aria-label="Navegação principal">
+        <button class="dark-toggle" id="darkToggle" aria-label="Alternar modo noturno" aria-pressed="false">🌙</button>
+        <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-menu">☰</button>
+        <ul class="menu" id="main-menu" role="list">
           <li><a href="index.html">Início</a></li>
           <li><a href="biografia.html">Biografia</a></li>
           <li><a href="obras.html">Obras</a></li>
-          <li><a href="contato.html">Contato</a></li>
+          <li><a href="contato.html" aria-current="page">Contato</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <main>
+  <main id="main-content">
     <div class="container">
+      <nav aria-label="Navegação estrutural" class="breadcrumb">
+        <ol>
+          <li><a href="index.html">Início</a></li>
+          <li aria-current="page">Contato</li>
+        </ol>
+      </nav>
+
       <h1>Entre em contato</h1>
       <p>Tem alguma sugestão, pedido de oração ou quer compartilhar algo sobre Santa Catarina? Fique à vontade para escrever.</p>
 
-      <form class="contact-form" action="https://formspree.io/f/seu-email-aqui" method="POST">
+      <form class="contact-form" action="https://formspree.io/f/seu-email-aqui" method="POST" aria-label="Formulário de contato">
         <div class="form-group">
           <label for="nome">Nome</label>
-          <input type="text" id="nome" name="nome" required>
+          <input type="text" id="nome" name="nome" required autocomplete="name">
         </div>
         <div class="form-group">
           <label for="email">E-mail</label>
-          <input type="email" id="email" name="email" required>
+          <input type="email" id="email" name="email" required autocomplete="email">
         </div>
         <div class="form-group">
           <label for="assunto">Assunto</label>
@@ -60,10 +81,11 @@
   <footer>
     <div class="container">
       <p>Site dedicado a Santa Catarina de Sena</p>
-      <p>© 2025</p>
+      <p>© 2026</p>
     </div>
   </footer>
 
-  <script src="scripts/menu.js"></script>
+  <script src="scripts/menu.js" defer></script>
+  <script src="scripts/features.js" defer></script>
 </body>
 </html>

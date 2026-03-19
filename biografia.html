@@ -5,22 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Biografia de Santa Catarina de Sena</title>
   <meta name="description" content="Conheça a vida de Santa Catarina de Sena: sua infância, conversão, missão pública, estigmas e morte.">
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://joaoclaudiano.github.io/sena/biografia.html">
+  <meta property="og:title" content="Biografia de Santa Catarina de Sena">
+  <meta property="og:description" content="Conheça a vida de Santa Catarina de Sena: sua infância, conversão, missão pública, estigmas e morte.">
+  <meta property="og:site_name" content="Santa Catarina de Sena">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Biografia de Santa Catarina de Sena">
+  <meta name="twitter:description" content="Conheça a vida de Santa Catarina de Sena: sua infância, conversão, missão pública, estigmas e morte.">
+  <!-- Preconnect para fontes e mapa -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin>
   <link rel="stylesheet" href="estilo/style.css">
 </head>
 <body>
+  <a href="#main-content" class="skip-to-content">Ir para o conteúdo</a>
+
   <header>
     <div class="header-content container">
       <div class="logo">
         <a href="index.html">Catarina de Sena</a>
       </div>
-      <nav>
-        <button class="menu-toggle" aria-label="Abrir menu">☰</button>
-        <ul class="menu">
+      <nav aria-label="Navegação principal">
+        <button class="dark-toggle" id="darkToggle" aria-label="Alternar modo noturno" aria-pressed="false">🌙</button>
+        <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-menu">☰</button>
+        <ul class="menu" id="main-menu" role="list">
           <li><a href="index.html">Início</a></li>
-          <li><a href="biografia.html">Biografia</a></li>
+          <li><a href="biografia.html" aria-current="page">Biografia</a></li>
           <li><a href="obras.html">Obras</a></li>
           <li><a href="contato.html">Contato</a></li>
         </ul>
@@ -28,8 +43,15 @@
     </div>
   </header>
 
-  <main>
+  <main id="main-content">
     <div class="container">
+      <nav aria-label="Navegação estrutural" class="breadcrumb">
+        <ol>
+          <li><a href="index.html">Início</a></li>
+          <li aria-current="page">Biografia</li>
+        </ol>
+      </nav>
+
       <h1>Biografia de Santa Catarina de Sena</h1>
 
       <section>
@@ -52,6 +74,125 @@
         <p>Em 1375, em Pisa, recebeu os estigmas (invisíveis). Sofreu muito com o Grande Cisma do Ocidente. Após anos de sofrimento, faleceu em Roma em 29 de abril de 1380, aos 33 anos. Foi canonizada em 1461 e proclamada Doutora da Igreja em 1970 pelo Papa Paulo VI. Em 1999, João Paulo II a declarou copadroeira da Europa.</p>
       </section>
 
+      <!-- Linha do Tempo Interativa -->
+      <section aria-label="Linha do tempo da vida de Santa Catarina de Sena">
+        <h2>Linha do Tempo</h2>
+        <div class="timeline" role="list">
+          <div class="timeline-item" data-animate role="listitem">
+            <div class="timeline-year" aria-label="Ano 1347">1347</div>
+            <div class="timeline-content">
+              <h3>Nascimento em Siena</h3>
+              <p>Nasce em 25 de março, 23ª filha de Giacomo Benincasa, tintureiro de Siena, e sua esposa Lapa.</p>
+            </div>
+          </div>
+          <div class="timeline-item" data-animate role="listitem">
+            <div class="timeline-year" aria-label="Ano 1353">1353</div>
+            <div class="timeline-content">
+              <h3>Primeira Visão</h3>
+              <p>Aos 6 anos, tem sua primeira visão de Cristo acima da Igreja de São Domingos, em Siena.</p>
+            </div>
+          </div>
+          <div class="timeline-item" data-animate role="listitem">
+            <div class="timeline-year" aria-label="Ano 1354">1354</div>
+            <div class="timeline-content">
+              <h3>Voto de Virgindade</h3>
+              <p>Aos 7 anos, faz voto secreto de virgindade e consagração a Deus.</p>
+            </div>
+          </div>
+          <div class="timeline-item" data-animate role="listitem">
+            <div class="timeline-year" aria-label="Ano 1363">1363</div>
+            <div class="timeline-content">
+              <h3>Ingresso nas Mantelatas</h3>
+              <p>Aos 16 anos, após intensa resistência às pressões familiares para o casamento, ingressa na Terceira Ordem de São Domingos.</p>
+            </div>
+          </div>
+          <div class="timeline-item" data-animate role="listitem">
+            <div class="timeline-year" aria-label="Ano 1366">1366</div>
+            <div class="timeline-content">
+              <h3>Esponsais Místicos</h3>
+              <p>Recebe em visão os esponsais místicos com Cristo, sendo-lhe entregue um anel de ouro com diamante.</p>
+            </div>
+          </div>
+          <div class="timeline-item" data-animate role="listitem">
+            <div class="timeline-year" aria-label="Ano 1374">1374</div>
+            <div class="timeline-content">
+              <h3>Serviço na Peste</h3>
+              <p>Dedica-se heroicamente ao cuidado dos doentes durante a epidemia de peste em Siena. Atrai seguidores, os "Catarinati".</p>
+            </div>
+          </div>
+          <div class="timeline-item" data-animate role="listitem">
+            <div class="timeline-year" aria-label="Ano 1375">1375</div>
+            <div class="timeline-content">
+              <h3>Estigmas em Pisa</h3>
+              <p>Recebe os estigmas de Cristo — invisíveis durante sua vida — na Igreja de Santa Cristina, em Pisa.</p>
+            </div>
+          </div>
+          <div class="timeline-item" data-animate role="listitem">
+            <div class="timeline-year" aria-label="Ano 1376">1376</div>
+            <div class="timeline-content">
+              <h3>Viagem a Avinhão</h3>
+              <p>Viaja à França para convencer pessoalmente o Papa Gregório XI a retornar a Roma e a reformar a Igreja.</p>
+            </div>
+          </div>
+          <div class="timeline-item" data-animate role="listitem">
+            <div class="timeline-year" aria-label="Ano 1377">1377</div>
+            <div class="timeline-content">
+              <h3>Retorno do Papa a Roma</h3>
+              <p>Gregório XI retorna a Roma, encerrando o chamado "Exílio de Avinhão" que durava 70 anos.</p>
+            </div>
+          </div>
+          <div class="timeline-item" data-animate role="listitem">
+            <div class="timeline-year" aria-label="Ano 1378">1378</div>
+            <div class="timeline-content">
+              <h3>Dita O Diálogo</h3>
+              <p>Dita sua obra-prima, "O Diálogo da Divina Providência", em êxtase, a seus secretários.</p>
+            </div>
+          </div>
+          <div class="timeline-item" data-animate role="listitem">
+            <div class="timeline-year" aria-label="Ano 1380">1380</div>
+            <div class="timeline-content">
+              <h3>Morte em Roma</h3>
+              <p>Falece em Roma em 29 de abril, aos 33 anos, após meses de intenso sofrimento oferecido pela unidade da Igreja.</p>
+            </div>
+          </div>
+          <div class="timeline-item" data-animate role="listitem">
+            <div class="timeline-year" aria-label="Ano 1461">1461</div>
+            <div class="timeline-content">
+              <h3>Canonização</h3>
+              <p>É canonizada pelo Papa Pio II.</p>
+            </div>
+          </div>
+          <div class="timeline-item" data-animate role="listitem">
+            <div class="timeline-year" aria-label="Ano 1970">1970</div>
+            <div class="timeline-content">
+              <h3>Doutora da Igreja</h3>
+              <p>O Papa Paulo VI a proclama Doutora da Igreja — uma das primeiras mulheres a receber este título.</p>
+            </div>
+          </div>
+          <div class="timeline-item" data-animate role="listitem">
+            <div class="timeline-year" aria-label="Ano 1999">1999</div>
+            <div class="timeline-content">
+              <h3>Copadroeira da Europa</h3>
+              <p>O Papa João Paulo II a declara copadroeira da Europa, ao lado de São Bento e outros santos.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mapa Interativo dos Lugares -->
+      <section aria-label="Mapa dos lugares importantes na vida de Santa Catarina">
+        <h2>Lugares Importantes</h2>
+        <p>Conheça os principais locais na vida de Santa Catarina de Sena.</p>
+        <div id="mapa-sena" class="map-container" role="application" aria-label="Mapa interativo com os lugares importantes na vida de Santa Catarina de Sena"></div>
+      </section>
+
+      <div class="social-share" aria-label="Compartilhar esta página">
+        <span>Compartilhar:</span>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjoaoclaudiano.github.io%2Fsena%2Fbiografia.html" target="_blank" rel="noopener noreferrer" class="share-btn share-facebook" aria-label="Compartilhar no Facebook">Facebook</a>
+        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fjoaoclaudiano.github.io%2Fsena%2Fbiografia.html&text=Biografia+de+Santa+Catarina+de+Sena" target="_blank" rel="noopener noreferrer" class="share-btn share-twitter" aria-label="Compartilhar no Twitter">Twitter</a>
+        <a href="https://api.whatsapp.com/send?text=Biografia+de+Santa+Catarina+de+Sena%20https%3A%2F%2Fjoaoclaudiano.github.io%2Fsena%2Fbiografia.html" target="_blank" rel="noopener noreferrer" class="share-btn share-whatsapp" aria-label="Compartilhar no WhatsApp">WhatsApp</a>
+      </div>
+
       <p><a href="obras.html" class="btn">Conheça suas obras</a></p>
     </div>
   </main>
@@ -59,10 +200,37 @@
   <footer>
     <div class="container">
       <p>Site dedicado a Santa Catarina de Sena</p>
-      <p>© 2025</p>
+      <p>© 2026</p>
     </div>
   </footer>
 
-  <script src="scripts/menu.js"></script>
+  <script src="scripts/menu.js" defer></script>
+  <script src="scripts/features.js" defer></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN/sp38=" crossorigin defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (typeof L === 'undefined') return;
+      var mapa = L.map('mapa-sena', { scrollWheelZoom: false }).setView([43.3, 12.0], 5);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(mapa);
+
+      var lugares = [
+        { lat: 43.3186, lng: 11.3309, nome: 'Siena', desc: 'Cidade natal de Santa Catarina (1347–1380)' },
+        { lat: 41.9028, lng: 12.4964, nome: 'Roma', desc: 'Onde trabalhou pela reforma da Igreja e faleceu em 1380' },
+        { lat: 43.7228, lng: 10.4017, nome: 'Pisa', desc: 'Onde recebeu os estigmas invisíveis (1375)' },
+        { lat: 43.9493, lng: 4.8055,  nome: 'Avinhão', desc: 'Onde convenceu o Papa Gregório XI a retornar a Roma (1376)' },
+        { lat: 43.4678, lng: 11.8836, nome: 'Montepulciano', desc: 'Onde visitou o corpo de Santa Inês de Montepulciano' }
+      ];
+
+      lugares.forEach(function (l) {
+        L.marker([l.lat, l.lng])
+          .addTo(mapa)
+          .bindPopup('<strong>' + l.nome + '</strong><br>' + l.desc);
+      });
+    });
+  </script>
 </body>
 </html>

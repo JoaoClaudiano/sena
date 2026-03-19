@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>O Diálogo - Santa Catarina de Sena (leitura online)</title>
   <meta name="description" content="Leia online a obra O Diálogo da Divina Providência, de Santa Catarina de Sena.">
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="book">
+  <meta property="og:url" content="https://joaoclaudiano.github.io/sena/dialogo.html">
+  <meta property="og:title" content="O Diálogo da Divina Providência - Santa Catarina de Sena">
+  <meta property="og:description" content="Leia online a obra O Diálogo da Divina Providência, de Santa Catarina de Sena.">
+  <meta property="og:site_name" content="Santa Catarina de Sena">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="O Diálogo da Divina Providência - Santa Catarina de Sena">
+  <meta name="twitter:description" content="Leia online a obra O Diálogo da Divina Providência, de Santa Catarina de Sena.">
+  <!-- Preconnect para fontes -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
@@ -56,17 +67,27 @@
       .chapter-list ul { columns: 1; }
       .book-content { padding: 1rem; }
     }
+    [data-theme="dark"] .book-content h2 {
+      border-bottom-color: #3d2f3a;
+    }
+    [data-theme="dark"] .chapter-list a {
+      color: #e8ddd5;
+    }
   </style>
 </head>
 <body>
+  <div id="readingProgress" class="reading-progress-bar" role="progressbar" aria-label="Progresso de leitura" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+  <a href="#main-content" class="skip-to-content">Ir para o conteúdo</a>
+
   <header>
     <div class="header-content container">
       <div class="logo">
         <a href="index.html">Catarina de Sena</a>
       </div>
-      <nav>
-        <button class="menu-toggle" aria-label="Abrir menu">☰</button>
-        <ul class="menu">
+      <nav aria-label="Navegação principal">
+        <button class="dark-toggle" id="darkToggle" aria-label="Alternar modo noturno" aria-pressed="false">🌙</button>
+        <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-menu">☰</button>
+        <ul class="menu" id="main-menu" role="list">
           <li><a href="index.html">Início</a></li>
           <li><a href="biografia.html">Biografia</a></li>
           <li><a href="obras.html">Obras</a></li>
@@ -76,16 +97,32 @@
     </div>
   </header>
 
-  <main>
+  <main id="main-content">
     <div class="container">
+      <nav aria-label="Navegação estrutural" class="breadcrumb">
+        <ol>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="obras.html">Obras</a></li>
+          <li aria-current="page">O Diálogo</li>
+        </ol>
+      </nav>
+
       <h1>O Diálogo da Divina Providência</h1>
       <div class="book-nav">
         <a href="obras.html" class="btn btn-outline">← Voltar para obras</a>
         <a href="downloads/dialogo-da-divina-providencia.pdf" download class="btn">Baixar PDF</a>
       </div>
 
+      <!-- Controles de leitura -->
+      <div class="reading-controls" role="group" aria-label="Controles de tamanho da fonte">
+        <span>Tamanho do texto:</span>
+        <button id="fontDecrease" class="btn btn-outline" aria-label="Diminuir tamanho da fonte">A−</button>
+        <button id="fontReset" class="btn btn-outline" aria-label="Redefinir tamanho da fonte">A</button>
+        <button id="fontIncrease" class="btn btn-outline" aria-label="Aumentar tamanho da fonte">A+</button>
+      </div>
+
       <!-- Sumário com capítulos -->
-      <div class="chapter-list">
+      <div class="chapter-list" aria-label="Índice de capítulos">
         <h3>Capítulos</h3>
         <ul>
           <li><a href="#cap1">Capítulo 1: Como a alma se eleva a Deus</a></li>
@@ -97,23 +134,30 @@
 
       <!-- Conteúdo do livro (exemplo com alguns capítulos) -->
       <div class="book-content">
-        <section id="cap1">
-          <h2>Capítulo 1</h2>
+        <section id="cap1" aria-labelledby="cap1-titulo">
+          <h2 id="cap1-titulo">Capítulo 1</h2>
           <p>Uma alma que se eleva, com imenso desejo, à honra de Deus e à salvação das almas, exercitando-se por algum tempo na morada do conhecimento de si mesma e da bondade de Deus, para melhor se dispor e se unir a Ele, tendo já visto, pela luz do intelecto, o amor inefável que Deus lhe tem...</p>
           <p>Estando ela assim inflamada de desejo, elevou-se a sua alma com afeto de amor para com Deus, e viu com os olhos do intelecto a sua doçura e a sua bondade. Então compreendeu, mais perfeitamente, a misericórdia de Deus para com os homens, e a providência que Ele exerce sobre todas as coisas.</p>
         </section>
 
-        <section id="cap2">
-          <h2>Capítulo 2</h2>
+        <section id="cap2" aria-labelledby="cap2-titulo">
+          <h2 id="cap2-titulo">Capítulo 2</h2>
           <p>Da perfeição. Deus, então, respondeu à alma: "Filha docemente amada por mim, levanta-te, porque deves ser instrumento para a salvação de muitas almas. Quero que sejas um exemplo de virtude e um farol que ilumine os que estão nas trevas. Sê humilde, porque a humildade é a base de todas as virtudes."</p>
         </section>
 
-        <section id="cap3">
-          <h2>Capítulo 3</h2>
+        <section id="cap3" aria-labelledby="cap3-titulo">
+          <h2 id="cap3-titulo">Capítulo 3</h2>
           <p>Do amor e da dor. "O amor, filha, não pode ser verdadeiro sem a dor. Quem ama verdadeiramente a Mim, ama também as almas, e por elas sofre. Queres tu, filha, sofrer por Mim e pela Igreja?" E a alma respondeu: "Sim, Senhor, desejo sofrer e amar."</p>
         </section>
 
         <p><em>Texto adaptado para fins de exemplo. O conteúdo real deve ser inserido conforme a obra completa.</em></p>
+      </div>
+
+      <div class="social-share" aria-label="Compartilhar esta página">
+        <span>Compartilhar:</span>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjoaoclaudiano.github.io%2Fsena%2Fdialogo.html" target="_blank" rel="noopener noreferrer" class="share-btn share-facebook" aria-label="Compartilhar no Facebook">Facebook</a>
+        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fjoaoclaudiano.github.io%2Fsena%2Fdialogo.html&text=O+Di%C3%A1logo+da+Divina+Provid%C3%AAncia+-+Santa+Catarina+de+Sena" target="_blank" rel="noopener noreferrer" class="share-btn share-twitter" aria-label="Compartilhar no Twitter">Twitter</a>
+        <a href="https://api.whatsapp.com/send?text=O+Di%C3%A1logo+da+Divina+Provid%C3%AAncia%20https%3A%2F%2Fjoaoclaudiano.github.io%2Fsena%2Fdialogo.html" target="_blank" rel="noopener noreferrer" class="share-btn share-whatsapp" aria-label="Compartilhar no WhatsApp">WhatsApp</a>
       </div>
     </div>
   </main>
@@ -121,10 +165,11 @@
   <footer>
     <div class="container">
       <p>Site dedicado a Santa Catarina de Sena</p>
-      <p>© 2025</p>
+      <p>© 2026</p>
     </div>
   </footer>
 
-  <script src="scripts/menu.js"></script>
+  <script src="scripts/menu.js" defer></script>
+  <script src="scripts/features.js" defer></script>
 </body>
 </html>
