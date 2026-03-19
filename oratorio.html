@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oratório — Santa Catarina de Sena</title>
+  <meta name="description" content="Oratório virtual dedicado a Santa Catarina de Sena. Acenda uma vela, envie suas intenções e ore a Novena de Santa Catarina.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://joaoclaudiano.github.io/sena/oratorio.html">
+  <meta property="og:title" content="Oratório — Santa Catarina de Sena">
+  <meta property="og:description" content="Oratório virtual dedicado a Santa Catarina de Sena.">
+  <meta property="og:site_name" content="Santa Catarina de Sena">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Oratório — Santa Catarina de Sena">
+  <meta name="twitter:description" content="Oratório virtual dedicado a Santa Catarina de Sena.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="icons/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/icon_16x16.png">
+  <link rel="apple-touch-icon" href="icons/icon_128x128.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="stylesheet" href="estilo/style.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-to-content">Ir para o conteúdo</a>
+  <header>
+    <div class="header-content container">
+      <div class="logo"><a href="index.html">Catarina de Sena</a></div>
+      <nav aria-label="Navegação principal">
+        <button class="dark-toggle" id="darkToggle" aria-label="Alternar modo noturno" aria-pressed="false">🌙</button>
+        <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-menu">☰</button>
+        <ul class="menu" id="main-menu" role="list">
+          <li><a href="index.html">Início</a></li>
+          <li><a href="biografia.html">Biografia</a></li>
+          <li><a href="obras.html">Obras</a></li>
+          <li><a href="oratorio.html" aria-current="page">Oratório</a></li>
+          <li><a href="galeria.html">Galeria</a></li>
+          <li><a href="eventos.html">Eventos</a></li>
+          <li><a href="siena.html">Siena</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <!-- Hero -->
+    <section class="oratory-hero" aria-label="Bem-vindo ao Oratório">
+      <div class="container" style="text-align:center;">
+        <h1>Oratório Virtual</h1>
+        <p>Um espaço de silêncio, oração e devoção a Santa Catarina de Sena.<br>Acenda uma vela, entregue suas intenções e ore com o coração aberto.</p>
+        <p style="margin-top:1rem; font-size:0.9rem; opacity:0.7;">"A oração é a chave do coração de Deus." — Santa Catarina de Sena</p>
+      </div>
+    </section>
+
+    <div class="container">
+      <nav aria-label="Navegação estrutural" class="breadcrumb">
+        <ol>
+          <li><a href="index.html">Início</a></li>
+          <li aria-current="page">Oratório</li>
+        </ol>
+      </nav>
+
+      <!-- Candle Section -->
+      <section class="candle-section" aria-label="Vela virtual">
+        <h2>Acenda uma Vela 🕯️</h2>
+        <p>Acenda uma vela virtual em honra a Santa Catarina e entre no modo de oração.</p>
+
+        <div class="oratory-candle" role="img" aria-label="Vela">
+          <div class="candle-flame-wrap" aria-hidden="true">
+            <div class="candle-flame"></div>
+          </div>
+          <div class="candle-wick" aria-hidden="true"></div>
+          <div class="candle-body" aria-hidden="true">
+            <div class="candle-drip"></div>
+          </div>
+          <div class="candle-base" aria-hidden="true"></div>
+        </div>
+
+        <p class="candle-unlit-msg">A vela ainda não está acesa. Clique para acendê-la.</p>
+        <button class="btn" id="candleBtn" aria-label="Acender vela virtual">🕯️ Acender vela</button>
+        <p class="candle-counter">Velas acesas: <strong id="candleCount">0</strong></p>
+      </section>
+
+      <!-- Prayer Mode (shown after candle lit) -->
+      <section class="prayer-mode" id="prayerMode" aria-label="Modo de oração">
+        <h2>✨ Oração a Santa Catarina de Sena</h2>
+        <div class="prayer-text">
+          <p>Santa Catarina de Sena,<br>
+          virgem consagrada, doutora da Igreja,<br>
+          padroeira da Itália e da Europa —<br>
+          a ti elevamos nosso coração.</p>
+          <br>
+          <p>Tu que ousaste falar a verdade<br>
+          a reis e papas com gentileza e firmeza,<br>
+          ensina-nos a coragem do amor.<br>
+          Tu que serviste os doentes e os pobres<br>
+          com alegria e entrega total,<br>
+          inspira-nos a generosidade do serviço.</p>
+          <br>
+          <p>Tu que disseste ao mundo:<br>
+          <em>"Se fores o que deves ser,<br>
+          porás fogo no mundo inteiro,"</em><br>
+          ajuda-nos a sermos quem Deus nos chamou a ser.</p>
+          <br>
+          <p>Intercede por nós junto ao Pai,<br>
+          e obtém para nós a graça<br>
+          de amar a Deus sobre todas as coisas<br>
+          e ao próximo como a nós mesmos.</p>
+          <br>
+          <p><strong>Amém.</strong></p>
+        </div>
+      </section>
+
+      <!-- Intentions -->
+      <section class="intentions-section" aria-label="Intenções de oração">
+        <h2>Intenções de Oração</h2>
+        <p>Deixe sua intenção. Ela ficará guardada neste espaço sagrado virtual.</p>
+
+        <form class="contact-form prayer-form" id="intentionForm" aria-label="Formulário de intenção">
+          <div class="form-group">
+            <label for="intentionName">Seu nome (opcional)</label>
+            <input type="text" id="intentionName" name="intentionName" autocomplete="name" placeholder="Anônimo">
+          </div>
+          <div class="form-group">
+            <label for="intentionText">Sua intenção</label>
+            <textarea id="intentionText" name="intentionText" required placeholder="Escreva sua intenção de oração..." rows="3"></textarea>
+          </div>
+          <button type="submit" class="btn">🙏 Adicionar intenção</button>
+        </form>
+
+        <h3 style="margin-top:2rem;">Intenções da Comunidade</h3>
+        <ul class="intentions-list" id="intentionsList" aria-label="Lista de intenções">
+          <li class="no-intentions">Nenhuma intenção ainda. Seja o primeiro a pedir!</li>
+        </ul>
+      </section>
+
+      <!-- Novena -->
+      <section class="novena-section" aria-label="Novena a Santa Catarina de Sena">
+        <h2>Novena a Santa Catarina de Sena</h2>
+        <p>A novena é rezada nos 9 dias que antecedem a festa de Santa Catarina (20 a 28 de abril). Cada dia tem um tema e uma oração específica.</p>
+
+        <div class="novena-grid">
+          <div class="novena-day">
+            <span class="novena-day-number">Dia 1 — 20 Abr</span>
+            <h3>A Humildade</h3>
+            <p>Catarina, que te humilhaste diante de Deus e dos homens, ensina-nos a reconhecer nossa pequenez e a confiar na grandeza do Senhor. Que a humildade seja a raiz de toda a nossa vida espiritual.</p>
+          </div>
+          <div class="novena-day">
+            <span class="novena-day-number">Dia 2 — 21 Abr</span>
+            <h3>O Serviço</h3>
+            <p>Catarina, que serviste os doentes e os mais necessitados com alegria e entrega total, inspira-nos a ver o rosto de Cristo em cada irmão e a servir com amor e humildade.</p>
+          </div>
+          <div class="novena-day">
+            <span class="novena-day-number">Dia 3 — 22 Abr</span>
+            <h3>A Coragem</h3>
+            <p>Catarina, que ousaste falar a verdade com firmeza e amor a reis, papas e cardeais, concede-nos a coragem de defender a justiça e a verdade, mesmo diante das adversidades.</p>
+          </div>
+          <div class="novena-day">
+            <span class="novena-day-number">Dia 4 — 23 Abr</span>
+            <h3>O Amor pela Igreja</h3>
+            <p>Catarina, que amaste a Igreja como o corpo de Cristo e trabalhaste incansavelmente pela sua unidade e reforma, fortalece em nós o amor pela Santa Igreja e pela sua missão no mundo.</p>
+          </div>
+          <div class="novena-day">
+            <span class="novena-day-number">Dia 5 — 24 Abr</span>
+            <h3>A Oração</h3>
+            <p>Catarina, que viveste em constante diálogo com Deus e nos ensinaste que a oração é a chave do coração divino, ensina-nos a orar com perseverança e confiança filial.</p>
+          </div>
+          <div class="novena-day">
+            <span class="novena-day-number">Dia 6 — 25 Abr</span>
+            <h3>O Sofrimento</h3>
+            <p>Catarina, que aceitaste os estigmas e os sofrimentos com amor e alegria, oferecendo-os pela salvação das almas, ajuda-nos a aceitar as cruzes da nossa vida com paciência e confiança.</p>
+          </div>
+          <div class="novena-day">
+            <span class="novena-day-number">Dia 7 — 26 Abr</span>
+            <h3>A Sabedoria</h3>
+            <p>Catarina, Doutora da Igreja, que recebestes de Deus uma sabedoria incomparável sem passar por escolas, suplicamos-te que intercedas por nós para que busquemos sempre a sabedoria que vem do alto.</p>
+          </div>
+          <div class="novena-day">
+            <span class="novena-day-number">Dia 8 — 27 Abr</span>
+            <h3>A Paz</h3>
+            <p>Catarina, mensageira de paz entre as cidades e os povos, intercede por um mundo mais justo e pacífico. Ajuda-nos a ser instrumentos de paz em nossas famílias, comunidades e no mundo.</p>
+          </div>
+          <div class="novena-day">
+            <span class="novena-day-number">Dia 9 — 28 Abr</span>
+            <h3>A Santidade</h3>
+            <p>Catarina, que nos dissestes "sê quem Deus quis que fosses", ajuda-nos a responder generosamente ao chamado à santidade. Intercede por nós para que um dia possamos contemplar a Deus face a face. Amém.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-grid container">
+      <div class="footer-col">
+        <h4>Navegação</h4>
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="biografia.html">Biografia</a></li>
+          <li><a href="obras.html">Obras</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Espiritualidade</h4>
+        <ul>
+          <li><a href="oratorio.html">Oratório</a></li>
+          <li><a href="pilulas.html">Pílulas de Sabedoria</a></li>
+          <li><a href="eventos.html">Eventos</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Informação</h4>
+        <ul>
+          <li><a href="siena.html">Siena</a></li>
+          <li><a href="galeria.html">Galeria</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="contato.html">Contato</a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-status">
+        <h4>Status do Site</h4>
+        <p>🚀 Lançamento: Janeiro 2026</p>
+        <p>⏱️ Em funcionamento há <span id="uptime">...</span></p>
+        <p>👥 Visitas: <span id="visitorCount">...</span></p>
+        <blockquote class="footer-quote">"Se fores o que deves ser, porás fogo no mundo inteiro."<cite>— Santa Catarina de Sena</cite></blockquote>
+      </div>
+    </div>
+    <div class="footer-bottom container">
+      <p>© 2026 · Santa Catarina de Sena · Projeto voluntário de devoção</p>
+    </div>
+  </footer>
+  <button class="btn-scroll-top" id="scrollTop" aria-label="Voltar ao topo" title="Voltar ao topo">↑</button>
+  <script src="scripts/menu.js" defer></script>
+  <script src="scripts/features.js" defer></script>
+</body>
+</html>

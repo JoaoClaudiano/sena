@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eventos — Santa Catarina de Sena</title>
+  <meta name="description" content="Eventos e celebrações em honra a Santa Catarina de Sena: festa litúrgica, novena, missas mensais e peregrinações.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://joaoclaudiano.github.io/sena/eventos.html">
+  <meta property="og:title" content="Eventos — Santa Catarina de Sena">
+  <meta property="og:description" content="Eventos e celebrações em honra a Santa Catarina de Sena.">
+  <meta property="og:site_name" content="Santa Catarina de Sena">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Eventos — Santa Catarina de Sena">
+  <meta name="twitter:description" content="Eventos e celebrações em honra a Santa Catarina de Sena.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="icons/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/icon_16x16.png">
+  <link rel="apple-touch-icon" href="icons/icon_128x128.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="stylesheet" href="estilo/style.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-to-content">Ir para o conteúdo</a>
+  <header>
+    <div class="header-content container">
+      <div class="logo"><a href="index.html">Catarina de Sena</a></div>
+      <nav aria-label="Navegação principal">
+        <button class="dark-toggle" id="darkToggle" aria-label="Alternar modo noturno" aria-pressed="false">🌙</button>
+        <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-menu">☰</button>
+        <ul class="menu" id="main-menu" role="list">
+          <li><a href="index.html">Início</a></li>
+          <li><a href="biografia.html">Biografia</a></li>
+          <li><a href="obras.html">Obras</a></li>
+          <li><a href="oratorio.html">Oratório</a></li>
+          <li><a href="galeria.html">Galeria</a></li>
+          <li><a href="eventos.html" aria-current="page">Eventos</a></li>
+          <li><a href="siena.html">Siena</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div class="container">
+      <nav aria-label="Navegação estrutural" class="breadcrumb">
+        <ol>
+          <li><a href="index.html">Início</a></li>
+          <li aria-current="page">Eventos</li>
+        </ol>
+      </nav>
+
+      <section style="text-align:center; padding:3rem 0 1rem;">
+        <h1>Eventos e Celebrações</h1>
+        <p style="font-size:1.1rem; color:#6b5a4e; max-width:600px; margin:0 auto; line-height:1.7;">Conheça as datas e celebrações em honra a Santa Catarina de Sena ao longo do ano litúrgico e descubra como participar desta devoção milenar.</p>
+      </section>
+
+      <!-- Main Feast -->
+      <section aria-label="Festa de Santa Catarina de Sena">
+        <h2>⛪ Festa de Santa Catarina de Sena — 29 de Abril</h2>
+        <div class="event-card" style="border-left-width:6px;">
+          <div class="event-date">
+            <span class="event-day">29</span>
+            <span class="event-month">ABR</span>
+          </div>
+          <div class="event-info">
+            <h3 class="event-title">🎉 Solenidade de Santa Catarina de Sena</h3>
+            <p class="event-desc">A principal celebração litúrgica em honra à Santa. Catarina faleceu em 29 de abril de 1380, em Roma. Este dia é celebrado com Missa solene, procissões e momentos de oração em todo o mundo católico. Em Siena, sua cidade natal, as celebrações duram vários dias, com missas, conferências, exposições e peregrinações ao seu santuário.</p>
+            <p class="event-desc">Santa Catarina é padroeira da Itália (juntamente com São Francisco de Assis), padroeira da Europa (juntamente com São Bento, Santa Brígida, Santa Edite Stein e Santa Teresa Benedita da Cruz) e uma das primeiras mulheres proclamadas Doutoras da Igreja (1970).</p>
+            <a href="oratorio.html" class="btn">🕯️ Ir ao Oratório</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Monthly Mass -->
+      <section aria-label="Missa mensal">
+        <h2>📅 Missa Mensal em Honra a Santa Catarina</h2>
+        <div class="event-card">
+          <div class="event-date">
+            <span class="event-day" id="nextSundayDay">—</span>
+            <span class="event-month" id="nextSundayMonth">—</span>
+          </div>
+          <div class="event-info">
+            <h3 class="event-title">Próxima Missa Mensal</h3>
+            <p class="event-desc">Primeiro domingo de cada mês — Missa em honra a Santa Catarina de Sena. Uma oportunidade mensal para comunidades devocionais se reunirem, orarem e meditarem sobre os ensinamentos desta grande santa.</p>
+            <p class="event-desc" id="nextMassDesc">Procure em sua paróquia ou comunidade dominicana mais próxima.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- How to Celebrate -->
+      <section aria-label="Como celebrar a festa">
+        <h2>🌹 Como Celebrar a Festa</h2>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1rem; margin-top:1rem;">
+          <div class="card" style="margin:0;">
+            <h3>🙏 Participe da Missa</h3>
+            <p>No dia 29 de abril, participe de uma Missa em honra a Santa Catarina. Verifique na sua paróquia se haverá uma Missa especial neste dia.</p>
+          </div>
+          <div class="card" style="margin:0;">
+            <h3>📖 Leia seus Escritos</h3>
+            <p>Dedique algum tempo à leitura de um trecho do Diálogo da Divina Providência ou de uma de suas cartas. Deixe as palavras de Catarina tocarem seu coração.</p>
+          </div>
+          <div class="card" style="margin:0;">
+            <h3>🕯️ Acenda uma Vela</h3>
+            <p>Acenda uma vela em seu oratório pessoal ou no nosso <a href="oratorio.html">Oratório Virtual</a> em honra à santa. Ofereça uma oração pela Igreja e pelo mundo.</p>
+          </div>
+          <div class="card" style="margin:0;">
+            <h3>🤝 Ato de Caridade</h3>
+            <p>Em memória do serviço heroico de Catarina aos doentes durante a peste, pratique um ato de caridade: visite alguém doente, ajude uma pessoa em necessidade.</p>
+          </div>
+          <div class="card" style="margin:0;">
+            <h3>🌿 Reze a Novena</h3>
+            <p>Comece a Novena de Santa Catarina em 20 de abril, encerrando no dia 28, véspera da festa. Encontre a novena completa em nosso <a href="oratorio.html">Oratório</a>.</p>
+          </div>
+          <div class="card" style="margin:0;">
+            <h3>✉️ Compartilhe a Devoção</h3>
+            <p>Envie uma mensagem sobre Santa Catarina para um amigo ou familiar. Compartilhe uma citação dela nas redes sociais. Espalhe o fogo do amor que ela acendeu.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Novena Period -->
+      <section aria-label="Novena">
+        <h2>🕯️ Novena de Santa Catarina (20–28 de Abril)</h2>
+        <p>A novena é rezada nos 9 dias que antecedem a festa de Santa Catarina. Cada dia tem um tema específico.</p>
+        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:0.75rem; margin-top:1rem;">
+          <div class="event-card" style="flex-direction:column; align-items:flex-start;">
+            <div class="event-date" style="flex-direction:row; align-items:baseline; gap:0.4rem;">
+              <span class="event-day" style="font-size:1.5rem;">20</span>
+              <span class="event-month">ABR</span>
+            </div>
+            <span style="font-size:0.9rem; font-weight:700; color:#3d2b1e; margin-top:0.5rem;">1º Dia — A Humildade</span>
+          </div>
+          <div class="event-card" style="flex-direction:column; align-items:flex-start;">
+            <div class="event-date" style="flex-direction:row; align-items:baseline; gap:0.4rem;">
+              <span class="event-day" style="font-size:1.5rem;">21</span>
+              <span class="event-month">ABR</span>
+            </div>
+            <span style="font-size:0.9rem; font-weight:700; color:#3d2b1e; margin-top:0.5rem;">2º Dia — O Serviço</span>
+          </div>
+          <div class="event-card" style="flex-direction:column; align-items:flex-start;">
+            <div class="event-date" style="flex-direction:row; align-items:baseline; gap:0.4rem;">
+              <span class="event-day" style="font-size:1.5rem;">22</span>
+              <span class="event-month">ABR</span>
+            </div>
+            <span style="font-size:0.9rem; font-weight:700; color:#3d2b1e; margin-top:0.5rem;">3º Dia — A Coragem</span>
+          </div>
+          <div class="event-card" style="flex-direction:column; align-items:flex-start;">
+            <div class="event-date" style="flex-direction:row; align-items:baseline; gap:0.4rem;">
+              <span class="event-day" style="font-size:1.5rem;">23</span>
+              <span class="event-month">ABR</span>
+            </div>
+            <span style="font-size:0.9rem; font-weight:700; color:#3d2b1e; margin-top:0.5rem;">4º Dia — O Amor pela Igreja</span>
+          </div>
+          <div class="event-card" style="flex-direction:column; align-items:flex-start;">
+            <div class="event-date" style="flex-direction:row; align-items:baseline; gap:0.4rem;">
+              <span class="event-day" style="font-size:1.5rem;">24</span>
+              <span class="event-month">ABR</span>
+            </div>
+            <span style="font-size:0.9rem; font-weight:700; color:#3d2b1e; margin-top:0.5rem;">5º Dia — A Oração</span>
+          </div>
+          <div class="event-card" style="flex-direction:column; align-items:flex-start;">
+            <div class="event-date" style="flex-direction:row; align-items:baseline; gap:0.4rem;">
+              <span class="event-day" style="font-size:1.5rem;">25</span>
+              <span class="event-month">ABR</span>
+            </div>
+            <span style="font-size:0.9rem; font-weight:700; color:#3d2b1e; margin-top:0.5rem;">6º Dia — O Sofrimento</span>
+          </div>
+          <div class="event-card" style="flex-direction:column; align-items:flex-start;">
+            <div class="event-date" style="flex-direction:row; align-items:baseline; gap:0.4rem;">
+              <span class="event-day" style="font-size:1.5rem;">26</span>
+              <span class="event-month">ABR</span>
+            </div>
+            <span style="font-size:0.9rem; font-weight:700; color:#3d2b1e; margin-top:0.5rem;">7º Dia — A Sabedoria</span>
+          </div>
+          <div class="event-card" style="flex-direction:column; align-items:flex-start;">
+            <div class="event-date" style="flex-direction:row; align-items:baseline; gap:0.4rem;">
+              <span class="event-day" style="font-size:1.5rem;">27</span>
+              <span class="event-month">ABR</span>
+            </div>
+            <span style="font-size:0.9rem; font-weight:700; color:#3d2b1e; margin-top:0.5rem;">8º Dia — A Paz</span>
+          </div>
+          <div class="event-card" style="flex-direction:column; align-items:flex-start;">
+            <div class="event-date" style="flex-direction:row; align-items:baseline; gap:0.4rem;">
+              <span class="event-day" style="font-size:1.5rem;">28</span>
+              <span class="event-month">ABR</span>
+            </div>
+            <span style="font-size:0.9rem; font-weight:700; color:#3d2b1e; margin-top:0.5rem;">9º Dia — A Santidade</span>
+          </div>
+        </div>
+        <p style="margin-top:1.5rem;"><a href="oratorio.html" class="btn btn-outline">Ver a Novena completa no Oratório</a></p>
+      </section>
+
+      <!-- Pilgrimage -->
+      <section aria-label="Peregrinação a Siena">
+        <h2>✈️ Peregrinação a Siena</h2>
+        <div class="card">
+          <h3>Siena — A Cidade de Catarina</h3>
+          <p>Siena, na Toscana italiana, guarda os principais lugares ligados à vida de Santa Catarina. Uma peregrinação à cidade é uma experiência espiritual profunda que aproxima o devoto da vida e da espiritualidade da santa.</p>
+          <p><strong>Principais locais a visitar:</strong></p>
+          <ul style="margin:0.5rem 0 1rem 1.5rem; line-height:1.9;">
+            <li><strong>Casa di Santa Caterina</strong> — O santuário erguido sobre a casa onde nasceu e viveu</li>
+            <li><strong>Basilica di San Domenico</strong> — Onde Catarina frequentou e onde está guardada a sua cabeça como relíquia</li>
+            <li><strong>Fonte Branda</strong> — A fonte medieval perto de sua casa natal</li>
+            <li><strong>Piazza del Campo</strong> — A famosa praça medieval no coração de Siena</li>
+          </ul>
+          <a href="siena.html" class="btn btn-outline">Conhecer os lugares de Catarina</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-grid container">
+      <div class="footer-col">
+        <h4>Navegação</h4>
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="biografia.html">Biografia</a></li>
+          <li><a href="obras.html">Obras</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Espiritualidade</h4>
+        <ul>
+          <li><a href="oratorio.html">Oratório</a></li>
+          <li><a href="pilulas.html">Pílulas de Sabedoria</a></li>
+          <li><a href="eventos.html">Eventos</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Informação</h4>
+        <ul>
+          <li><a href="siena.html">Siena</a></li>
+          <li><a href="galeria.html">Galeria</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="contato.html">Contato</a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-status">
+        <h4>Status do Site</h4>
+        <p>🚀 Lançamento: Janeiro 2026</p>
+        <p>⏱️ Em funcionamento há <span id="uptime">...</span></p>
+        <p>👥 Visitas: <span id="visitorCount">...</span></p>
+        <blockquote class="footer-quote">"Se fores o que deves ser, porás fogo no mundo inteiro."<cite>— Santa Catarina de Sena</cite></blockquote>
+      </div>
+    </div>
+    <div class="footer-bottom container">
+      <p>© 2026 · Santa Catarina de Sena · Projeto voluntário de devoção</p>
+    </div>
+  </footer>
+  <button class="btn-scroll-top" id="scrollTop" aria-label="Voltar ao topo" title="Voltar ao topo">↑</button>
+  <script src="scripts/menu.js" defer></script>
+  <script src="scripts/features.js" defer></script>
+</body>
+</html>

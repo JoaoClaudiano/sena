@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pílulas de Sabedoria — Santa Catarina de Sena</title>
+  <meta name="description" content="32 pílulas de sabedoria de Santa Catarina de Sena. Citações inspiradoras da grande mística e Doutora da Igreja.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://joaoclaudiano.github.io/sena/pilulas.html">
+  <meta property="og:title" content="Pílulas de Sabedoria — Santa Catarina de Sena">
+  <meta property="og:description" content="32 pílulas de sabedoria de Santa Catarina de Sena.">
+  <meta property="og:site_name" content="Santa Catarina de Sena">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Pílulas de Sabedoria — Santa Catarina de Sena">
+  <meta name="twitter:description" content="32 pílulas de sabedoria de Santa Catarina de Sena.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="icons/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/icon_16x16.png">
+  <link rel="apple-touch-icon" href="icons/icon_128x128.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="stylesheet" href="estilo/style.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-to-content">Ir para o conteúdo</a>
+  <header>
+    <div class="header-content container">
+      <div class="logo"><a href="index.html">Catarina de Sena</a></div>
+      <nav aria-label="Navegação principal">
+        <button class="dark-toggle" id="darkToggle" aria-label="Alternar modo noturno" aria-pressed="false">🌙</button>
+        <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-menu">☰</button>
+        <ul class="menu" id="main-menu" role="list">
+          <li><a href="index.html">Início</a></li>
+          <li><a href="biografia.html">Biografia</a></li>
+          <li><a href="obras.html">Obras</a></li>
+          <li><a href="oratorio.html">Oratório</a></li>
+          <li><a href="galeria.html">Galeria</a></li>
+          <li><a href="eventos.html">Eventos</a></li>
+          <li><a href="siena.html">Siena</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div class="container">
+      <nav aria-label="Navegação estrutural" class="breadcrumb">
+        <ol>
+          <li><a href="index.html">Início</a></li>
+          <li aria-current="page">Pílulas de Sabedoria</li>
+        </ol>
+      </nav>
+
+      <section style="text-align:center; padding:3rem 0 1rem;">
+        <h1>💡 Pílulas de Sabedoria</h1>
+        <p style="font-size:1.1rem; color:#6b5a4e; max-width:600px; margin:0 auto; line-height:1.7;">As palavras de Santa Catarina de Sena transcendem os séculos. Deixe-as iluminar seu dia, sua fé e seu caminho.</p>
+      </section>
+
+      <!-- Today's Quote -->
+      <section class="today-wisdom" aria-label="Citação de Hoje">
+        <h2>✨ Citação de Hoje</h2>
+        <div class="today-pill" id="todayWisdom">
+          <p class="pill-quote loading">Carregando...</p>
+        </div>
+      </section>
+
+      <!-- All Quotes Grid -->
+      <section aria-label="Todas as pílulas de sabedoria">
+        <h2>Todas as Pílulas</h2>
+        <div class="pills-grid" id="pillsGrid">
+          <div class="pill-card" data-index="0" data-animate>
+            <p class="pill-quote">"Se fores o que deves ser, porás fogo no mundo inteiro."</p>
+            <p class="pill-author">— Santa Catarina de Sena</p>
+            <button class="pill-share" aria-label="Copiar citação">📋 Copiar</button>
+          </div>
+          <div class="pill-card" data-index="1" data-animate>
+            <p class="pill-quote">"Sê quem Deus quis que fosses e aterrarás o mundo."</p>
+            <p class="pill-author">— Santa Catarina de Sena</p>
+            <button class="pill-share" aria-label="Copiar citação">📋 Copiar</button>
+          </div>
+          <div class="pill-card" data-index="2" data-animate>
+            <p class="pill-quote">"A alma está em Deus e Deus na alma, como o peixe no mar e o mar no peixe."</p>
+            <p class="pill-author">— Santa Catarina de Sena</p>
+            <button class="pill-share" aria-label="Copiar citação">📋 Copiar</button>
+          </div>
+          <div class="pill-card" data-index="3" data-animate>
+            <p class="pill-quote">"Não há nada de perfeito sem sacrifício."</p>
+            <p class="pill-author">— Santa Catarina de Sena</p>
+            <button class="pill-share" aria-label="Copiar citação">📋 Copiar</button>
+          </div>
+          <div class="pill-card" data-index="4" data-animate>
+            <p class="pill-quote">"Amai a Deus sobre todas as coisas e ao próximo como a vós mesmos."</p>
+            <p class="pill-author">— Santa Catarina de Sena</p>
+            <button class="pill-share" aria-label="Copiar citação">📋 Copiar</button>
+          </div>
+          <div class="pill-card" data-index="5" data-animate>
+            <p class="pill-quote">"O amor pela Igreja é o amor por Cristo."</p>
+            <p class="pill-author">— Santa Catarina de Sena</p>
+            <button class="pill-share" aria-label="Copiar citação">📋 Copiar</button>
+          </div>
+          <div class="pill-card" data-index="6" data-animate>
+            <p class="pill-quote">"Fala a verdade com gentileza, paciência e compaixão."</p>
+            <p class="pill-author">— Santa Catarina de Sena</p>
+            <button class="pill-share" aria-label="Copiar citação">📋 Copiar</button>
+          </div>
+          <div class="pill-card" data-index="7" data-animate>
+            <p class="pill-quote">"Torna-te quem és. Descobre quem és."</p>
+            <p class="pill-author">— Santa Catarina de Sena</p>
+            <button class="pill-share" aria-label="Copiar citação">📋 Copiar</button>
+          </div>
+          <div class="pill-card" data-index="8" data-animate>
+            <p class="pill-quote">"A humildade é a raiz de toda caridade."</p>
+            <p class="pill-author">— Santa Catarina de Sena</p>
+            <button class="pill-share" aria-label="Copiar citação">📋 Copiar</button>
+          </div>
+          <div class="pill-card" data-index="9" data-animate>
+            <p class="pill-quote">"Nunca recuas, nunca te cansas, nunca desesperas."</p>
+            <p class="pill-author">— Santa Catarina de Sena</p>
+            <button class="pill-share" aria-label="Copiar citação">📋 Copiar</button>
+          </div>
+          <div class="pill-card" data-index="10" data-animate>
+            <p class="pill-quote">"A beleza da alma brilha para fora."</p>
+            <p class="pill-author">— Santa Catarina de Sena</p>
+            <button class="pill-share" aria-label="Copiar citação">📋 Copiar</button>
+          </div>
+          <div class="pill-card" data-index="11" data-animate>
+            <p class="pill-quote">"Deus é amor e nada mais."</p>
+            <p class="pill-author">— Santa Catarina de Sena</p>
+            <button class="pill-share" aria-label="Copiar citação">📋 Copiar</button>
+          </div>
+          <div class="pill-card" data-index="12" data-animate>
+            <p class="pill-quote">"Toda a via da perfeição está no amor."</p>
+            <p class="pill-author">— Santa Catarina de Sena</p>
+            <button class="pill-share" aria-label="Copiar citação">📋 Copiar</button>
+          </div>
+          <div class="pill-card" data-index="13" data-animate>
+            <p class="pill-quote">"Sede que nunca se apaga, amor que nunca esfria."</p>
+            <p class="pill-author">— Santa Catarina de Sena</p>
+            <button class="pill-share" aria-label="Copiar citação">📋 Copiar</button>
+          </div>
+          <div class="pill-card" data-index="14" data-animate>
+            <p class="pill-quote">"As lágrimas lavam a alma."</p>
+            <p class="pill-author">— Santa Catarina de Sena</p>
+            <button class="pill-share" aria-label="Copiar citação">📋 Copiar</button>
+          </div>
+          <div class="pill-card" data-index="15" data-animate>
+            <p class="pill-quote">"Paz não se compra com trégua, mas com virtude."</p>
+            <p class="pill-author">— Santa Catarina de Sena</p>
+            <button class="pill-share" aria-label="Copiar citação">📋 Copiar</button>
+          </div>
+          <div class="pill-card" data-index="16" data-animate>
+            <p class="pill-quote">"A caridade começa em casa."</p>
+            <p class="pill-author">— Santa Catarina de Sena</p>
+            <button class="pill-share" aria-label="Copiar citação">📋 Copiar</button>
+          </div>
+          <div class="pill-card" data-index="17" data-animate>
+            <p class="pill-quote">"Coragem! Nada é impossível ao que crê."</p>
+            <p class="pill-author">— Santa Catarina de Sena</p>
+            <button class="pill-share" aria-label="Copiar citação">📋 Copiar</button>
+          </div>
+          <div class="pill-card" data-index="18" data-animate>
+            <p class="pill-quote">"A oração é a chave do coração de Deus."</p>
+            <p class="pill-author">— Santa Catarina de Sena</p>
+            <button class="pill-share" aria-label="Copiar citação">📋 Copiar</button>
+          </div>
+          <div class="pill-card" data-index="19" data-animate>
+            <p class="pill-quote">"Quando a alma se humilha, Deus se eleva."</p>
+            <p class="pill-author">— Santa Catarina de Sena</p>
+            <button class="pill-share" aria-label="Copiar citação">📋 Copiar</button>
+          </div>
+          <div class="pill-card" data-index="20" data-animate>
+            <p class="pill-quote">"Não sejas tíbia: ou quente ou fria."</p>
+            <p class="pill-author">— Santa Catarina de Sena</p>
+            <button class="pill-share" aria-label="Copiar citação">📋 Copiar</button>
+          </div>
+          <div class="pill-card" data-index="21" data-animate>
+            <p class="pill-quote">"O sofrimento aceito com amor é a mais pura oração."</p>
+            <p class="pill-author">— Santa Catarina de Sena</p>
+            <button class="pill-share" aria-label="Copiar citação">📋 Copiar</button>
+          </div>
+          <div class="pill-card" data-index="22" data-animate>
+            <p class="pill-quote">"Deus não pede mais do que você pode dar."</p>
+            <p class="pill-author">— Santa Catarina de Sena</p>
+            <button class="pill-share" aria-label="Copiar citação">📋 Copiar</button>
+          </div>
+          <div class="pill-card" data-index="23" data-animate>
+            <p class="pill-quote">"A gratidão abre as portas do céu."</p>
+            <p class="pill-author">— Santa Catarina de Sena</p>
+            <button class="pill-share" aria-label="Copiar citação">📋 Copiar</button>
+          </div>
+          <div class="pill-card" data-index="24" data-animate>
+            <p class="pill-quote">"Serve a Deus com alegria, não por medo."</p>
+            <p class="pill-author">— Santa Catarina de Sena</p>
+            <button class="pill-share" aria-label="Copiar citação">📋 Copiar</button>
+          </div>
+          <div class="pill-card" data-index="25" data-animate>
+            <p class="pill-quote">"A paz interior vem de quem rendeu a vontade a Deus."</p>
+            <p class="pill-author">— Santa Catarina de Sena</p>
+            <button class="pill-share" aria-label="Copiar citação">📋 Copiar</button>
+          </div>
+          <div class="pill-card" data-index="26" data-animate>
+            <p class="pill-quote">"O coração que ama não conhece fronteiras."</p>
+            <p class="pill-author">— Santa Catarina de Sena</p>
+            <button class="pill-share" aria-label="Copiar citação">📋 Copiar</button>
+          </div>
+          <div class="pill-card" data-index="27" data-animate>
+            <p class="pill-quote">"Não importa quem você era; importa quem você é."</p>
+            <p class="pill-author">— Santa Catarina de Sena</p>
+            <button class="pill-share" aria-label="Copiar citação">📋 Copiar</button>
+          </div>
+          <div class="pill-card" data-index="28" data-animate>
+            <p class="pill-quote">"A misericórdia de Deus é maior que todos os nossos pecados."</p>
+            <p class="pill-author">— Santa Catarina de Sena</p>
+            <button class="pill-share" aria-label="Copiar citação">📋 Copiar</button>
+          </div>
+          <div class="pill-card" data-index="29" data-animate>
+            <p class="pill-quote">"Sobe sempre mais alto no amor."</p>
+            <p class="pill-author">— Santa Catarina de Sena</p>
+            <button class="pill-share" aria-label="Copiar citação">📋 Copiar</button>
+          </div>
+          <div class="pill-card" data-index="30" data-animate>
+            <p class="pill-quote">"O tempo é precioso; não o desperdiceis."</p>
+            <p class="pill-author">— Santa Catarina de Sena</p>
+            <button class="pill-share" aria-label="Copiar citação">📋 Copiar</button>
+          </div>
+          <div class="pill-card" data-index="31" data-animate>
+            <p class="pill-quote">"Em Deus encontramos tudo que buscamos."</p>
+            <p class="pill-author">— Santa Catarina de Sena</p>
+            <button class="pill-share" aria-label="Copiar citação">📋 Copiar</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-grid container">
+      <div class="footer-col">
+        <h4>Navegação</h4>
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="biografia.html">Biografia</a></li>
+          <li><a href="obras.html">Obras</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Espiritualidade</h4>
+        <ul>
+          <li><a href="oratorio.html">Oratório</a></li>
+          <li><a href="pilulas.html">Pílulas de Sabedoria</a></li>
+          <li><a href="eventos.html">Eventos</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Informação</h4>
+        <ul>
+          <li><a href="siena.html">Siena</a></li>
+          <li><a href="galeria.html">Galeria</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="contato.html">Contato</a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-status">
+        <h4>Status do Site</h4>
+        <p>🚀 Lançamento: Janeiro 2026</p>
+        <p>⏱️ Em funcionamento há <span id="uptime">...</span></p>
+        <p>👥 Visitas: <span id="visitorCount">...</span></p>
+        <blockquote class="footer-quote">"Se fores o que deves ser, porás fogo no mundo inteiro."<cite>— Santa Catarina de Sena</cite></blockquote>
+      </div>
+    </div>
+    <div class="footer-bottom container">
+      <p>© 2026 · Santa Catarina de Sena · Projeto voluntário de devoção</p>
+    </div>
+  </footer>
+  <button class="btn-scroll-top" id="scrollTop" aria-label="Voltar ao topo" title="Voltar ao topo">↑</button>
+  <script src="scripts/menu.js" defer></script>
+  <script src="scripts/features.js" defer></script>
+  <script>
+    (function () {
+      var quotes = [
+        "Se fores o que deves ser, porás fogo no mundo inteiro.",
+        "Sê quem Deus quis que fosses e aterrarás o mundo.",
+        "A alma está em Deus e Deus na alma, como o peixe no mar e o mar no peixe.",
+        "Não há nada de perfeito sem sacrifício.",
+        "Amai a Deus sobre todas as coisas e ao próximo como a vós mesmos.",
+        "O amor pela Igreja é o amor por Cristo.",
+        "Fala a verdade com gentileza, paciência e compaixão.",
+        "Torna-te quem és. Descobre quem és.",
+        "A humildade é a raiz de toda caridade.",
+        "Nunca recuas, nunca te cansas, nunca desesperas.",
+        "A beleza da alma brilha para fora.",
+        "Deus é amor e nada mais.",
+        "Toda a via da perfeição está no amor.",
+        "Sede que nunca se apaga, amor que nunca esfria.",
+        "As lágrimas lavam a alma.",
+        "Paz não se compra com trégua, mas com virtude.",
+        "A caridade começa em casa.",
+        "Coragem! Nada é impossível ao que crê.",
+        "A oração é a chave do coração de Deus.",
+        "Quando a alma se humilha, Deus se eleva.",
+        "Não sejas tíbia: ou quente ou fria.",
+        "O sofrimento aceito com amor é a mais pura oração.",
+        "Deus não pede mais do que você pode dar.",
+        "A gratidão abre as portas do céu.",
+        "Serve a Deus com alegria, não por medo.",
+        "A paz interior vem de quem rendeu a vontade a Deus.",
+        "O coração que ama não conhece fronteiras.",
+        "Não importa quem você era; importa quem você é.",
+        "A misericórdia de Deus é maior que todos os nossos pecados.",
+        "Sobe sempre mais alto no amor.",
+        "O tempo é precioso; não o desperdiceis.",
+        "Em Deus encontramos tudo que buscamos."
+      ];
+
+      var now = new Date();
+      var start = new Date(now.getFullYear(), 0, 0);
+      var dayOfYear = Math.floor((now - start) / (1000 * 60 * 60 * 24));
+      var todayIndex = dayOfYear % quotes.length;
+
+      var cards = document.querySelectorAll('.pill-card');
+      cards.forEach(function (card) {
+        var idx = parseInt(card.getAttribute('data-index'), 10);
+        if (idx === todayIndex) {
+          card.classList.add('today-pill-featured');
+          var badge = document.createElement('span');
+          badge.className = 'today-badge';
+          badge.textContent = 'Hoje';
+          card.insertBefore(badge, card.firstChild);
+        }
+      });
+
+      cards.forEach(function (card) {
+        var btn = card.querySelector('.pill-share');
+        var quoteEl = card.querySelector('.pill-quote');
+        if (!btn || !quoteEl) return;
+        btn.addEventListener('click', function () {
+          var text = quoteEl.textContent + ' — Santa Catarina de Sena';
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(function () {
+              btn.textContent = '✅ Copiado!';
+              setTimeout(function () { btn.textContent = '📋 Copiar'; }, 2000);
+            }).catch(function () {
+              btn.textContent = '❌ Erro';
+              setTimeout(function () { btn.textContent = '📋 Copiar'; }, 2000);
+            });
+          } else {
+            btn.textContent = '✅ Copiado!';
+            setTimeout(function () { btn.textContent = '📋 Copiar'; }, 2000);
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
