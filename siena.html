@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Siena - Santa Catarina de Sena</title>
+  <meta name="description" content="Conheça os lugares sagrados de Siena ligados a Santa Catarina: casa natal, Basílica de São Domingos, relíquias e arte sacra.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://joaoclaudiano.github.io/sena/siena.html">
+  <meta property="og:title" content="Siena — Santa Catarina de Sena">
+  <meta property="og:description" content="Os lugares sagrados de Siena e a arte que imortalizou Santa Catarina.">
+  <meta property="og:site_name" content="Santa Catarina de Sena">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Siena — Santa Catarina de Sena">
+  <meta name="twitter:description" content="Os lugares sagrados de Siena e a arte que imortalizou Santa Catarina.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin>
+  <link rel="stylesheet" href="estilo/style.css">
+  <link rel="icon" type="image/x-icon" href="icons/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/icon_16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="icons/icon_48x48.png">
+  <link rel="apple-touch-icon" sizes="128x128" href="icons/icon_128x128.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="icons/icon_256x256.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="icons/icon_512x512.png">
+  <link rel="manifest" href="site.webmanifest">
+</head>
+<body>
+  <a href="#main-content" class="skip-to-content">Ir para o conteúdo</a>
+
+  <header>
+    <div class="header-content container">
+      <div class="logo">
+        <a href="index.html">Catarina de Sena</a>
+      </div>
+      <nav aria-label="Navegação principal">
+        <button class="dark-toggle" id="darkToggle" aria-label="Alternar modo noturno" aria-pressed="false">🌙</button>
+        <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-menu">☰</button>
+        <ul class="menu" id="main-menu" role="list">
+          <li><a href="index.html">Início</a></li>
+          <li><a href="biografia.html">Biografia</a></li>
+          <li><a href="obras.html">Obras</a></li>
+          <li><a href="siena.html" aria-current="page">Siena</a></li>
+          <li><a href="oratorio.html">Oratório</a></li>
+          <li><a href="eventos.html">Eventos</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div class="container">
+      <nav aria-label="Navegação estrutural" class="breadcrumb">
+        <ol>
+          <li><a href="index.html">Início</a></li>
+          <li aria-current="page">Siena</li>
+        </ol>
+      </nav>
+
+      <h1>Siena — A Cidade de Catarina</h1>
+      <p>Siena, no coração da Toscana italiana, é a cidade que gerou e moldou Santa Catarina. A cidade medieval, com seus becos estreitos, suas igrejas majestosas e seu espírito comunitário, foi o berço e o palco de toda a primeira parte de sua vida. Visitá-la é, de certa forma, segui-la nos passos.</p>
+
+      <!-- Lugares Sagrados -->
+      <section>
+        <h2>Lugares Sagrados em Siena</h2>
+
+        <div class="siena-place" data-animate>
+          <h3>🏠 Casa de Santa Catarina — Santuário</h3>
+          <p><strong>Endereço:</strong> Costa di Sant'Antonio, 6, Siena, Itália</p>
+          <p>A casa onde Catarina Benincasa nasceu, em 25 de março de 1347, foi transformada em santuário logo após sua canonização. O pai, Giacomo, era tintureiro — e os tanques de tintura ainda podem ser vistos no andar inferior.</p>
+          <p>O santuário inclui várias capelas construídas nos cômodos originais da casa:</p>
+          <ul style="padding-left: 1.5rem; margin-bottom: 1rem;">
+            <li>A <strong>Cappella delle Volte</strong> — o oratório pessoal onde Catarina orava e recebeu os estigmas invisíveis</li>
+            <li>A <strong>Cappella della Cucina</strong> — onde ela prestava serviço aos pobres e doentes</li>
+            <li>O <strong>Oratorium</strong> — com afrescos narrando sua vida</li>
+            <li>A <strong>Igreja de Santa Catarina in Fontebranda</strong> — adjacente ao santuário</li>
+          </ul>
+          <p>É um local de peregrinação permanente, aberto ao público. A entrada é gratuita.</p>
+        </div>
+
+        <div class="siena-place" data-animate>
+          <h3>⛪ Basílica de São Domingos (San Domenico)</h3>
+          <p><strong>Endereço:</strong> Piazza San Domenico, Siena, Itália</p>
+          <p>A imponente Basílica de São Domingos, construída a partir de 1226, foi o centro espiritual da vida de Santa Catarina. Foi nesta igreja que ela teve sua primeira visão de Cristo, aos 6 anos. Foi aqui que ela entrou para as Mantelatas, aos 16. E foi aqui que muitos de seus êxtases e milagres foram testemunhados.</p>
+          <p>A basílica guarda:</p>
+          <ul style="padding-left: 1.5rem; margin-bottom: 1rem;">
+            <li>A <strong>Capella Santa Caterina</strong> — com o relicário contendo a <strong>cabeça</strong> de Santa Catarina, trazida de Roma em 1383</li>
+            <li>O famoso <strong>afresco de Andrea Vanni</strong> (c. 1375) — considerado o único retrato autêntico feito em vida, em que ela está representada com o hábito dominicano, segurando um lírio</li>
+            <li>Afrescos de Il Sodoma narrando episódios de sua vida</li>
+            <li>A <strong>Cappella delle Volte</strong>, onde ela recebeu a Comunhão e entrou em êxtase</li>
+          </ul>
+          <p>Durante a festa de 29 de abril, a basílica realiza celebrações especiais e expõe a relíquia da cabeça para veneração.</p>
+        </div>
+
+        <div class="siena-place" data-animate>
+          <h3>🏛️ Piazza del Campo</h3>
+          <p>A magnífica Piazza del Campo, com sua forma de concha e o Palazzo Pubblico ao fundo, é o coração cívico de Siena. Catarina conhecia bem esta praça — ela era filha de uma cidade vibrante, politicamente agitada, dividida em bairros (contrade) que competiam ferozmente entre si.</p>
+          <p>A praça é palco do famoso <em>Palio di Siena</em>, a corrida de cavalos que reúne as 17 contrade da cidade — tradição que existia já no tempo de Catarina.</p>
+        </div>
+
+        <div class="siena-place" data-animate>
+          <h3>🏛️ Basílica de Santa Maria sobre Minerva, Roma</h3>
+          <p><strong>Local:</strong> Roma, Itália (não em Siena, mas inseparável de Catarina)</p>
+          <p>O corpo de Santa Catarina repousa sob o altar principal da Basílica de Santa Maria sobre Minerva, em Roma, próxima ao Panteão. Ela faleceu em Roma em 29 de abril de 1380. Apenas sua cabeça foi enviada a Siena. Visitar esta basílica é encontrar seu túmulo.</p>
+          <p>A basílica também guarda obras de Fra Angelico e Michelangelo — uma das joias góticas de Roma.</p>
+        </div>
+      </section>
+
+      <!-- Mapa Interativo -->
+      <section aria-label="Mapa dos lugares em Siena">
+        <h2>Mapa dos Lugares Sagrados</h2>
+        <p>Explore no mapa os principais locais ligados a Santa Catarina em Siena e na Itália.</p>
+        <div id="mapa-siena" class="map-container" role="application" aria-label="Mapa interativo com lugares ligados a Santa Catarina em Siena"></div>
+      </section>
+
+      <!-- Galeria de Arte -->
+      <section>
+        <h2>🎨 Arte Sacra — Como os Pintores Retrataram Catarina</h2>
+        <p>Ao longo dos séculos, artistas de toda a Europa retrataram a vida e os milagres de Santa Catarina. Aqui estão algumas das obras mais significativas:</p>
+
+        <div class="art-gallery">
+          <div class="art-piece" data-animate>
+            <div class="art-image-placeholder" aria-hidden="true">🖼️</div>
+            <div class="art-info">
+              <h4>Retrato de Santa Catarina — Andrea Vanni (c. 1375)</h4>
+              <p>Localização: Basílica de São Domingos, Siena. Considerado o único retrato autêntico feito em vida. Catarina aparece de hábito dominicano, segurando um lírio branco, símbolo de sua pureza. O olhar é sereno e determinado.</p>
+            </div>
+          </div>
+
+          <div class="art-piece" data-animate>
+            <div class="art-image-placeholder" aria-hidden="true">🖼️</div>
+            <div class="art-info">
+              <h4>Catarina Recebe os Estigmas — Giovanni di Paolo (c. 1447)</h4>
+              <p>Localização: Museu da Arte Metropolitana, Nova York. A cena mostra Catarina em êxtase diante de um crucifixo, com raios de luz convergindo sobre suas mãos, pés e lado. Uma das representações mais poéticas do evento.</p>
+            </div>
+          </div>
+
+          <div class="art-piece" data-animate>
+            <div class="art-image-placeholder" aria-hidden="true">🖼️</div>
+            <div class="art-info">
+              <h4>Catarina Troca o Coração com Cristo — Il Sodoma (1526)</h4>
+              <p>Localização: Basílica de São Domingos, Siena. O afresco retrata o episódio místico em que Cristo teria "trocado de coração" com Catarina — metáfora de sua total transformação em amor. Il Sodoma capturou a beleza etérea do momento.</p>
+            </div>
+          </div>
+
+          <div class="art-piece" data-animate>
+            <div class="art-image-placeholder" aria-hidden="true">🖼️</div>
+            <div class="art-info">
+              <h4>Santa Catarina de Sena — Domenico Beccafumi (c. 1515)</h4>
+              <p>Localização: Pinacoteca Nazionale, Siena. Retrato majestoso em que Catarina segura um livro (O Diálogo) e uma palma de martírio. A expressão é de serena autoridade — a Doutora da Igreja.</p>
+            </div>
+          </div>
+
+          <div class="art-piece" data-animate>
+            <div class="art-image-placeholder" aria-hidden="true">🖼️</div>
+            <div class="art-info">
+              <h4>Catarina Cuidando dos Enfermos — Escola Senense (séc. XV)</h4>
+              <p>Diversas pinturas do século XV mostram Catarina servindo os doentes durante a peste de 1374, lavando feridas e consolando moribundos. Estes painéis integram o ciclo hagiográfico encomendado logo após sua canonização em 1461.</p>
+            </div>
+          </div>
+
+          <div class="art-piece" data-animate>
+            <div class="art-image-placeholder" aria-hidden="true">🖼️</div>
+            <div class="art-info">
+              <h4>Esponsais Místicos — Escola de Umbria (séc. XIV)</h4>
+              <p>O episódio dos "esponsais místicos" — em que Cristo teria colocado um anel no dedo de Catarina — foi largamente representado na pintura gótica italiana. A cena está entre as mais reproduzidas da iconografia cateriniana.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="frase" data-animate>
+        <blockquote>
+          <p>"Nada de grande se faz no mundo sem amor."</p>
+          <cite>— Santa Catarina de Sena</cite>
+        </blockquote>
+      </section>
+
+      <div class="social-share" aria-label="Compartilhar esta página">
+        <span>Compartilhar:</span>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjoaoclaudiano.github.io%2Fsena%2Fsiena.html" target="_blank" rel="noopener noreferrer" class="share-btn share-facebook" aria-label="Compartilhar no Facebook">Facebook</a>
+        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fjoaoclaudiano.github.io%2Fsena%2Fsiena.html&text=Siena+-+A+cidade+de+Santa+Catarina" target="_blank" rel="noopener noreferrer" class="share-btn share-twitter" aria-label="Compartilhar no Twitter">Twitter</a>
+        <a href="https://api.whatsapp.com/send?text=Siena+-+A+cidade+de+Santa+Catarina+de+Sena%20https%3A%2F%2Fjoaoclaudiano.github.io%2Fsena%2Fsiena.html" target="_blank" rel="noopener noreferrer" class="share-btn share-whatsapp" aria-label="Compartilhar no WhatsApp">WhatsApp</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <p class="footer-title">✝ Catarina de Sena</p>
+        <p>Um espaço de fé, devoção e conhecimento dedicado à Santa Catarina de Sena — Virgem, Mística e Doutora da Igreja.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Navegação</h4>
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="biografia.html">Biografia</a></li>
+          <li><a href="obras.html">Obras</a></li>
+          <li><a href="siena.html">Siena</a></li>
+          <li><a href="oratorio.html">Oratório</a></li>
+          <li><a href="eventos.html">Eventos</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="contato.html">Contato</a></li>
+        </ul>
+      </div>
+      <div class="footer-status">
+        <h4>Status do Sistema</h4>
+        <p>🟢 Site no ar</p>
+        <p>📅 Lançamento: <span id="dataLancamento">29 de abril de 2025</span></p>
+        <p>⏱️ Tempo no ar: <span id="tempoNoAr">calculando...</span></p>
+        <p>👥 Visitantes: <span id="contadorVisitantes">—</span></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="anoAtual">2025</span> — Todos os direitos reservados. Conteúdo para estudo e devoção.</p>
+      <p>Festa de Santa Catarina de Sena: <strong>29 de abril</strong> 🌹</p>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" aria-label="Voltar ao topo" title="Voltar ao topo">↑</button>
+
+  <script src="scripts/menu.js" defer></script>
+  <script src="scripts/features.js" defer></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (typeof L === 'undefined') return;
+      var mapa = L.map('mapa-siena', { scrollWheelZoom: false }).setView([43.3186, 11.3309], 13);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(mapa);
+
+      var lugares = [
+        { lat: 43.3182, lng: 11.3275, nome: 'Casa de Santa Catarina — Santuário', desc: 'Casa natal de Catarina Benincasa, hoje Santuário. Capelas nas antigas dependências da casa familiar.' },
+        { lat: 43.3197, lng: 11.3262, nome: 'Basílica de São Domingos (San Domenico)', desc: 'Guarda a relíquia da cabeça de Santa Catarina e o único retrato feito em vida (Andrea Vanni, c. 1375).' },
+        { lat: 43.3187, lng: 11.3312, nome: 'Piazza del Campo', desc: 'O coração de Siena medieval, palco do Palio e da vida pública que Catarina conheceu.' },
+        { lat: 43.3172, lng: 11.3278, nome: 'Fonte Branda', desc: 'A antiga fonte medieval junto à qual Catarina vivia. Ponto de encontro do bairro da Oca, onde nasceu.' },
+        { lat: 43.3168, lng: 11.3330, nome: 'Catedral de Siena (Duomo)', desc: 'A espetacular catedral de Siena, em mármore branco e negro. Parte do cenário espiritual que Catarina conheceu.' }
+      ];
+
+      lugares.forEach(function (l) {
+        L.marker([l.lat, l.lng])
+          .addTo(mapa)
+          .bindPopup('<strong>' + l.nome + '</strong><br>' + l.desc);
+      });
+    });
+  </script>
+</body>
+</html>

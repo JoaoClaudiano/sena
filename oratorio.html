@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oratório Virtual - Santa Catarina de Sena</title>
+  <meta name="description" content="Acenda uma vela virtual e ore com Santa Catarina de Sena. Um espaço de silêncio, oração e contemplação.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://joaoclaudiano.github.io/sena/oratorio.html">
+  <meta property="og:title" content="Oratório Virtual — Santa Catarina de Sena">
+  <meta property="og:description" content="Acenda uma vela virtual e ore com Santa Catarina de Sena.">
+  <meta property="og:site_name" content="Santa Catarina de Sena">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Oratório Virtual — Santa Catarina de Sena">
+  <meta name="twitter:description" content="Acenda uma vela virtual e ore com Santa Catarina de Sena.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="estilo/style.css">
+  <link rel="icon" type="image/x-icon" href="icons/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/icon_16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="icons/icon_48x48.png">
+  <link rel="apple-touch-icon" sizes="128x128" href="icons/icon_128x128.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="icons/icon_256x256.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="icons/icon_512x512.png">
+  <link rel="manifest" href="site.webmanifest">
+</head>
+<body>
+  <a href="#main-content" class="skip-to-content">Ir para o conteúdo</a>
+
+  <header>
+    <div class="header-content container">
+      <div class="logo">
+        <a href="index.html">Catarina de Sena</a>
+      </div>
+      <nav aria-label="Navegação principal">
+        <button class="dark-toggle" id="darkToggle" aria-label="Alternar modo noturno" aria-pressed="false">🌙</button>
+        <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-menu">☰</button>
+        <ul class="menu" id="main-menu" role="list">
+          <li><a href="index.html">Início</a></li>
+          <li><a href="biografia.html">Biografia</a></li>
+          <li><a href="obras.html">Obras</a></li>
+          <li><a href="siena.html">Siena</a></li>
+          <li><a href="oratorio.html" aria-current="page">Oratório</a></li>
+          <li><a href="eventos.html">Eventos</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div class="container">
+      <nav aria-label="Navegação estrutural" class="breadcrumb">
+        <ol>
+          <li><a href="index.html">Início</a></li>
+          <li aria-current="page">Oratório</li>
+        </ol>
+      </nav>
+
+      <!-- Hero do Oratório -->
+      <div class="oratorio-hero" data-animate>
+        <h1>🕯️ Oratório Virtual</h1>
+        <p>Um espaço de silêncio, oração e presença.<br>Acenda uma vela e confie sua intenção à intercessão de Santa Catarina.</p>
+        <p style="font-size: 0.9rem; color: rgba(255,255,255,0.6); margin-top: 0.5rem;">"Deus é fogo, e não faz frio quem se aproxima dele." — Santa Catarina de Sena</p>
+      </div>
+
+      <!-- Vela Interativa -->
+      <section aria-label="Vela virtual interativa" style="text-align: center; margin: 2rem 0;">
+        <div class="candle-wrapper">
+          <div class="candle-container" role="presentation">
+            <div class="candle-glow" id="candleGlow"></div>
+            <div class="candle-flame" id="candleFlame">
+              <div class="flame-outer">
+                <div class="flame-inner"></div>
+              </div>
+            </div>
+            <div class="candle-body">
+              <div class="candle-wick"></div>
+            </div>
+          </div>
+          <button class="candle-btn" id="candleBtn" aria-label="Acender vela virtual">🕯️ Acender uma vela</button>
+          <p class="candle-count" id="candleCount"></p>
+          <p id="candleStatus" style="margin-top: 0.5rem; font-style: italic; min-height: 1.5rem;"></p>
+        </div>
+      </section>
+
+      <!-- Seção de Orações (revelada ao acender a vela) -->
+      <section class="prayer-section" id="prayerReveal" style="display: none;" aria-label="Orações a Santa Catarina de Sena">
+        <h2>Orações a Santa Catarina de Sena</h2>
+        <p>Escolha uma oração e recite-a com devoção. Santa Catarina intercede por você.</p>
+
+        <div class="prayer-tabs" role="tablist">
+          <button class="prayer-tab active" role="tab" aria-selected="true" data-target="prayer-tradicional">Oração Tradicional</button>
+          <button class="prayer-tab" role="tab" aria-selected="false" data-target="prayer-novena">Novena</button>
+          <button class="prayer-tab" role="tab" aria-selected="false" data-target="prayer-medico">Oração dos Enfermos</button>
+          <button class="prayer-tab" role="tab" aria-selected="false" data-target="prayer-catarina">Palavras de Catarina</button>
+        </div>
+
+        <div class="prayer-content active" id="prayer-tradicional" role="tabpanel">
+          <h3>Oração a Santa Catarina de Sena</h3>
+          <div class="prayer-text">
+            <p>Ó Santa Catarina de Sena,<br>
+            virgem seráfica e mística esposa de Jesus Cristo,<br>
+            que com tanta coragem e sabedoria serviste à Igreja<br>
+            e ao Vigário de Cristo na terra,</p>
+
+            <p>alcançai-nos do Senhor<br>
+            o ardor da caridade, a humildade do coração<br>
+            e a fortaleza na tribulação.</p>
+
+            <p>Vós que soubestes unir a oração contemplativa<br>
+            ao serviço ativo dos pobres e da Igreja,<br>
+            ensinai-nos a viver assim:<br>
+            amando a Deus em tudo e a tudo em Deus.</p>
+
+            <p>Santa Catarina, rogai por nós.</p>
+          </div>
+        </div>
+
+        <div class="prayer-content" id="prayer-novena" role="tabpanel">
+          <h3>Novena a Santa Catarina de Sena — Dia 1</h3>
+          <div class="prayer-text">
+            <p><strong>Para usar nos 9 dias antes de sua festa (20 a 28 de abril)</strong></p>
+
+            <p>Ó Santa Catarina, filha de Siena,<br>
+            que desde a infância consagraste tua vida a Deus<br>
+            e nunca voltaste atrás,</p>
+
+            <p>ajuda-me a ser fiel à minha vocação,<br>
+            a dizer sim a Deus nos pequenos gestos de cada dia,<br>
+            a não temer os sacrifícios que o amor pede.</p>
+
+            <p>Eu te peço especialmente por esta intenção:<br>
+            <em>(apresente sua intenção em silêncio)</em></p>
+
+            <p>Santa Catarina de Sena, rogai por nós.<br>
+            Amém.</p>
+          </div>
+        </div>
+
+        <div class="prayer-content" id="prayer-medico" role="tabpanel">
+          <h3>Oração pelos Enfermos</h3>
+          <div class="prayer-text">
+            <p>Santa Catarina,<br>
+            que serviste os doentes da peste com as próprias mãos<br>
+            sem medo de contaminação ou morte,</p>
+
+            <p>intercedei pelos enfermos que sofrem hoje,<br>
+            pelos que estão sós em hospitais e leitos de dor,<br>
+            pelos médicos, enfermeiros e cuidadores<br>
+            que servem a Cristo nos doentes.</p>
+
+            <p>Que o teu exemplo de amor corajoso<br>
+            inspire quem cuida e console quem padece.</p>
+
+            <p>Peço-te especialmente por:<br>
+            <em>(mencione os nomes dos doentes)</em></p>
+
+            <p>Santa Catarina de Sena, rogai por nós.<br>
+            Amém.</p>
+          </div>
+        </div>
+
+        <div class="prayer-content" id="prayer-catarina" role="tabpanel">
+          <h3>Palavras de Santa Catarina — Para Meditação</h3>
+          <div class="prayer-text">
+            <p>Medite estas palavras deixadas por Santa Catarina de Sena:<br><br></p>
+
+            <p><em>"Se fores o que deves ser,<br>
+            porás fogo no mundo inteiro."</em><br>
+            — Carta 368</p>
+
+            <p><em>"O caminho para o céu é o amor.<br>
+            Mas não um amor morno — um amor ardente,<br>
+            que não recua diante de nada."</em><br>
+            — O Diálogo</p>
+
+            <p><em>"Sede quem sois, e sereis santos.<br>
+            Deus não pede que sejas outro —<br>
+            pede que sejas completamente tu mesmo, em Deus."</em><br>
+            — Cartas</p>
+
+            <p>Após ler, permaneça em silêncio por alguns momentos.<br>
+            O que estas palavras despertam em você hoje?</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Reflexão / Meditação -->
+      <section class="card" data-animate aria-label="Espaço de reflexão">
+        <h2>🌿 Espaço de Reflexão</h2>
+        <p>Santa Catarina de Sena ensinava que a oração começa pelo <strong>conhecimento de si mesmo</strong> — e através desse conhecimento, encontramos Deus.</p>
+        <p>Antes de rezar, ela sugeria um momento de quietude interior. "Entra no interior de ti mesmo", dizia, "e ali encontrarás Deus esperando por você."</p>
+        <p>Reserve alguns minutos de silêncio. Respire. Apresente a Deus o que está no seu coração — não há palavras erradas nesta conversa.</p>
+        <section class="frase">
+          <blockquote>
+            <p>"A alma que conhece a si mesma, humilha-se; e na humildade encontra Deus."</p>
+            <cite>— Santa Catarina de Sena, O Diálogo</cite>
+          </blockquote>
+        </section>
+      </section>
+
+      <div class="social-share" aria-label="Compartilhar esta página">
+        <span>Compartilhar:</span>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjoaoclaudiano.github.io%2Fsena%2Foratorio.html" target="_blank" rel="noopener noreferrer" class="share-btn share-facebook" aria-label="Compartilhar no Facebook">Facebook</a>
+        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fjoaoclaudiano.github.io%2Fsena%2Foratorio.html&text=Orat%C3%B3rio+Virtual+-+Santa+Catarina+de+Sena" target="_blank" rel="noopener noreferrer" class="share-btn share-twitter" aria-label="Compartilhar no Twitter">Twitter</a>
+        <a href="https://api.whatsapp.com/send?text=Orat%C3%B3rio+Virtual+-+Santa+Catarina+de+Sena%20https%3A%2F%2Fjoaoclaudiano.github.io%2Fsena%2Foratorio.html" target="_blank" rel="noopener noreferrer" class="share-btn share-whatsapp" aria-label="Compartilhar no WhatsApp">WhatsApp</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <p class="footer-title">✝ Catarina de Sena</p>
+        <p>Um espaço de fé, devoção e conhecimento dedicado à Santa Catarina de Sena — Virgem, Mística e Doutora da Igreja.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Navegação</h4>
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="biografia.html">Biografia</a></li>
+          <li><a href="obras.html">Obras</a></li>
+          <li><a href="siena.html">Siena</a></li>
+          <li><a href="oratorio.html">Oratório</a></li>
+          <li><a href="eventos.html">Eventos</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="contato.html">Contato</a></li>
+        </ul>
+      </div>
+      <div class="footer-status">
+        <h4>Status do Sistema</h4>
+        <p>🟢 Site no ar</p>
+        <p>📅 Lançamento: <span id="dataLancamento">29 de abril de 2025</span></p>
+        <p>⏱️ Tempo no ar: <span id="tempoNoAr">calculando...</span></p>
+        <p>👥 Visitantes: <span id="contadorVisitantes">—</span></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="anoAtual">2025</span> — Todos os direitos reservados. Conteúdo para estudo e devoção.</p>
+      <p>Festa de Santa Catarina de Sena: <strong>29 de abril</strong> 🌹</p>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" aria-label="Voltar ao topo" title="Voltar ao topo">↑</button>
+
+  <script src="scripts/menu.js" defer></script>
+  <script src="scripts/features.js" defer></script>
+</body>
+</html>
