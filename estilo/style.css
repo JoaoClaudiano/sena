@@ -1109,9 +1109,21 @@ footer p {
   text-align: left;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 600px) {
   .footer-grid {
-    grid-template-columns: 2fr 1fr 1.5fr;
+    grid-template-columns: 1fr 1fr;
+  }
+  .footer-brand {
+    grid-column: span 2;
+  }
+}
+
+@media (min-width: 900px) {
+  .footer-grid {
+    grid-template-columns: 2.5fr 1fr 1fr;
+  }
+  .footer-brand {
+    grid-column: span 1;
   }
 }
 
@@ -1127,13 +1139,14 @@ footer p {
   font-size: 0.9rem;
   color: #7f8c8d;
   margin-bottom: 0.5rem;
+  max-width: 34ch;
 }
 
-.footer-links h4, .footer-status h4 {
-  font-size: 0.9rem;
+.footer-links h4 {
+  font-size: 0.8rem;
   font-family: 'Lato', sans-serif;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   color: #a67c52;
   margin-top: 0;
   margin-bottom: 0.75rem;
@@ -1142,11 +1155,11 @@ footer p {
 .footer-links ul {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 0 0 0.75rem;
 }
 
 .footer-links ul li {
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.45rem;
 }
 
 .footer-links ul li a {
@@ -1158,10 +1171,18 @@ footer p {
   color: #a67c52;
 }
 
-.footer-status p {
+.footer-candle {
+  margin-top: 0.5rem;
   font-size: 0.875rem;
-  color: #7f8c8d;
-  margin-bottom: 0.4rem;
+}
+
+.footer-candle a {
+  color: #c07820;
+  font-weight: 600;
+}
+
+.footer-candle a:hover {
+  color: #e09030;
 }
 
 .footer-bottom {
@@ -1184,8 +1205,12 @@ footer p {
   color: #c9956c;
 }
 
-[data-theme="dark"] .footer-status p {
-  color: #9e8e90;
+[data-theme="dark"] .footer-candle a {
+  color: #d4a040;
+}
+
+[data-theme="dark"] .footer-candle a:hover {
+  color: #f0c060;
 }
 
 [data-theme="dark"] .footer-bottom {
@@ -1726,4 +1751,133 @@ footer p {
 
 [data-theme="dark"] .faq-answer {
   color: #b0a0a8;
+}
+
+.candle-map-fallback {
+  width: 100%;
+  height: 420px;
+  background: #1a1a2e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
+}
+
+.candle-map-fallback p {
+  color: #9e8e90;
+  font-size: 0.95rem;
+  text-align: center;
+  padding: 1.5rem;
+  max-width: 40ch;
+}
+
+@media (max-width: 600px) {
+  .candle-map-fallback {
+    height: 280px;
+  }
+}
+
+/* ===== MAPA DE VELAS — ORATÓRIO ===== */
+.candle-map-section {
+  margin: 2.5rem 0;
+}
+
+.candle-map-header {
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
+
+.candle-map-header h2 {
+  margin-bottom: 0.5rem;
+}
+
+.candle-map-header p {
+  font-size: 0.95rem;
+  color: #7f8c8d;
+  margin-bottom: 0.25rem;
+}
+
+.candle-map-count {
+  font-size: 0.9rem;
+  color: #c07820;
+  font-weight: 600;
+  min-height: 1.4rem;
+}
+
+.candle-map-wrapper {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+}
+
+.candle-map {
+  width: 100%;
+  height: 420px;
+  background: #1a1a2e;
+}
+
+@media (max-width: 600px) {
+  .candle-map {
+    height: 280px;
+  }
+}
+
+.candle-map-geo-msg {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #c07820;
+  min-height: 1.4rem;
+  margin-top: 0.75rem;
+  font-style: italic;
+}
+
+/* Marcador de vela no mapa */
+.candle-map-marker {
+  background: transparent;
+  border: none;
+}
+
+.candle-marker-flame {
+  font-size: 1.5rem;
+  display: block;
+  filter: drop-shadow(0 0 6px rgba(255, 180, 50, 0.9));
+  animation: candleFlicker 2s ease-in-out infinite alternate;
+}
+
+@keyframes candleFlicker {
+  from { filter: drop-shadow(0 0 4px rgba(255, 180, 50, 0.7)); }
+  to   { filter: drop-shadow(0 0 10px rgba(255, 220, 80, 1)); }
+}
+
+.candle-popup {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* Estilo do popup Leaflet em tema escuro */
+[data-theme="dark"] .leaflet-popup-content-wrapper,
+[data-theme="dark"] .leaflet-popup-tip {
+  background: #2a1f2e;
+  color: #e8ddd5;
+}
+
+[data-theme="dark"] .leaflet-bar a {
+  background: #2a1f2e;
+  color: #e8ddd5;
+  border-color: #3d2f3a;
+}
+
+[data-theme="dark"] .leaflet-bar a:hover {
+  background: #3d2f3a;
+}
+
+[data-theme="dark"] .candle-map-header p,
+[data-theme="dark"] .candle-map-geo-msg {
+  color: #9e8e90;
+}
+
+[data-theme="dark"] .candle-map-count {
+  color: #d4a040;
 }
