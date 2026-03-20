@@ -193,6 +193,21 @@
   }
 
   /*
+   * Conta o total de visitas registradas.
+   * @returns {Promise<number>}
+   */
+  function contarVisitas() {
+    if (!db) return Promise.resolve(0);
+    return db
+      .from('visitas')
+      .select('id', { count: 'exact', head: true })
+      .then(function (result) {
+        if (result.error) return 0;
+        return result.count || 0;
+      });
+  }
+
+  /*
    * Obtém a geolocalização do usuário via API do navegador.
    * Retorna coordenadas de Siena como fallback se a permissão for negada ou não houver suporte.
    * @returns {Promise<{ latitude: number, longitude: number }>}
@@ -221,6 +236,7 @@
     salvarVela: salvarVela,
     buscarVelasParaMapa: buscarVelasParaMapa,
     contarVelas: contarVelas,
+    contarVisitas: contarVisitas,
     obterLocalizacao: obterLocalizacao,
     registrarVisita: registrarVisita
   };

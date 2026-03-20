@@ -229,6 +229,31 @@
         <p class="footer-candle"><a href="oratorio.html">🕯️ Acender uma vela</a></p>
       </div>
     </div>
+    <div class="footer-status container">
+      <p class="footer-status-title">Status do Sistema</p>
+      <div class="footer-status-items">
+        <span class="footer-status-item">
+          <span class="status-label">Disponibilidade:</span>
+          <span class="status-value status-badge status-online" id="statusOnline">🟢 Online</span>
+        </span>
+        <span class="footer-status-item">
+          <span class="status-label">Visitas:</span>
+          <span class="status-value" id="totalVisitas">carregando…</span>
+        </span>
+        <span class="footer-status-item">
+          <span class="status-label">Velas acesas:</span>
+          <span class="status-value" id="totalVelas">carregando…</span>
+        </span>
+        <span class="footer-status-item">
+          <span class="status-label">Desde:</span>
+          <span class="status-value">abril de 2025</span>
+        </span>
+        <span class="footer-status-item">
+          <span class="status-label">Última atualização:</span>
+          <span class="status-value" id="ultimaAtualizacao">—</span>
+        </span>
+      </div>
+    </div>
     <div class="footer-bottom">
       <p>© <span id="anoAtual">2025</span> — Todos os direitos reservados. Conteúdo para estudo e devoção.</p>
       <p>Festa de Santa Catarina de Sena: <strong>29 de abril</strong> 🌹</p>
@@ -242,5 +267,6 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="scripts/supabase.js" defer></script>
   <script src="scripts/features.js" defer></script>
+  <script src="scripts/status.js" defer></script>
 </body>
 </html>
