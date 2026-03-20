@@ -1404,6 +1404,48 @@ footer p {
   box-shadow: 0 6px 16px rgba(200,134,10,0.4);
 }
 
+.intencao-input {
+  width: 100%;
+  max-width: 420px;
+  padding: 0.65rem 1rem;
+  border: 1.5px solid #e0c88a;
+  border-radius: 10px;
+  font-family: 'Merriweather', serif;
+  font-size: 0.9rem;
+  color: #3d2b00;
+  background: #fffdf5;
+  resize: vertical;
+  margin-bottom: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.intencao-input:focus {
+  outline: none;
+  border-color: #f0a020;
+  box-shadow: 0 0 0 3px rgba(240,160,32,0.18);
+}
+
+.intencao-input::placeholder {
+  color: #b09060;
+  font-style: italic;
+}
+
+[data-theme="dark"] .intencao-input {
+  background: #2a2010;
+  border-color: #6b4e1a;
+  color: #f0e0b0;
+}
+
+[data-theme="dark"] .intencao-input::placeholder {
+  color: #8a6830;
+}
+
+[data-theme="dark"] .intencao-input:focus {
+  border-color: #f0a020;
+  box-shadow: 0 0 0 3px rgba(240,160,32,0.22);
+}
+
 .candle-count {
   margin-top: 0.75rem;
   font-size: 0.9rem;

@@ -1,20 +1,13 @@
 /* ===== INTEGRAÇÃO SUPABASE ===== */
 /*
  * Configurações do Supabase.
- * Substitua SUPABASE_URL e SUPABASE_ANON_KEY pelas credenciais do seu projeto.
- *
- * Estrutura do banco de dados esperada:
  *
  * Tabela: velas
- *   - id          uuid         PK, default gen_random_uuid()
+ *   - id          bigint       PK, auto increment
  *   - created_at  timestamptz  default now()
- *   - latitude    float8       nullable  (geolocalização)
- *   - longitude   float8       nullable  (geolocalização)
- *   - city        text         nullable  (cidade estimada)
- *   - country     text         nullable  (país)
- *   - country_code text        nullable  (código do país, ex: "BR")
- *   - device_type text         nullable  ("mobile" | "desktop" | "tablet")
- *   - session_id  text         nullable  (identificador anônimo da sessão)
+ *   - localizacao geography(POINT,4326) nullable
+ *   - intencao    text         nullable
+ *   - user_id     uuid         nullable
  *
  * Tabela: visitas
  *   - id          uuid         PK, default gen_random_uuid()
@@ -26,8 +19,14 @@
  */
 
 (function () {
-  var SUPABASE_URL = 'https://SEU_PROJETO.supabase.co';
-  var SUPABASE_ANON_KEY = 'SUA_CHAVE_ANONIMA_AQUI';
+  var SUPABASE_URL = 'https://pndwwldjhmblwylwlazk.supabase.co';
+  /* Chave anônima (publishable) — segura para expor no frontend; segurança garantida pelas políticas RLS do Supabase */
+  var SUPABASE_ANON_KEY = 'sb_publishable_ws2eOKUZ-WpLtln-D1OxXg_FiPNHWTO';
+
+  /* Coordenadas de Siena, Itália — fallback quando geolocalização não está disponível */
+  var FALLBACK_LAT = 43.3186;
+  var FALLBACK_LNG = 11.3305;
+  var GEOLOCATION_TIMEOUT = 8000;
 
   /* Inicializa o cliente Supabase se a biblioteca estiver carregada */
   var db = null;
@@ -76,38 +75,85 @@
   }
 
   /*
-   * Salva uma vela acesa no banco de dados.
-   * @param {object} opts - { latitude, longitude, city, country, country_code }
+   * Parseia hex EWKB para extrair latitude e longitude de um ponto PostGIS.
+   * PostgREST retorna colunas geography como strings hex EWKB.
+   * @param {string} hex - String hex EWKB
+   * @returns {{ latitude: number, longitude: number } | null}
+   */
+  function parseEWKBPoint(hex) {
+    if (!hex || typeof hex !== 'string') return null;
+    try {
+      var bytes = [];
+      for (var i = 0; i < hex.length; i += 2) {
+        bytes.push(parseInt(hex.slice(i, i + 2), 16));
+      }
+      var le = bytes[0] === 1;
+      function read4(offset) {
+        if (le) {
+          return (bytes[offset] | (bytes[offset + 1] << 8) | (bytes[offset + 2] << 16) | (bytes[offset + 3] * 0x1000000)) >>> 0;
+        }
+        return (bytes[offset] * 0x1000000 + ((bytes[offset + 1] << 16) | (bytes[offset + 2] << 8) | bytes[offset + 3])) >>> 0;
+      }
+      function readDouble(offset) {
+        var buf = new ArrayBuffer(8);
+        var view = new DataView(buf);
+        for (var j = 0; j < 8; j++) { view.setUint8(j, bytes[offset + j]); }
+        return view.getFloat64(0, le);
+      }
+      var typeFlags = read4(1);
+      var hasSRID = (typeFlags & 0x20000000) !== 0;
+      var coordOffset = 5 + (hasSRID ? 4 : 0);
+      var lng = readDouble(coordOffset);
+      var lat = readDouble(coordOffset + 8);
+      if (isNaN(lat) || isNaN(lng)) return null;
+      return { latitude: lat, longitude: lng };
+    } catch (e) {
+      return null;
+    }
+  }
+
+  /*
+   * Insere uma vela acesa no banco de dados.
+   * Usa coordenadas de Siena como fallback se a localização não for fornecida.
+   * @param {number|null} latitude
+   * @param {number|null} longitude
+   * @param {string|null} intencao
    * @returns {Promise}
    */
-  function salvarVela(opts) {
+  function acenderVela(latitude, longitude, intencao) {
     if (!db) return Promise.resolve(null);
-    opts = opts || {};
+    var lat = (typeof latitude === 'number' && isFinite(latitude)) ? latitude : FALLBACK_LAT;
+    var lng = (typeof longitude === 'number' && isFinite(longitude)) ? longitude : FALLBACK_LNG;
+    var localizacao = 'POINT(' + lng + ' ' + lat + ')';
     return db.from('velas').insert({
-      latitude: opts.latitude || null,
-      longitude: opts.longitude || null,
-      city: opts.city || null,
-      country: opts.country || null,
-      country_code: opts.country_code || null,
-      device_type: detectDevice(),
-      session_id: getSessionId()
+      localizacao: localizacao,
+      intencao: intencao || null
     }).then(function (result) {
-      if (result.error) console.warn('[Supabase] Erro ao salvar vela:', result.error.message);
+      if (result.error) console.warn('[Supabase] Erro ao acender vela:', result.error.message);
       return result;
     });
   }
 
   /*
-   * Busca todas as velas com coordenadas para exibir no mapa.
-   * @returns {Promise<Array>} Array de objetos { latitude, longitude, created_at }
+   * Compatibilidade com código legado — delega para acenderVela.
+   * @param {object} opts - { latitude, longitude, intencao }
+   * @returns {Promise}
+   */
+  function salvarVela(opts) {
+    opts = opts || {};
+    return acenderVela(opts.latitude, opts.longitude, opts.intencao);
+  }
+
+  /*
+   * Busca velas com coordenadas para exibir no mapa.
+   * @returns {Promise<Array>} Array de objetos { latitude, longitude, created_at, intencao }
    */
   function buscarVelasParaMapa() {
     if (!db) return Promise.resolve([]);
     return db
       .from('velas')
-      .select('latitude, longitude, created_at, country')
-      .not('latitude', 'is', null)
-      .not('longitude', 'is', null)
+      .select('localizacao, created_at, intencao')
+      .not('localizacao', 'is', null)
       .order('created_at', { ascending: false })
       .limit(500)
       .then(function (result) {
@@ -115,7 +161,16 @@
           console.warn('[Supabase] Erro ao buscar velas:', result.error.message);
           return [];
         }
-        return result.data || [];
+        return (result.data || []).map(function (v) {
+          var coords = parseEWKBPoint(v.localizacao);
+          if (!coords) return null;
+          return {
+            latitude: coords.latitude,
+            longitude: coords.longitude,
+            created_at: v.created_at,
+            intencao: v.intencao
+          };
+        }).filter(Boolean);
       });
   }
 
@@ -134,11 +189,36 @@
       });
   }
 
+  /*
+   * Obtém a geolocalização do usuário via API do navegador.
+   * Retorna coordenadas de Siena como fallback se a permissão for negada ou não houver suporte.
+   * @returns {Promise<{ latitude: number, longitude: number }>}
+   */
+  function obterLocalizacao() {
+    return new Promise(function (resolve) {
+      if (!navigator.geolocation) {
+        resolve({ latitude: FALLBACK_LAT, longitude: FALLBACK_LNG });
+        return;
+      }
+      navigator.geolocation.getCurrentPosition(
+        function (pos) {
+          resolve({ latitude: pos.coords.latitude, longitude: pos.coords.longitude });
+        },
+        function () {
+          resolve({ latitude: FALLBACK_LAT, longitude: FALLBACK_LNG });
+        },
+        { timeout: GEOLOCATION_TIMEOUT, enableHighAccuracy: false }
+      );
+    });
+  }
+
   /* Expõe as funções globalmente para uso nos outros scripts */
   window.SupabaseSena = {
+    acenderVela: acenderVela,
     salvarVela: salvarVela,
     buscarVelasParaMapa: buscarVelasParaMapa,
     contarVelas: contarVelas,
+    obterLocalizacao: obterLocalizacao,
     registrarVisita: registrarVisita
   };
 
