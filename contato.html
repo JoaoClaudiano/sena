@@ -97,22 +97,31 @@
       </div>
 
       <!-- FORMULÁRIO COM ENDPOINT CORRIGIDO -->
-      <form class="contact-form" action="https://formspree.io/f/xjgalqdn" method="POST" aria-label="Formulário de contato"> <!-- MODIFICADO: action atualizado -->
+      <form class="contact-form" action="https://formspree.io/f/xjgalqdn" method="POST" aria-label="Formulário de contato" novalidate> <!-- MODIFICADO: action atualizado -->
         <div class="form-group">
           <label for="nome">Nome</label>
-          <input type="text" id="nome" name="nome" required autocomplete="name">
+          <input type="text" id="nome" name="nome" required autocomplete="name"
+            maxlength="100"
+            pattern="[A-Za-zÀ-ÖØ-öø-ÿ\s'\-]{2,100}"
+            title="Apenas letras, espaços, hífens e apóstrofos (mínimo 2 caracteres)">
+          <span class="form-error" id="nome-error" role="alert"></span>
         </div>
         <div class="form-group">
           <label for="email">E-mail</label>
-          <input type="email" id="email" name="email" required autocomplete="email">
+          <input type="email" id="email" name="email" required autocomplete="email"
+            maxlength="254">
+          <span class="form-error" id="email-error" role="alert"></span>
         </div>
         <div class="form-group">
           <label for="assunto">Assunto</label>
-          <input type="text" id="assunto" name="assunto" required>
+          <input type="text" id="assunto" name="assunto" required
+            maxlength="150">
+          <span class="form-error" id="assunto-error" role="alert"></span>
         </div>
         <div class="form-group">
           <label for="mensagem">Mensagem</label>
-          <textarea id="mensagem" name="mensagem" required></textarea>
+          <textarea id="mensagem" name="mensagem" required maxlength="2000"></textarea>
+          <span class="form-error" id="mensagem-error" role="alert"></span>
         </div>
         <button type="submit" class="btn">Enviar mensagem</button>
       </form>
@@ -239,6 +248,7 @@
   <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="scripts/supabase.js" defer></script>
+  <script src="scripts/validation.js" defer></script>
   <script src="scripts/features.js" defer></script>
   <script src="scripts/status.js" defer></script>
 </body>

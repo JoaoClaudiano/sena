@@ -216,6 +216,28 @@ section {
   min-height: 150px;
 }
 
+/* Mensagens de erro de validação */
+.form-error {
+  display: none;
+  color: #c0392b;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+}
+
+.form-group input[aria-invalid="true"],
+.form-group textarea[aria-invalid="true"] {
+  border-color: #c0392b;
+}
+
+[data-theme="dark"] .form-error {
+  color: #e74c3c;
+}
+
+[data-theme="dark"] .form-group input[aria-invalid="true"],
+[data-theme="dark"] .form-group textarea[aria-invalid="true"] {
+  border-color: #e74c3c;
+}
+
 /* Galeria (simples) */
 .gallery {
   display: grid;
