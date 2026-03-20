@@ -1639,6 +1639,14 @@ footer p {
   background: linear-gradient(135deg, #f0e8df 0%, #e8d5c4 100%);
 }
 
+.art-piece img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
 .art-info {
   padding: 1.25rem;
 }
