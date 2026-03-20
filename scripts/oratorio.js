@@ -1,5 +1,10 @@
 /* ===== ORATÓRIO — MAPA DE VELAS E GEOLOCALIZAÇÃO ===== */
 (function () {
+  /* ---- Utilitários ---- */
+  function formatVelaCount(n) {
+    var s = n !== 1 ? 's' : '';
+    return '🕯️ ' + n.toLocaleString('pt-BR') + ' vela' + s + ' acesa' + s;
+  }
   /* ---- Mapa Leaflet com fundo escuro ---- */
   var mapEl = document.getElementById('candleMap');
   if (!mapEl) return;
@@ -51,20 +56,39 @@
             if (!isNaN(lat) && !isNaN(lng)) {
               var marker = L.marker([lat, lng], { icon: candleIcon });
               var data = v.created_at ? new Date(v.created_at).toLocaleDateString('pt-BR') : '';
-              var pais = v.country ? ' — ' + v.country : '';
-              marker.bindPopup('<div class="candle-popup">🕯️ Vela acesa' + pais + (data ? '<br><small>' + data + '</small>' : '') + '</div>');
+              var popup = L.popup();
+              var popupDiv = document.createElement('div');
+              popupDiv.className = 'candle-popup';
+              var title = document.createTextNode('🕯️ Vela acesa');
+              popupDiv.appendChild(title);
+              if (v.intencao) {
+                var em = document.createElement('em');
+                em.style.fontSize = '0.85em';
+                var excerpt = v.intencao.length > 80 ? v.intencao.slice(0, 80) + '…' : v.intencao;
+                em.appendChild(document.createTextNode(excerpt));
+                popupDiv.appendChild(document.createElement('br'));
+                popupDiv.appendChild(em);
+              }
+              if (data) {
+                var small = document.createElement('small');
+                small.appendChild(document.createTextNode(data));
+                popupDiv.appendChild(document.createElement('br'));
+                popupDiv.appendChild(small);
+              }
+              popup.setContent(popupDiv);
+              marker.bindPopup(popup);
               marker.addTo(map);
             }
           }
         });
         if (countEl && velas.length > 0) {
-          countEl.textContent = '🕯️ ' + velas.length.toLocaleString('pt-BR') + ' vela' + (velas.length !== 1 ? 's' : '') + ' acesa' + (velas.length !== 1 ? 's' : '') + ' ao redor do mundo';
+          countEl.textContent = formatVelaCount(velas.length) + ' ao redor do mundo';
         }
       });
 
       window.SupabaseSena.contarVelas().then(function (total) {
         if (countEl && total > 0) {
-          countEl.textContent = '🕯️ ' + total.toLocaleString('pt-BR') + ' vela' + (total !== 1 ? 's' : '') + ' acesa' + (total !== 1 ? 's' : '') + ' ao redor do mundo';
+          countEl.textContent = formatVelaCount(total) + ' ao redor do mundo';
         }
       });
     } else {
@@ -133,7 +157,7 @@
     );
   }
 
-  /* Sobrescreve o listener do botão de vela para incluir geolocalização */
+  /* Sobrescreve o listener do botão de vela para incluir geolocalização e intenção */
   if (btn) {
     btn.addEventListener('click', function onCandleClick() {
       /* Aguarda o clique original do features.js processar primeiro */
@@ -142,9 +166,20 @@
         var flame = document.getElementById('candleFlame');
         var isLit = flame && flame.classList.contains('lit');
         if (isLit) {
+          var intencaoEl = document.getElementById('intencaoInput');
+          var intencao = intencaoEl ? intencaoEl.value.trim() || null : null;
           solicitarGeolocalizacao(function (coords) {
-            if (coords && window.SupabaseSena) {
-              window.SupabaseSena.salvarVela(coords);
+            if (window.SupabaseSena) {
+              var lat = coords ? coords.latitude : null;
+              var lng = coords ? coords.longitude : null;
+              window.SupabaseSena.acenderVela(lat, lng, intencao).then(function () {
+                window.SupabaseSena.contarVelas().then(function (total) {
+                  var velaCountEl = document.getElementById('candleCount');
+                  if (velaCountEl && total > 0) {
+                    velaCountEl.textContent = formatVelaCount(total) + ' ao redor do mundo';
+                  }
+                });
+              });
             }
           });
           /* Rola suavemente até o mapa */
