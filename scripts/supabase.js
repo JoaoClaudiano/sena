@@ -70,7 +70,10 @@
       device_type: detectDevice(),
       referrer: document.referrer || null
     }).then(function (result) {
-      if (result.error) console.warn('[Supabase] Erro ao registrar visita:', result.error.message);
+      /* Ignora silenciosamente o erro de tabela inexistente (migração ainda não aplicada no Supabase) */
+      if (result.error && !/Could not find the table/i.test(result.error.message)) {
+        console.warn('[Supabase] Erro ao registrar visita:', result.error.message);
+      }
     });
   }
 
