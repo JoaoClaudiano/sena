@@ -1,3 +1,9 @@
+/* ===== SVG ICONS ===== */
+var ICONS = {
+  moon: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>',
+  sun:  '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>'
+};
+
 /* ===== MODO NOTURNO ===== */
 (function () {
   var toggle = document.getElementById('darkToggle');
@@ -6,12 +12,16 @@
   function applyTheme(theme) {
     if (theme === 'dark') {
       root.setAttribute('data-theme', 'dark');
-      if (toggle) toggle.setAttribute('aria-pressed', 'true');
-      if (toggle) toggle.textContent = '☀️';
+      if (toggle) {
+        toggle.setAttribute('aria-pressed', 'true');
+        toggle.innerHTML = ICONS.sun;
+      }
     } else {
       root.removeAttribute('data-theme');
-      if (toggle) toggle.setAttribute('aria-pressed', 'false');
-      if (toggle) toggle.textContent = '🌙';
+      if (toggle) {
+        toggle.setAttribute('aria-pressed', 'false');
+        toggle.innerHTML = ICONS.moon;
+      }
     }
   }
 
@@ -145,7 +155,7 @@
     var remaining = days % 30;
     var plural = function (n, s) { return n + ' ' + s + (n !== 1 ? 's' : ''); };
     if (months > 0) {
-      var mesStr = months + ' mês' + (months > 1 ? 'es' : '');
+      var mesStr = months + (months > 1 ? ' meses' : ' mês');
       tempoEl.textContent = mesStr + ' e ' + plural(remaining, 'dia');
     } else {
       tempoEl.textContent = plural(days, 'dia');
@@ -214,24 +224,58 @@
   setInterval(function () { showSlide(current + 1); }, 6000);
 })();
 
-/* ===== HERO SLIDESHOW ===== */
+/* ===== HERO SLIDESHOW com GRAIN TRANSITION ===== */
 (function () {
   var slides = document.querySelectorAll('.hero-section .slide');
   var dots = document.querySelectorAll('.slide-dot');
+  var grain = document.getElementById('heroGrain');
   if (!slides.length) return;
   var current = 0;
+  var transitioning = false;
 
   function showSlide(n) {
-    slides[current].classList.remove('active');
-    if (dots[current]) dots[current].classList.remove('active');
-    current = (n + slides.length) % slides.length;
-    slides[current].classList.add('active');
-    if (dots[current]) dots[current].classList.add('active');
+    if (transitioning) return;
+    transitioning = true;
+
+    var next = (n + slides.length) % slides.length;
+    if (next === current) { transitioning = false; return; }
+
+    /* Fase 1: aparece o grain */
+    if (grain) grain.classList.add('active');
+
+    setTimeout(function () {
+      /* Fase 2: troca de slide */
+      slides[current].classList.remove('active');
+      if (dots[current]) dots[current].classList.remove('active');
+      current = next;
+      slides[current].classList.add('active');
+      if (dots[current]) dots[current].classList.add('active');
+    }, 180);
+
+    setTimeout(function () {
+      /* Fase 3: some o grain */
+      if (grain) grain.classList.remove('active');
+      transitioning = false;
+    }, 420);
   }
 
   window.goToSlide = function (n) { showSlide(n); };
 
-  setInterval(function () { showSlide(current + 1); }, 5000);
+  setInterval(function () { showSlide(current + 1); }, 5500);
+})();
+
+/* ===== HERO PARALLAX AO ROLAR ===== */
+(function () {
+  var heroSlideshow = document.getElementById('heroSlideshow');
+  if (!heroSlideshow) return;
+
+  function onScroll() {
+    var scrolled = window.scrollY;
+    if (scrolled < 0) return;
+    heroSlideshow.style.transform = 'translateY(' + (scrolled * 0.38) + 'px)';
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
 })();
 
 /* ===== FAQ ACCORDION ===== */
@@ -279,13 +323,15 @@
 
   if (!btn) return;
 
+  var CANDLE_SVG_BTN = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px;margin-right:6px"><path d="M12 3C12 3 8 7 8 12a4 4 0 0 0 8 0c0-5-4-9-4-9z"/><line x1="12" y1="16" x2="12" y2="21"/></svg>';
+
   var lit = false;
   var count = parseInt(localStorage.getItem('candleCount') || '0', 10);
 
   function updateCount() {
     if (!countEl) return;
     var suffix = count !== 1 ? 's' : '';
-    countEl.textContent = '🕯️ ' + count.toLocaleString('pt-BR') + ' vela' + suffix + ' acesa' + suffix + ' neste dispositivo';
+    countEl.textContent = count.toLocaleString('pt-BR') + ' vela' + suffix + ' acesa' + suffix + ' neste dispositivo';
   }
   updateCount();
 
@@ -294,7 +340,7 @@
       lit = true;
       if (flame) flame.classList.add('lit');
       if (glow) glow.classList.add('lit');
-      btn.textContent = '🕯️ Vela acesa — Rezar agora';
+      btn.innerHTML = CANDLE_SVG_BTN + 'Vela acesa — Rezar agora';
       if (statusEl) {
         statusEl.textContent = 'Sua vela está acesa. Santa Catarina intercede por você.';
         statusEl.style.color = '#f0a020';
@@ -310,7 +356,7 @@
       lit = false;
       if (flame) flame.classList.remove('lit');
       if (glow) glow.classList.remove('lit');
-      btn.textContent = '🕯️ Acender uma vela';
+      btn.innerHTML = CANDLE_SVG_BTN + 'Acender uma vela';
       if (statusEl) statusEl.textContent = '';
       if (prayerSection) prayerSection.style.display = 'none';
     }
