@@ -65,6 +65,24 @@
       <h1>Mapa do Site</h1>
       <p>Todas as páginas disponíveis neste espaço dedicado a Santa Catarina de Sena. Encontre facilmente o conteúdo que procura.</p>
 
+      <!-- Barra de pesquisa -->
+      <div class="sitemap-search-wrap" role="search" aria-label="Pesquisar páginas do site">
+        <label for="sitemapSearch" class="sitemap-search-label">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <span class="sr-only">Pesquisar</span>
+        </label>
+        <input
+          type="search"
+          id="sitemapSearch"
+          class="sitemap-search-input"
+          placeholder="Pesquisar páginas…"
+          aria-label="Pesquisar páginas do site"
+          autocomplete="off"
+        >
+        <button type="button" id="sitemapSearchClear" class="sitemap-search-clear" aria-label="Limpar pesquisa" hidden>✕</button>
+      </div>
+      <p id="sitemapNoResults" class="sitemap-no-results" hidden>Nenhuma página encontrada para "<span id="sitemapQuery"></span>".</p>
+
       <div class="destaques-grid" data-animate>
 
         <a href="index.html" class="destaque-card">
@@ -173,5 +191,58 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="scripts/supabase.js" defer></script>
   <script src="scripts/features.js" defer></script>
+  <script>
+    /* ===== PESQUISA NO MAPA DO SITE ===== */
+    (function () {
+      var input      = document.getElementById('sitemapSearch');
+      var clearBtn   = document.getElementById('sitemapSearchClear');
+      var noResults  = document.getElementById('sitemapNoResults');
+      var querySpan  = document.getElementById('sitemapQuery');
+      var cards      = document.querySelectorAll('.destaques-grid .destaque-card');
+
+      if (!input || !cards.length) return;
+
+      function normalize(str) {
+        return str.toLowerCase()
+          .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      }
+
+      function filterCards(query) {
+        var q = normalize(query.trim());
+        var visible = 0;
+
+        cards.forEach(function (card) {
+          var text = normalize(card.textContent || '');
+          var match = !q || text.indexOf(q) !== -1;
+          card.style.display = match ? '' : 'none';
+          if (match) visible++;
+        });
+
+        if (noResults) {
+          noResults.hidden = visible > 0 || !q;
+          if (querySpan) querySpan.textContent = query.trim();
+        }
+        if (clearBtn) clearBtn.hidden = !q;
+      }
+
+      input.addEventListener('input', function () {
+        filterCards(input.value);
+      });
+
+      if (clearBtn) {
+        clearBtn.addEventListener('click', function () {
+          input.value = '';
+          filterCards('');
+          input.focus();
+        });
+      }
+    })();
+  </script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sena/sw.js")
+        .catch(function(err) { console.warn("SW:", err); });
+    }
+  </script>
 </body>
 </html>

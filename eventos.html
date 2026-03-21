@@ -269,5 +269,11 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="scripts/supabase.js" defer></script>
   <script src="scripts/features.js" defer></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sena/sw.js")
+        .catch(function(err) { console.warn("SW:", err); });
+    }
+  </script>
 </body>
 </html>

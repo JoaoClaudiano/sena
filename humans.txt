@@ -1,0 +1,12 @@
+/* TEAM */
+Developer: João Claudiano
+Site: https://joaoclaudiano.github.io/sena/
+
+/* THANKS */
+Santa Catarina de Sena — 1347–1380
+Doutora da Igreja, Padroeira da Itália e da Europa.
+
+/* SITE */
+Last update: 2026/03
+Language: Portuguese (pt-BR)
+Standards: HTML5, CSS3, JavaScript

@@ -844,6 +844,7 @@ main > .hero-section:first-child {
   position: absolute;
   inset: 0;
   z-index: 0;
+  background-color: #3a2520;
 }
 
 .slide {
@@ -971,21 +972,15 @@ main > .hero-section:first-child {
 }
 
 .slide.slide-1 {
-  background-image: url('../imagens/Franceschini_Baldassare_St_Catherine_of_Siena.jpg');
+  background-image: url('../imagens/Giovanni_Battista_Tiepolo_Santa_Catarina_de_Sena.jpg');
   background-size: cover;
   background-position: center top;
 }
 
 .slide.slide-2 {
-  background-image: url('../imagens/Giovanni_Battista_Tiepolo_Santa_Catarina_de_Sena.jpg');
+  background-image: url('../imagens/Franceschini_Baldassare_St_Catherine_of_Siena.jpg');
   background-size: cover;
   background-position: center;
-}
-
-.slide.slide-3 {
-  background-image: url('../imagens/Saint_Catherine_by_Andrea_Vanni,_San_Domenico,_Siena.jpg');
-  background-size: cover;
-  background-position: center top;
 }
 
 .slide-dot.active {
@@ -2727,4 +2722,99 @@ main > .hero-section:first-child {
     width: 100%;
     text-align: center;
   }
+}
+
+/* ===== BARRA DE PESQUISA — MAPA DO SITE ===== */
+.sitemap-search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  max-width: 500px;
+  margin: 1.5rem 0 1rem;
+  background: #fff;
+  border: 1.5px solid #c9ad90;
+  border-radius: 30px;
+  padding: 0 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.sitemap-search-wrap:focus-within {
+  border-color: #a67c52;
+  box-shadow: 0 0 0 3px rgba(166,124,82,0.15);
+}
+
+.sitemap-search-label {
+  color: #a67c52;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-right: 0.5rem;
+}
+
+.sitemap-search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 0.65rem 0;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.95rem;
+  color: #2c3e50;
+}
+
+.sitemap-search-input::placeholder {
+  color: #a0867a;
+}
+
+.sitemap-search-clear {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #a0867a;
+  font-size: 0.85rem;
+  padding: 0.2rem 0.4rem;
+  border-radius: 50%;
+  line-height: 1;
+  flex-shrink: 0;
+  transition: color 0.2s;
+}
+
+.sitemap-search-clear:hover {
+  color: #a67c52;
+}
+
+.sitemap-no-results {
+  color: #7f8c8d;
+  font-style: italic;
+  font-size: 0.9rem;
+  margin: 0.5rem 0 1rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+[data-theme="dark"] .sitemap-search-wrap {
+  background: #2a1f2e;
+  border-color: #5a4a60;
+}
+
+[data-theme="dark"] .sitemap-search-input {
+  color: #e8ddd5;
+}
+
+[data-theme="dark"] .sitemap-search-input::placeholder {
+  color: #9a8090;
+}
+
+[data-theme="dark"] .sitemap-search-label {
+  color: #c9956c;
 }
