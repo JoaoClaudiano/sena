@@ -35,8 +35,8 @@
         <a href="index.html">Catarina de Sena</a>
       </div>
       <nav aria-label="Navegação principal">
-        <button class="dark-toggle" id="darkToggle" aria-label="Alternar modo noturno" aria-pressed="false">🌙</button>
-        <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-menu">☰</button>
+        <button class="dark-toggle" id="darkToggle" aria-label="Alternar modo noturno" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+        <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-menu"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
         <ul class="menu" id="main-menu" role="list">
           <li><a href="index.html">Início</a></li>
           <li><a href="biografia.html">Biografia</a></li>
@@ -89,15 +89,93 @@
         <p>O site foi lançado em <strong>29 de abril de 2025</strong> — dia da festa de Santa Catarina de Sena. Uma coincidência? Talvez não.</p>
       </div>
 
-      <!-- Status ao vivo -->
-      <div class="card" data-animate>
-        <h3>📊 Informações do Site</h3>
-        <p>🟢 <strong>Status:</strong> Online</p>
-        <p>📅 <strong>Lançamento:</strong> 29 de abril de 2025</p>
-        <p>⏱️ <strong>Tempo no ar:</strong> <span id="tempoNoArSobre">calculando...</span></p>
-        <p>👥 <strong>Visitas neste dispositivo:</strong> <span id="visitasSobre">—</span></p>
-        <p>🌐 <strong>Hospedagem:</strong> GitHub Pages</p>
-        <p>🔒 <strong>Licença:</strong> Conteúdo para fins educativos e devocionais</p>
+      <!-- Status ao vivo — profissional -->
+      <div class="system-status-card" data-animate>
+        <div class="system-status-header">
+          <p class="system-status-title">Stack do Sistema</p>
+          <span class="system-status-badge">
+            <span class="ping-dot" aria-hidden="true"></span>
+            Todos os sistemas operacionais
+          </span>
+        </div>
+
+        <div class="system-status-grid">
+          <div class="system-status-metric">
+            <div class="system-status-metric-label">Lançamento</div>
+            <div class="system-status-metric-value">29 abr 2025</div>
+            <div class="system-status-metric-sub">dia da festa da santa</div>
+          </div>
+          <div class="system-status-metric">
+            <div class="system-status-metric-label">Dias no ar</div>
+            <div class="system-status-metric-value" id="diasNoAr">—</div>
+            <div class="system-status-metric-sub" id="tempoNoArSobre">calculando…</div>
+          </div>
+          <div class="system-status-metric">
+            <div class="system-status-metric-label">Visitas (dispositivo)</div>
+            <div class="system-status-metric-value" id="visitasSobre">—</div>
+            <div class="system-status-metric-sub">localStorage</div>
+          </div>
+          <div class="system-status-metric">
+            <div class="system-status-metric-label">Velas acesas</div>
+            <div class="system-status-metric-value" id="totalVelasSobre">—</div>
+            <div class="system-status-metric-sub">total global</div>
+          </div>
+          <div class="system-status-metric">
+            <div class="system-status-metric-label">Hospedagem</div>
+            <div class="system-status-metric-value">GitHub Pages</div>
+            <div class="system-status-metric-sub">CDN global</div>
+          </div>
+          <div class="system-status-metric">
+            <div class="system-status-metric-label">Banco de dados</div>
+            <div class="system-status-metric-value">Supabase</div>
+            <div class="system-status-metric-sub">PostgreSQL + PostGIS</div>
+          </div>
+          <div class="system-status-metric">
+            <div class="system-status-metric-label">Licença</div>
+            <div class="system-status-metric-value">Devocional</div>
+            <div class="system-status-metric-sub">uso educativo e devocional</div>
+          </div>
+          <div class="system-status-metric">
+            <div class="system-status-metric-label">Última verificação</div>
+            <div class="system-status-metric-value" id="ultimaVerif">—</div>
+            <div class="system-status-metric-sub">horário local</div>
+          </div>
+        </div>
+
+        <div class="api-status-row">
+          <span class="api-status-label">Supabase API:</span>
+          <span class="api-status-value">
+            <span class="api-dot" id="apiDot"></span>
+            <span id="apiStatusText">verificando…</span>
+          </span>
+        </div>
+
+        <div class="system-stack-list" aria-label="Tecnologias utilizadas">
+          <span class="stack-tag">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            HTML / CSS / JS
+          </span>
+          <span class="stack-tag">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            GitHub Pages
+          </span>
+          <span class="stack-tag">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+            Supabase
+          </span>
+          <span class="stack-tag">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Leaflet.js (mapas)
+          </span>
+          <span class="stack-tag">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+            Google Fonts
+          </span>
+          <span class="stack-tag">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            PostGIS (geolocalização)
+          </span>
+        </div>
       </div>
 
       <section class="frase" data-animate>
@@ -112,7 +190,7 @@
   <footer>
     <div class="container footer-grid">
       <div class="footer-brand">
-        <p class="footer-title">✝ Catarina de Sena</p>
+        <p class="footer-title"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-1px;margin-right:4px"><path d="M12 2l-2 7H4l6 4-2 7 4-3 4 3-2-7 6-4h-6z"/></svg> Catarina de Sena</p>
         <p>Um espaço de fé, devoção e conhecimento dedicado à Santa Catarina de Sena — Virgem, Mística e Doutora da Igreja.</p>
       </div>
       <div class="footer-links">
@@ -134,37 +212,12 @@
           <li><a href="contato.html">Contato</a></li>
           <li><a href="mapa-do-site.html">Mapa do Site</a></li>
         </ul>
-        <p class="footer-candle"><a href="oratorio.html">🕯️ Acender uma vela</a></p>
-      </div>
-    </div>
-    <div class="footer-status container">
-      <p class="footer-status-title">Status do Sistema</p>
-      <div class="footer-status-items">
-        <span class="footer-status-item">
-          <span class="status-label">Disponibilidade:</span>
-          <span class="status-value status-badge status-online" id="statusOnline">🟢 Online</span>
-        </span>
-        <span class="footer-status-item">
-          <span class="status-label">Visitas:</span>
-          <span class="status-value" id="totalVisitas">carregando…</span>
-        </span>
-        <span class="footer-status-item">
-          <span class="status-label">Velas acesas:</span>
-          <span class="status-value" id="totalVelas">carregando…</span>
-        </span>
-        <span class="footer-status-item">
-          <span class="status-label">Desde:</span>
-          <span class="status-value">abril de 2025</span>
-        </span>
-        <span class="footer-status-item">
-          <span class="status-label">Última atualização:</span>
-          <span class="status-value" id="ultimaAtualizacao">—</span>
-        </span>
+        <p class="footer-candle"><a href="oratorio.html"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-1px;margin-right:3px"><path d="M12 3C12 3 8 7 8 12a4 4 0 0 0 8 0c0-5-4-9-4-9z"/><line x1="12" y1="16" x2="12" y2="21"/></svg>Acender uma vela</a></p>
       </div>
     </div>
     <div class="footer-bottom">
       <p>© <span id="anoAtual">2025</span> — Todos os direitos reservados. Conteúdo para estudo e devoção.</p>
-      <p>Festa de Santa Catarina de Sena: <strong>29 de abril</strong> 🌹</p>
+      <p>Festa de Santa Catarina de Sena: <strong>29 de abril</strong></p>
     </div>
   </footer>
 
@@ -175,27 +228,78 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="scripts/supabase.js" defer></script>
   <script src="scripts/features.js" defer></script>
-  <script src="scripts/status.js" defer></script>
   <script>
     (function () {
-      var launch = new Date('2025-04-29T00:00:00');
+      var LAUNCH = new Date('2025-04-29T00:00:00');
+
+      /* Dias no ar */
       var now = new Date();
-      var diff = now - launch;
-      var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      var days = Math.floor((now - LAUNCH) / (1000 * 60 * 60 * 24));
+      var diasEl = document.getElementById('diasNoAr');
+      if (diasEl) diasEl.textContent = days.toLocaleString('pt-BR');
+
+      /* Tempo humanizado */
       var months = Math.floor(days / 30);
       var remaining = days % 30;
       var tempoEl = document.getElementById('tempoNoArSobre');
       if (tempoEl) {
         if (months > 0) {
-          tempoEl.textContent = months + ' mês' + (months > 1 ? 'es' : '') + ' e ' + remaining + ' dia' + (remaining !== 1 ? 's' : '');
+          tempoEl.textContent = months + (months > 1 ? ' meses' : ' mês') + ' e ' + remaining + ' dia' + (remaining !== 1 ? 's' : '');
         } else {
           tempoEl.textContent = days + ' dia' + (days !== 1 ? 's' : '');
         }
       }
+
+      /* Visitas neste dispositivo */
       var visitEl = document.getElementById('visitasSobre');
       if (visitEl) {
         var count = parseInt(localStorage.getItem('visitCount') || '0', 10);
         visitEl.textContent = count.toLocaleString('pt-BR');
+      }
+
+      /* Horário da última verificação */
+      var pad = function (v) { return String(v).padStart(2, '0'); };
+      var verifEl = document.getElementById('ultimaVerif');
+      if (verifEl) {
+        verifEl.textContent = pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
+      }
+
+      /* Ano no rodapé */
+      var anoEl = document.getElementById('anoAtual');
+      if (anoEl) anoEl.textContent = now.getFullYear();
+
+      /* Status da API Supabase (via contagem de velas) */
+      var apiDot = document.getElementById('apiDot');
+      var apiText = document.getElementById('apiStatusText');
+      var velasEl = document.getElementById('totalVelasSobre');
+
+      function setApiOnline(total) {
+        if (apiDot) { apiDot.classList.add('online'); apiDot.classList.remove('offline'); }
+        if (apiText) apiText.textContent = 'conectado';
+        if (velasEl) velasEl.textContent = total != null ? total.toLocaleString('pt-BR') : '—';
+      }
+
+      function setApiOffline() {
+        if (apiDot) { apiDot.classList.add('offline'); apiDot.classList.remove('online'); }
+        if (apiText) apiText.textContent = 'indisponível';
+        if (velasEl) velasEl.textContent = '—';
+      }
+
+      /* Aguarda o SupabaseSena estar disponível */
+      function tentarStatus() {
+        var sena = window.SupabaseSena;
+        if (!sena) { setApiOffline(); return; }
+        sena.contarVelas().then(function (total) {
+          setApiOnline(total);
+        }).catch(function () {
+          setApiOffline();
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', tentarStatus);
+      } else {
+        tentarStatus();
       }
     })();
   </script>
