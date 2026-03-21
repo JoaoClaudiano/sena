@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leitor de Livro — Santa Catarina de Sena</title>
+  <meta name="description" content="Leia online as obras de Santa Catarina de Sena em formato EPUB.">
+  <meta name="robots" content="noindex">
+  <!-- Preconnect para fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="estilo/style.css">
+  <link rel="icon" type="image/x-icon" href="icons/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/icon_16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="icons/icon_48x48.png">
+  <link rel="apple-touch-icon" sizes="128x128" href="icons/icon_128x128.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="icons/icon_256x256.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="icons/icon_512x512.png">
+  <link rel="manifest" href="site.webmanifest">
+  <style>
+    .epub-wrapper {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .epub-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      background: #f5f1ec;
+      border: 1px solid #ddd;
+      border-bottom: none;
+      border-radius: 8px 8px 0 0;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .epub-nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .epub-page-info {
+      font-size: 0.9rem;
+      color: #555;
+      min-width: 100px;
+      text-align: center;
+      font-family: 'Lato', sans-serif;
+    }
+
+    .epub-container {
+      width: 100%;
+      height: 78vh;
+      min-height: 460px;
+      border: 1px solid #ddd;
+      border-radius: 0 0 8px 8px;
+      overflow: hidden;
+      background: #fff;
+      position: relative;
+    }
+
+    #epub-viewer {
+      width: 100%;
+      height: 100%;
+    }
+
+    .epub-loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      gap: 1rem;
+      color: #666;
+      font-family: 'Lato', sans-serif;
+    }
+
+    .epub-spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid #ece8e2;
+      border-top-color: #a67c52;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .epub-error {
+      text-align: center;
+      padding: 2rem;
+      color: #c0392b;
+    }
+
+    .epub-error a {
+      color: #a67c52;
+    }
+
+    .epub-toc-panel {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 260px;
+      height: 100%;
+      background: #fff;
+      border-right: 1px solid #ddd;
+      overflow-y: auto;
+      z-index: 10;
+      display: none;
+      padding: 1rem;
+    }
+
+    .epub-toc-panel.open {
+      display: block;
+    }
+
+    .epub-toc-panel h3 {
+      font-size: 0.95rem;
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+      color: #a67c52;
+    }
+
+    .epub-toc-panel ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .epub-toc-panel li {
+      margin-bottom: 0.25rem;
+    }
+
+    .epub-toc-panel a {
+      font-size: 0.85rem;
+      color: #3d2b1f;
+      display: block;
+      padding: 0.3rem 0;
+      border-radius: 4px;
+      text-decoration: none;
+      font-family: 'Lato', sans-serif;
+    }
+
+    .epub-toc-panel a:hover {
+      color: #a67c52;
+      text-decoration: none;
+    }
+
+    [data-theme="dark"] .epub-toolbar {
+      background: #3d2f2f;
+      border-color: #5a4040;
+    }
+
+    [data-theme="dark"] .epub-container {
+      background: #2a2020;
+      border-color: #5a4040;
+    }
+
+    [data-theme="dark"] .epub-page-info {
+      color: #ccc;
+    }
+
+    [data-theme="dark"] .epub-toc-panel {
+      background: #2a2020;
+      border-color: #5a4040;
+    }
+
+    [data-theme="dark"] .epub-toc-panel a {
+      color: #e8ddd5;
+    }
+
+    [data-theme="dark"] .epub-loading {
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-to-content">Ir para o conteúdo</a>
+
+  <header>
+    <div class="header-content container">
+      <div class="logo">
+        <a href="index.html">Catarina de Sena</a>
+      </div>
+      <nav aria-label="Navegação principal">
+        <button class="dark-toggle" id="darkToggle" aria-label="Alternar modo noturno" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+        <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-menu"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+        <ul class="menu" id="main-menu" role="list">
+          <li><a href="index.html">Início</a></li>
+          <li><a href="biografia.html">Biografia</a></li>
+          <li><a href="obras.html" aria-current="page">Obras</a></li>
+          <li><a href="siena.html">Siena</a></li>
+          <li><a href="oratorio.html">Oratório</a></li>
+          <li><a href="eventos.html">Eventos</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div class="container">
+      <nav aria-label="Navegação estrutural" class="breadcrumb">
+        <ol>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="obras.html">Obras</a></li>
+          <li aria-current="page" id="breadcrumbTitle">Leitor</li>
+        </ol>
+      </nav>
+
+      <div class="epub-wrapper">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.75rem;">
+          <h1 id="bookTitle" style="margin:0;font-size:1.4rem;">Carregando…</h1>
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+            <a id="downloadEpubBtn" href="#" download class="btn btn-outline" style="font-size:0.85rem;">Baixar EPUB</a>
+            <a href="obras.html" class="btn btn-outline" style="font-size:0.85rem;">← Voltar</a>
+          </div>
+        </div>
+
+        <div class="epub-toolbar" role="toolbar" aria-label="Controles do leitor">
+          <div class="epub-nav-controls">
+            <button id="epubPrev" class="btn btn-outline" aria-label="Página anterior" disabled>◀ Anterior</button>
+            <span class="epub-page-info" aria-live="polite" id="epubPageInfo">—</span>
+            <button id="epubNext" class="btn btn-outline" aria-label="Próxima página" disabled>Próxima ▶</button>
+          </div>
+          <div class="epub-nav-controls">
+            <button id="epubToc" class="btn btn-outline" aria-label="Índice" style="font-size:0.85rem;">☰ Índice</button>
+          </div>
+        </div>
+
+        <div class="epub-container" role="region" aria-label="Conteúdo do livro">
+          <div id="epub-viewer">
+            <div class="epub-loading" id="epubLoading">
+              <div class="epub-spinner" aria-hidden="true"></div>
+              <p>Carregando livro…</p>
+            </div>
+          </div>
+          <div class="epub-toc-panel" id="epubTocPanel" aria-label="Índice do livro">
+            <h3>Índice</h3>
+            <ul id="epubTocList"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <p class="footer-title"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-1px;margin-right:4px"><path d="M12 2l-2 7H4l6 4-2 7 4-3 4 3-2-7 6-4h-6z"/></svg> Catarina de Sena</p>
+        <p>Um espaço de fé, devoção e conhecimento dedicado à Santa Catarina de Sena — Virgem, Mística e Doutora da Igreja.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Páginas</h4>
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="biografia.html">Biografia</a></li>
+          <li><a href="obras.html">Obras</a></li>
+          <li><a href="siena.html">Siena</a></li>
+          <li><a href="oratorio.html">Oratório</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="eventos.html">Eventos</a></li>
+          <li><a href="dialogo.html">O Diálogo</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="contato.html">Contato</a></li>
+          <li><a href="mapa-do-site.html">Mapa do Site</a></li>
+        </ul>
+        <p class="footer-candle"><a href="oratorio.html"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-1px;margin-right:3px"><path d="M12 3C12 3 8 7 8 12a4 4 0 0 0 8 0c0-5-4-9-4-9z"/><line x1="12" y1="16" x2="12" y2="21"/></svg>Acender uma vela</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="anoAtual">2025</span> — Todos os direitos reservados. Conteúdo para estudo e devoção.</p>
+      <p>Festa de Santa Catarina de Sena: <strong>29 de abril</strong></p>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" aria-label="Voltar ao topo" title="Voltar ao topo">↑</button>
+
+  <script src="scripts/menu.js" defer></script>
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="scripts/supabase.js" defer></script>
+  <script src="scripts/features.js" defer></script>
+  <!-- epub.js -->
+  <script src="https://cdn.jsdelivr.net/npm/epubjs/dist/epub.min.js"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      var params  = new URLSearchParams(window.location.search);
+      var bookUrl = params.get('book');
+
+      var titleEl        = document.getElementById('bookTitle');
+      var breadcrumbEl   = document.getElementById('breadcrumbTitle');
+      var loadingEl      = document.getElementById('epubLoading');
+      var prevBtn        = document.getElementById('epubPrev');
+      var nextBtn        = document.getElementById('epubNext');
+      var pageInfoEl     = document.getElementById('epubPageInfo');
+      var tocBtn         = document.getElementById('epubToc');
+      var tocPanel       = document.getElementById('epubTocPanel');
+      var tocList        = document.getElementById('epubTocList');
+      var downloadBtn    = document.getElementById('downloadEpubBtn');
+
+      /* Derive a clean title from the URL */
+      function titleFromUrl(url) {
+        try {
+          var name = decodeURIComponent(url).split('/').pop();
+          /* Remove extension(s) and trailing dot */
+          name = name.replace(/\.epub$/i, '').replace(/\.$/, '');
+          /* Remove parenthetical author note */
+          name = name.replace(/\s*\(Santa Catarina de Sena\)\s*/gi, '');
+          return name.trim() || 'Livro';
+        } catch (e) {
+          return 'Livro';
+        }
+      }
+
+      if (!bookUrl) {
+        loadingEl.innerHTML = '<p class="epub-error">Nenhum livro especificado. <a href="obras.html">← Voltar para obras</a></p>';
+        return;
+      }
+
+      var cleanTitle = titleFromUrl(bookUrl);
+      if (titleEl) titleEl.textContent = cleanTitle;
+      if (breadcrumbEl) breadcrumbEl.textContent = cleanTitle;
+      document.title = cleanTitle + ' — Santa Catarina de Sena';
+
+      /* Set download link */
+      if (downloadBtn) {
+        downloadBtn.href = bookUrl;
+        downloadBtn.setAttribute('download', cleanTitle + '.epub');
+      }
+
+      /* Render the EPUB */
+      var book = ePub(bookUrl);
+      var rendition = book.renderTo('epub-viewer', {
+        width:  '100%',
+        height: '100%',
+        spread: 'none'
+      });
+
+      rendition.display().then(function () {
+        if (loadingEl) loadingEl.style.display = 'none';
+        prevBtn.disabled = false;
+        nextBtn.disabled = false;
+        updatePageInfo();
+      }).catch(function (err) {
+        console.error('Erro ao renderizar EPUB:', err);
+        loadingEl.innerHTML =
+          '<p class="epub-error">Não foi possível carregar o livro.' +
+          ' <a href="obras.html">← Voltar para obras</a></p>';
+      });
+
+      /* Navigation */
+      prevBtn.addEventListener('click', function () {
+        rendition.prev().then(updatePageInfo);
+      });
+      nextBtn.addEventListener('click', function () {
+        rendition.next().then(updatePageInfo);
+      });
+
+      /* Keyboard navigation */
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft')  rendition.prev().then(updatePageInfo);
+        if (e.key === 'ArrowRight') rendition.next().then(updatePageInfo);
+      });
+
+      function updatePageInfo() {
+        var loc = rendition.currentLocation();
+        if (loc && loc.start && loc.start.displayed) {
+          var d = loc.start.displayed;
+          pageInfoEl.textContent = d.page + ' / ' + d.total;
+        } else {
+          pageInfoEl.textContent = '—';
+        }
+      }
+
+      /* Table of contents */
+      tocBtn.addEventListener('click', function () {
+        tocPanel.classList.toggle('open');
+      });
+
+      book.loaded.navigation.then(function (nav) {
+        if (!nav || !nav.toc || !nav.toc.length) return;
+        nav.toc.forEach(function (item) {
+          var li = document.createElement('li');
+          var a  = document.createElement('a');
+          a.href = '#';
+          a.textContent = item.label;
+          a.addEventListener('click', function (e) {
+            e.preventDefault();
+            rendition.display(item.href).then(updatePageInfo);
+            tocPanel.classList.remove('open');
+          });
+          li.appendChild(a);
+          tocList.appendChild(li);
+        });
+      });
+
+      /* Close TOC when clicking outside */
+      document.addEventListener('click', function (e) {
+        if (!tocPanel.contains(e.target) && e.target !== tocBtn) {
+          tocPanel.classList.remove('open');
+        }
+      });
+    })();
+  </script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sena/sw.js")
+        .catch(function(err) { console.warn("SW:", err); });
+    }
+  </script>
+</body>
+</html>

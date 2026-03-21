@@ -263,5 +263,11 @@
       });
     });
   </script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sena/sw.js")
+        .catch(function(err) { console.warn("SW:", err); });
+    }
+  </script>
 </body>
 </html>

@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Disallow: /supabase/
+
+Sitemap: https://joaoclaudiano.github.io/sena/sitemap.xml

@@ -74,17 +74,19 @@
         </div>
 
         <div class="card" data-animate>
-          <h2>Cartas</h2>
+          <h2>Cartas Completas</h2>
           <p>Santa Catarina ditou cerca de 382 cartas, endereçadas a papas (Gregório XI, Urbano VI), cardeais, reis (Carlos V da França), rainhas, condottieri, religiosos e pessoas comuns. São documentos históricos e espirituais de imenso valor.</p>
-          <a href="cartas.html" class="btn">Ler online (em breve)</a>
-          <a href="downloads/cartas-de-santa-catarina.pdf" download class="btn btn-outline">Baixar PDF</a>
+          <a href="leitor.html?book=conteudo/Cartas%20Completas%20(Santa%20Catarina%20de%20Sena)..epub" class="btn">Ler online</a>
+          <a href="conteudo/Cartas%20Completas%20(Santa%20Catarina%20de%20Sena).pdf" download="Cartas-Completas-Santa-Catarina-de-Sena.pdf" class="btn btn-outline">Baixar PDF</a>
+          <a href="conteudo/Cartas%20Completas%20(Santa%20Catarina%20de%20Sena)..epub" download="Cartas-Completas-Santa-Catarina-de-Sena.epub" class="btn btn-outline">Baixar EPUB</a>
         </div>
 
         <div class="card" data-animate>
           <h2>Orações</h2>
           <p>26 orações atribuídas a ela, compostas em êxtase. Expressam sua intimidade com Deus e seu amor pela Igreja.</p>
-          <a href="oracoes.html" class="btn">Ler online (em breve)</a>
-          <a href="downloads/oracoes-de-santa-catarina.pdf" download class="btn btn-outline">Baixar PDF</a>
+          <a href="leitor.html?book=conteudo/As%20ora%C3%A7%C3%B5es%20(Santa%20Catarina%20de%20Sena).epub" class="btn">Ler online</a>
+          <a href="conteudo/As%20ora%C3%A7%C3%B5es%20(Santa%20Catarina%20de%20Sena)%20.pdf" download="As-oracoes-Santa-Catarina-de-Sena.pdf" class="btn btn-outline">Baixar PDF</a>
+          <a href="conteudo/As%20ora%C3%A7%C3%B5es%20(Santa%20Catarina%20de%20Sena).epub" download="As-oracoes-Santa-Catarina-de-Sena.epub" class="btn btn-outline">Baixar EPUB</a>
         </div>
       </section>
     </div>
@@ -131,5 +133,11 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="scripts/supabase.js" defer></script>
   <script src="scripts/features.js" defer></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sena/sw.js")
+        .catch(function(err) { console.warn("SW:", err); });
+    }
+  </script>
 </body>
 </html>
