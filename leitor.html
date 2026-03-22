@@ -343,6 +343,15 @@
 
       /* Render the EPUB */
       var book = ePub(bookUrl);
+
+      /* Catch silent load failures (network error, invalid file, etc.) */
+      book.on('openFailed', function (err) {
+        console.error('Erro ao abrir EPUB:', err);
+        if (loadingEl) loadingEl.innerHTML =
+          '<p class="epub-error">Não foi possível carregar o livro.' +
+          ' <a href="obras.html">← Voltar para obras</a></p>';
+      });
+
       var rendition = book.renderTo('epub-viewer', {
         width:  '100%',
         height: '100%',
@@ -356,7 +365,7 @@
         updatePageInfo();
       }).catch(function (err) {
         console.error('Erro ao renderizar EPUB:', err);
-        loadingEl.innerHTML =
+        if (loadingEl) loadingEl.innerHTML =
           '<p class="epub-error">Não foi possível carregar o livro.' +
           ' <a href="obras.html">← Voltar para obras</a></p>';
       });
