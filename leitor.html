@@ -337,6 +337,16 @@
         return;
       }
 
+      /* Remap legacy file paths (old names with spaces/accents) to current names */
+      var legacyPaths = {
+        'conteudo/Cartas Completas (Santa Catarina de Sena).epub': 'conteudo/cartas-completas.epub',
+        'conteudo/As orações (Santa Catarina de Sena).epub':       'conteudo/oracoes.epub'
+      };
+      if (Object.prototype.hasOwnProperty.call(legacyPaths, bookUrl)) {
+        bookUrl = legacyPaths[bookUrl];
+        history.replaceState(null, '', location.pathname + '?book=' + encodeURIComponent(bookUrl));
+      }
+
       var cleanTitle = titleFromUrl(bookUrl);
       if (titleEl) titleEl.textContent = cleanTitle;
       if (breadcrumbEl) breadcrumbEl.textContent = cleanTitle;
