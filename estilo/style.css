@@ -2934,3 +2934,283 @@ main > .hero-section:first-child {
 [data-theme="dark"] .sitemap-search-label {
   color: #c9956c;
 }
+
+/* ===== REDE DE VIRTUDES — NETWORK GRAPH ===== */
+.network-section {
+  margin: 3rem 0;
+}
+
+.network-section h2 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.network-subtitle {
+  text-align: center;
+  color: #7f8c8d;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  font-family: 'Lato', sans-serif;
+}
+
+.network-legend {
+  display: flex;
+  justify-content: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.75rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #555;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.legend-dot.type-virtude  { background: #a67c52; }
+.legend-dot.type-citacao  { background: #6b8e9f; }
+.legend-dot.type-episodio { background: #7a9e7e; }
+
+/* Graph container — circular layout on desktop */
+.network-graph {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  margin: 0 auto;
+}
+
+/* SVG overlay for connection lines */
+.network-svg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: visible;
+}
+
+/* Individual node wrapper */
+.network-node {
+  position: absolute;
+  z-index: 2;
+  cursor: pointer;
+  /* card centred on the computed x/y point */
+}
+
+/* Card */
+.node-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 0.6rem 0.75rem 0.65rem;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.09);
+  border-top: 3px solid #a67c52;
+  font-family: 'Lato', sans-serif;
+  text-align: center;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.3s ease,
+              opacity 0.3s ease;
+  will-change: transform, opacity;
+}
+
+.node-card.type-virtude  { border-top-color: #a67c52; }
+.node-card.type-citacao  { border-top-color: #6b8e9f; }
+.node-card.type-episodio { border-top-color: #7a9e7e; }
+
+.node-emoji {
+  display: block;
+  font-size: 1.3rem;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.node-title {
+  font-weight: 700;
+  font-size: 0.72rem;
+  color: #4a3428;
+  margin-bottom: 0.2rem;
+  line-height: 1.2;
+}
+
+.node-desc {
+  font-size: 0.63rem;
+  color: #888;
+  line-height: 1.35;
+}
+
+/* Active (hovered/focused) card scale */
+.network-node.ng-active .node-card {
+  transform: translate(-50%, -50%) scale(1.15);
+  box-shadow: 0 10px 32px rgba(0,0,0,0.18);
+  z-index: 10;
+}
+
+/* Popup tooltip */
+.node-popup {
+  position: absolute;
+  width: 220px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  box-shadow: 0 10px 36px rgba(0,0,0,0.18);
+  font-family: 'Lato', sans-serif;
+  font-size: 0.78rem;
+  color: #333;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 20;
+  transition: opacity 0.25s ease,
+              transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform: translateX(-50%) scale(0.88);
+  left: 50%;
+  bottom: calc(100% + 14px);
+}
+
+.network-node.ng-active .node-popup {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) scale(1);
+}
+
+.popup-type {
+  display: inline-block;
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  padding: 0.15rem 0.5rem;
+  border-radius: 20px;
+  margin-bottom: 0.4rem;
+  color: #fff;
+}
+
+.popup-type-virtude  { background: #a67c52; }
+.popup-type-citacao  { background: #6b8e9f; }
+.popup-type-episodio { background: #7a9e7e; }
+
+.popup-title {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #2c2c2c;
+  margin-bottom: 0.4rem;
+}
+
+.popup-text {
+  font-size: 0.75rem;
+  color: #555;
+  line-height: 1.55;
+}
+
+/* Mobile: stacked grid, no SVG lines */
+@media (max-width: 600px) {
+  .network-graph {
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    padding: 0.25rem;
+  }
+
+  .network-svg {
+    display: none;
+  }
+
+  .network-node {
+    position: static;
+  }
+
+  .node-card {
+    position: static;
+    transform: none;
+    width: 100%;
+    text-align: left;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0.6rem 0.7rem;
+  }
+
+  .node-emoji {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    margin-bottom: 0;
+  }
+
+  .network-node.ng-active .node-card {
+    transform: none;
+  }
+
+  .node-popup {
+    position: static;
+    opacity: 1 !important;
+    pointer-events: auto;
+    transform: none !important;
+    box-shadow: none;
+    border: 1px solid #ece8e2;
+    margin-top: 0.4rem;
+    width: 100%;
+    display: none;
+    border-radius: 8px;
+    padding: 0.65rem 0.75rem;
+  }
+
+  .network-node.ng-active .node-popup {
+    display: block;
+  }
+}
+
+/* Dark mode */
+[data-theme="dark"] .network-subtitle {
+  color: #9e8e90;
+}
+
+[data-theme="dark"] .legend-item {
+  color: #b0a0a8;
+}
+
+[data-theme="dark"] .node-card {
+  background: #2a1f2e;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+  color: #e8ddd5;
+}
+
+[data-theme="dark"] .node-title {
+  color: #e8c8a8;
+}
+
+[data-theme="dark"] .node-desc {
+  color: #9e8e90;
+}
+
+[data-theme="dark"] .node-popup {
+  background: #2a1f2e;
+  box-shadow: 0 10px 36px rgba(0,0,0,0.45);
+  color: #e8ddd5;
+}
+
+[data-theme="dark"] .popup-title {
+  color: #e8c8a8;
+}
+
+[data-theme="dark"] .popup-text {
+  color: #b0a0a8;
+}
+
+@media (max-width: 600px) {
+  [data-theme="dark"] .node-popup {
+    border-color: #3d2f3a;
+  }
+}
