@@ -14,6 +14,19 @@ create table if not exists public.visitas (
   referrer    text
 );
 
+-- Adiciona session_id se a tabela já existia sem essa coluna
+do $$
+begin
+  if not exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public'
+      and table_name   = 'visitas'
+      and column_name  = 'session_id'
+  ) then
+    alter table public.visitas add column session_id text;
+  end if;
+end $$;
+
 -- Habilita Row Level Security
 alter table public.visitas enable row level security;
 

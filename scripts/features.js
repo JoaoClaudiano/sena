@@ -264,20 +264,6 @@ var ICONS = {
   setInterval(function () { showSlide(current + 1); }, 5500);
 })();
 
-/* ===== HERO PARALLAX AO ROLAR ===== */
-(function () {
-  var heroSlideshow = document.getElementById('heroSlideshow');
-  if (!heroSlideshow) return;
-
-  function onScroll() {
-    var scrolled = window.scrollY;
-    if (scrolled < 0) return;
-    heroSlideshow.style.transform = 'translateY(' + (scrolled * 0.38) + 'px)';
-  }
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-})();
-
 /* ===== FAQ ACCORDION ===== */
 (function () {
   var questions = document.querySelectorAll('.faq-question');

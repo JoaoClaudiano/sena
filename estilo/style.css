@@ -975,12 +975,21 @@ main > .hero-section:first-child {
   background-image: url('../imagens/Giovanni_Battista_Tiepolo_Santa_Catarina_de_Sena.jpg');
   background-size: cover;
   background-position: center top;
+  background-attachment: fixed;
 }
 
 .slide.slide-2 {
   background-image: url('../imagens/Franceschini_Baldassare_St_Catherine_of_Siena.jpg');
   background-size: cover;
   background-position: center;
+  background-attachment: fixed;
+}
+
+/* Touch devices (iOS Safari) do not support background-attachment: fixed properly */
+@media (hover: none) {
+  .slide {
+    background-attachment: scroll;
+  }
 }
 
 .slide-dot.active {
