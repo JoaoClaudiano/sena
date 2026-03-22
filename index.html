@@ -224,6 +224,18 @@
         </div>
       </section>
 
+      <!-- Rede de Virtudes -->
+      <section class="network-section" data-animate aria-label="Rede de virtudes, citações e episódios de Santa Catarina de Sena">
+        <h2>Rede de Virtudes</h2>
+        <p class="network-subtitle">Virtudes, citações e episódios entrelaçados na vida de Santa Catarina</p>
+        <div class="network-legend" aria-hidden="true">
+          <span class="legend-item"><span class="legend-dot type-virtude"></span> Virtude</span>
+          <span class="legend-item"><span class="legend-dot type-citacao"></span> Citação</span>
+          <span class="legend-item"><span class="legend-dot type-episodio"></span> Episódio</span>
+        </div>
+        <div class="network-graph" id="networkGraph" aria-label="Gráfico interativo de nós conectados"></div>
+      </section>
+
       <!-- Frase principal -->
       <section class="frase" data-animate>
         <blockquote>
@@ -280,6 +292,7 @@
   <button class="back-to-top" id="backToTop" aria-label="Voltar ao topo" title="Voltar ao topo">↑</button>
 
   <script src="scripts/menu.js" defer></script>
+  <script src="scripts/network-graph.js" defer></script>
   <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="scripts/supabase.js" defer></script>
