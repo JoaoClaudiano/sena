@@ -181,6 +181,12 @@
   </style>
 </head>
 <body>
+  <div id="page-bg" aria-hidden="true">
+    <div class="page-bg-img bg-1 active"></div>
+    <div class="page-bg-img bg-2"></div>
+    <div id="page-bg-overlay"></div>
+  </div>
+  <div id="page-grain" aria-hidden="true"></div>
   <a href="#main-content" class="skip-to-content">Ir para o conteúdo</a>
 
   <header>
@@ -281,6 +287,7 @@
     <div class="footer-bottom">
       <p>© <span id="anoAtual">2025</span> — Todos os direitos reservados. Conteúdo para estudo e devoção.</p>
       <p>Festa de Santa Catarina de Sena: <strong>29 de abril</strong></p>
+      <p class="footer-legal"><a href="privacidade.html">Política de Privacidade</a> · <a href="termos.html">Termos de Uso</a></p>
     </div>
   </footer>
 
@@ -291,8 +298,8 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="scripts/supabase.js" defer></script>
   <script src="scripts/features.js" defer></script>
-  <!-- epub.js -->
-  <script src="https://cdn.jsdelivr.net/npm/epubjs/dist/epub.min.js"></script>
+  <!-- epub.js pinned to stable 0.3.93 -->
+  <script src="https://cdn.jsdelivr.net/npm/epubjs@0.3.93/dist/epub.min.js"></script>
   <script>
     (function () {
       'use strict';
@@ -344,6 +351,17 @@
       /* Render the EPUB */
       var book = ePub(bookUrl);
 
+      /* Safety timeout — if the book hasn't rendered in 20s, show a friendly error */
+      var loadTimeout = setTimeout(function () {
+        if (loadingEl && loadingEl.style.display !== 'none') {
+          loadingEl.innerHTML =
+            '<p class="epub-error">O livro demorou muito para carregar. ' +
+            'Tente <a href="' + bookUrl + '" download>baixar o arquivo</a> e abrir ' +
+            'com um leitor EPUB (ex.: Calibre ou iBooks). ' +
+            '<a href="obras.html">← Voltar para obras</a></p>';
+        }
+      }, 20000);
+
       /* Catch silent load failures (network error, invalid file, etc.) */
       book.on('openFailed', function (err) {
         console.error('Erro ao abrir EPUB:', err);
@@ -359,11 +377,13 @@
       });
 
       rendition.display().then(function () {
+        clearTimeout(loadTimeout);
         if (loadingEl) loadingEl.style.display = 'none';
         prevBtn.disabled = false;
         nextBtn.disabled = false;
         updatePageInfo();
       }).catch(function (err) {
+        clearTimeout(loadTimeout);
         console.error('Erro ao renderizar EPUB:', err);
         if (loadingEl) loadingEl.innerHTML =
           '<p class="epub-error">Não foi possível carregar o livro.' +

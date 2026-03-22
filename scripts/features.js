@@ -120,6 +120,48 @@ var ICONS = {
   elements.forEach(function (el) { observer.observe(el); });
 })();
 
+/* ===== FUNDO DA PÁGINA — PARALLAX COM GRAIN ===== */
+(function () {
+  var bg1 = document.querySelector('.page-bg-img.bg-1');
+  var bg2 = document.querySelector('.page-bg-img.bg-2');
+  var grain = document.getElementById('page-grain');
+  if (!bg1 || !bg2) return;
+
+  var currentBg = 1;
+  var transitioning = false;
+
+  function switchToBg(n) {
+    if (transitioning || n === currentBg) return;
+    transitioning = true;
+
+    if (grain) grain.classList.add('active');
+
+    setTimeout(function () {
+      if (n === 2) {
+        bg1.classList.remove('active');
+        bg2.classList.add('active');
+      } else {
+        bg2.classList.remove('active');
+        bg1.classList.add('active');
+      }
+      currentBg = n;
+    }, 180);
+
+    setTimeout(function () {
+      if (grain) grain.classList.remove('active');
+      transitioning = false;
+    }, 420);
+  }
+
+  window.addEventListener('scroll', function () {
+    var scrolled = window.scrollY || document.documentElement.scrollTop;
+    var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (totalHeight <= 0) return;
+    var fraction = scrolled / totalHeight;
+    switchToBg(fraction > 0.45 ? 2 : 1);
+  }, { passive: true });
+})();
+
 /* ===== BOTÃO VOLTAR AO TOPO ===== */
 (function () {
   var btn = document.getElementById('backToTop');
