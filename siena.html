@@ -28,6 +28,12 @@
   <link rel="manifest" href="site.webmanifest">
 </head>
 <body>
+  <div id="page-bg" aria-hidden="true">
+    <div class="page-bg-img bg-1 active"></div>
+    <div class="page-bg-img bg-2"></div>
+    <div id="page-bg-overlay"></div>
+  </div>
+  <div id="page-grain" aria-hidden="true"></div>
   <a href="#main-content" class="skip-to-content">Ir para o conteúdo</a>
 
   <header>
@@ -114,6 +120,52 @@
         <h2>Mapa dos Lugares Sagrados</h2>
         <p>Explore no mapa os principais locais ligados a Santa Catarina em Siena e na Itália.</p>
         <div id="mapa-siena" class="map-container" role="application" aria-label="Mapa interativo com lugares ligados a Santa Catarina em Siena"></div>
+      </section>
+
+      <!-- Santa Catarina de Sena no Brasil -->
+      <section id="brasil" aria-label="Santa Catarina de Sena no Brasil">
+        <h2>🇧🇷 Santa Catarina de Sena no Brasil</h2>
+        <p>A devoção a Santa Catarina de Sena chegou ao Brasil junto com os dominicanos e se espalhou por todo o país. Igrejas, paróquias, capelas e obras sociais carregam seu nome — testemunho vivo de uma fé que atravessou o Atlântico e floresceu em solo brasileiro.</p>
+
+        <div class="siena-place" data-animate>
+          <h3>🏛️ Mosteiro de Nossa Senhora do Rosário — Olinda/PE</h3>
+          <p><strong>Localização:</strong> Olinda, Pernambuco (Patrimônio Mundial UNESCO)</p>
+          <p>Fundado pelos dominicanos ainda no século XVI, o Convento de Olinda é o mais antigo mosteiro dominicano das Américas. A Ordem dos Pregadores — família religiosa de Santa Catarina — aqui se estabeleceu em 1558 e mantém viva a espiritualidade dominicana, que inclui a devoção à patrona terciária Catarina de Sena.</p>
+          <p>O convento abriga uma das mais belas igrejas barrocas do Brasil e é centro de estudos filosófico-teológicos da Ordem no Brasil.</p>
+        </div>
+
+        <div class="siena-place" data-animate>
+          <h3>⛪ Paróquia Santa Catarina de Sena — São Paulo/SP</h3>
+          <p><strong>Localização:</strong> Bairro Saúde, São Paulo, SP</p>
+          <p>Uma das paróquias paulistanas dedicadas à santa sienense. Como em muitas cidades do Brasil, a devoção a Santa Catarina está presente em comunidades de origem italiana — herança dos imigrantes italianos que trouxeram sua fé na padroeira da Itália para as terras brasileiras. A celebração da festa em 29 de abril costuma reunir fiéis de diversas gerações.</p>
+        </div>
+
+        <div class="siena-place" data-animate>
+          <h3>🏘️ Comunidades Dominicanas no Brasil</h3>
+          <p>A Ordem dos Pregadores (Dominicanos) mantém presença ativa em várias cidades brasileiras. Dado que Santa Catarina pertenceu à Terceira Ordem de São Domingos, sua memória é especialmente venerada nas comunidades dominicanas:</p>
+          <ul style="padding-left: 1.5rem; margin-bottom: 1rem;">
+            <li><strong>Convento de São Domingos</strong> — Vitória, ES: sede provincial dos dominicanos no Brasil, com forte devoção à santa</li>
+            <li><strong>Instituto Teológico São Domingos</strong> — Niterói, RJ: centro acadêmico dominicano com estudos sobre a mística sienense</li>
+            <li><strong>Irmãs Dominicanas</strong> — diversas cidades: congregações femininas de inspiração dominicana, com especial devoção a Catarina</li>
+            <li><strong>Leigos Dominicanos (Fraternidades da Terceira Ordem)</strong> — grupos espalhados por todo o Brasil que celebram a festa de 29 de abril</li>
+          </ul>
+        </div>
+
+        <div class="siena-place" data-animate>
+          <h3>✨ Herança Italiana e Devoção Popular</h3>
+          <p>Em cidades com forte imigração italiana — especialmente no Rio Grande do Sul (Caxias do Sul, Bento Gonçalves, Farroupilha), em Santa Catarina (Criciúma, Urussanga, Nova Veneza) e no interior de São Paulo — a devoção a Santa Catarina se fundiu com a identidade cultural ítalo-brasileira.</p>
+          <p>Capelas dedicadas à santa, festas paroquiais em 29 de abril, terzinas (procissões) e devoções privadas mantidas por famílias de descendência italiana mantêm viva essa tradição por gerações. O nome "Catarina" também é um dos mais comuns entre mulheres de descendência italiana no Sul do Brasil — homenagem à grande padroeira da Itália.</p>
+          <p>Em São Paulo, a histórica <strong>Igreja do Glicério</strong> (bairro Glicério, antiga colônia italiana) e outras igrejas ligadas à imigração têm imagens e devoções ligadas a Santa Catarina de Sena.</p>
+        </div>
+
+        <!-- Mapa do Brasil -->
+        <h3 style="margin-top:2rem;">Locais no Brasil ligados à devoção a Santa Catarina de Sena</h3>
+        <p>O mapa abaixo destaca algumas das principais comunidades, conventos e paróquias dedicados à santa ou com forte tradição dominicana no Brasil.</p>
+        <div id="mapa-brasil" class="map-container" role="application" aria-label="Mapa interativo com locais no Brasil ligados a Santa Catarina de Sena"></div>
+
+        <div class="arte-item-artwork-note" style="margin-top:1.5rem; padding: 1rem 1.25rem; background:rgba(166,124,82,0.08); border-left:4px solid #a67c52; border-radius:0 6px 6px 0;">
+          <p style="margin:0;font-size:0.9rem;"><strong>💡 Conhece uma igreja ou comunidade dedicada a Santa Catarina de Sena no Brasil?</strong> Entre em <a href="contato.html">contato conosco</a> para que possamos incluir no mapa e expandir este registro da devoção catarina no país.</p>
+        </div>
       </section>
 
       <!-- Galeria de Arte -->
@@ -227,6 +279,7 @@
     <div class="footer-bottom">
       <p>© <span id="anoAtual">2025</span> — Todos os direitos reservados. Conteúdo para estudo e devoção.</p>
       <p>Festa de Santa Catarina de Sena: <strong>29 de abril</strong></p>
+      <p class="footer-legal"><a href="privacidade.html">Política de Privacidade</a> · <a href="termos.html">Termos de Uso</a></p>
     </div>
   </footer>
 
@@ -241,6 +294,8 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       if (typeof L === 'undefined') return;
+
+      /* ── Mapa de Siena ── */
       var mapa = L.map('mapa-siena', { scrollWheelZoom: false }).setView([43.3186, 11.3309], 13);
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -261,6 +316,33 @@
           .addTo(mapa)
           .bindPopup('<strong>' + l.nome + '</strong><br>' + l.desc);
       });
+
+      /* ── Mapa do Brasil ── */
+      if (document.getElementById('mapa-brasil')) {
+        var mapaBR = L.map('mapa-brasil', { scrollWheelZoom: false }).setView([-15.78, -47.93], 4);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 18,
+          attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(mapaBR);
+
+        var lugaresBR = [
+          { lat: -8.0089, lng: -34.8553, nome: 'Convento de São Domingos — Olinda/PE', desc: 'O mais antigo mosteiro dominicano das Américas (1558). Berço da espiritualidade dominicana no Brasil, que inclui a devoção a Santa Catarina de Sena.' },
+          { lat: -23.5937, lng: -46.6547, nome: 'Paróquia Santa Catarina de Sena — São Paulo/SP', desc: 'Bairro Saúde. Comunidade paroquial dedicada à santa sienense, com celebração especial em 29 de abril.' },
+          { lat: -20.3194, lng: -40.3380, nome: 'Convento São Domingos — Vitória/ES', desc: 'Sede da Província Dominicana do Brasil. Centro da espiritualidade dominicana, onde a memória de Santa Catarina é especialmente cultivada.' },
+          { lat: -22.8833, lng: -43.1036, nome: 'Instituto Teológico São Domingos — Niterói/RJ', desc: 'Centro acadêmico dominicano com estudos sobre a mística e escritos de Santa Catarina de Sena.' },
+          { lat: -29.1678, lng: -51.1794, nome: 'Comunidade Ítalo-Brasileira — Caxias do Sul/RS', desc: 'Região de forte imigração italiana. Devoção popular a Santa Catarina de Sena mantida por famílias de descendência italiana há gerações.' },
+          { lat: -28.6848, lng: -49.3594, nome: 'Região de Imigração Italiana — Criciúma/SC', desc: 'Sul de Santa Catarina: cidades como Criciúma, Urussanga e Nova Veneza guardam tradição devocional italiana, incluindo a devoção à padroeira da Itália.' },
+          { lat: -22.9035, lng: -43.1731, nome: 'Igreja do Glicério — Rio de Janeiro/RJ', desc: 'Região histórica da colônia italiana no Rio de Janeiro, com imagens e devoções ligadas a Santa Catarina de Sena.' },
+          { lat: -25.4284, lng: -49.2733, nome: 'Fraternidade Dominicana Leiga — Curitiba/PR', desc: 'Grupo de leigos dominicanos que celebra a festa de Santa Catarina de Sena em 29 de abril com orações, meditação e estudo dos escritos de Santa Catarina.' }
+        ];
+
+        lugaresBR.forEach(function (l) {
+          L.marker([l.lat, l.lng])
+            .addTo(mapaBR)
+            .bindPopup('<strong>' + l.nome + '</strong><br>' + l.desc);
+        });
+      }
     });
   </script>
   <script>

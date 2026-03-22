@@ -9,8 +9,72 @@ body {
   font-family: 'Merriweather', Georgia, 'Times New Roman', serif;
   line-height: 1.6;
   color: #2c3e50;
-  background-color: #f9f7f4;
+  background-color: transparent;
   padding: 0 1rem;
+}
+
+/* ===== FUNDO COMPLETO DA PÁGINA (PARALLAX) ===== */
+#page-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.page-bg-img {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  opacity: 0;
+  transition: opacity 1.4s ease;
+}
+
+.page-bg-img.active {
+  opacity: 1;
+}
+
+.page-bg-img.bg-1 {
+  background-image: url('../imagens/Saint_Catherine_by_Andrea_Vanni,_San_Domenico,_Siena.jpg');
+  background-position: center top;
+}
+
+.page-bg-img.bg-2 {
+  background-image: url('../imagens/Domenico_Beccafumi_-_Stigmatization_of_St_Catherine_of_Siena_-_WGA01536.jpg');
+  background-position: center center;
+}
+
+#page-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(249,247,244,0.84);
+}
+
+/* Grain para transição do fundo da página */
+#page-grain {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  mix-blend-mode: overlay;
+}
+
+#page-grain.active {
+  opacity: 0.55;
+}
+
+/* iOS/Android: background-attachment:fixed não funciona bem */
+@media (hover: none) {
+  .page-bg-img {
+    background-attachment: scroll;
+  }
 }
 
 /* Tipografia */
@@ -378,8 +442,12 @@ footer p {
 }
 
 [data-theme="dark"] body {
-  background-color: #1a1520;
+  background-color: transparent;
   color: #e8ddd5;
+}
+
+[data-theme="dark"] #page-bg-overlay {
+  background: rgba(26,21,32,0.88);
 }
 
 [data-theme="dark"] h1,
@@ -873,7 +941,9 @@ main > .hero-section:first-child {
 }
 
 .hero-quote-badge {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   background: rgba(255,255,255,0.12);
   border: 1px solid rgba(255,255,255,0.35);
   color: rgba(255,255,255,0.9);
@@ -1367,6 +1437,16 @@ main > .hero-section:first-child {
   font-size: 0.85rem;
   color: #7f8c8d;
   margin-bottom: 0.4rem;
+}
+
+.footer-legal a {
+  color: #a67c52;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.footer-legal a:hover {
+  text-decoration: underline;
 }
 
 [data-theme="dark"] .footer-links ul li a {
@@ -2683,6 +2763,32 @@ main > .hero-section:first-child {
 }
 
 /* ===== MOBILE FIXES ===== */
+@media (max-width: 600px) {
+  .hero-section {
+    min-height: 100svh;
+    min-height: 100vh;
+  }
+
+  .hero-content {
+    padding: 4rem 1rem;
+  }
+
+  .hero-content h1 {
+    font-size: 2rem;
+    letter-spacing: 0;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .hero-quote-badge {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    padding: 0.35rem 0.9rem;
+  }
+}
+
 @media (max-width: 480px) {
   .hero-content h1 {
     font-size: 2.2rem;
@@ -2730,6 +2836,7 @@ main > .hero-section:first-child {
   .btn-hero, .btn-hero-outline {
     width: 100%;
     text-align: center;
+    justify-content: center;
   }
 }
 
