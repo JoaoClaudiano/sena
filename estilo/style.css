@@ -29,11 +29,18 @@ body {
   background-position: center;
   background-attachment: fixed;
   opacity: 0;
-  transition: opacity 1.4s ease;
+  filter: none;
+  will-change: opacity, filter;
+  transition: opacity 0.8s ease, filter 0.35s ease;
 }
 
 .page-bg-img.active {
   opacity: 1;
+}
+
+/* Efeito de queima/super-saturação durante a transição */
+.page-bg-img.burning {
+  filter: saturate(3) brightness(1.5) contrast(1.2);
 }
 
 .page-bg-img.bg-1 {
@@ -68,6 +75,21 @@ body {
 
 #page-grain.active {
   opacity: 0.55;
+}
+
+/* Canvas de grão animado — criado dinamicamente pelo JS durante as transições */
+#page-parallax-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  mix-blend-mode: overlay;
+  will-change: opacity;
+  transition: opacity 0.2s ease;
+}
+
+#page-parallax-grain.active {
+  opacity: 0.5;
 }
 
 /* iOS/Android: background-attachment:fixed não funciona bem */
