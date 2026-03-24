@@ -29,18 +29,11 @@ body {
   background-position: center;
   background-attachment: fixed;
   opacity: 0;
-  filter: none;
-  will-change: opacity, filter;
-  transition: opacity 0.8s ease, filter 0.35s ease;
+  transition: opacity 1.4s ease;
 }
 
 .page-bg-img.active {
   opacity: 1;
-}
-
-/* Efeito de queima/super-saturação durante a transição */
-.page-bg-img.burning {
-  filter: saturate(3) brightness(1.5) contrast(1.2);
 }
 
 .page-bg-img.bg-1 {
@@ -75,21 +68,6 @@ body {
 
 #page-grain.active {
   opacity: 0.55;
-}
-
-/* Canvas de grão animado — criado dinamicamente pelo JS durante as transições */
-#page-parallax-grain {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0;
-  mix-blend-mode: overlay;
-  will-change: opacity;
-  transition: opacity 0.2s ease;
-}
-
-#page-parallax-grain.active {
-  opacity: 0.5;
 }
 
 /* iOS/Android: background-attachment:fixed não funciona bem */
@@ -141,6 +119,8 @@ header {
   position: sticky;
   top: 0;
   z-index: 100;
+  /* Break out of body padding so header spans full viewport width */
+  margin-inline: -1rem;
 }
 
 .header-content {
@@ -369,11 +349,13 @@ section {
 footer {
   background-color: #fff;
   border-top: 1px solid #eee;
-  padding: 2rem 0;
+  padding: 2rem 1rem;
   margin-top: 2rem;
   text-align: center;
   color: #7f8c8d;
   font-size: 0.9rem;
+  /* Break out of body padding so footer spans full viewport width */
+  margin-inline: -1rem;
 }
 
 footer p {
@@ -829,6 +811,15 @@ footer p {
     padding: 0 2rem;
   }
 
+  header {
+    margin-inline: -2rem;
+  }
+
+  footer {
+    margin-inline: -2rem;
+    padding-inline: 2rem;
+  }
+
   .container {
     max-width: 750px;
     margin: 0 auto;
@@ -923,11 +914,21 @@ footer p {
   display: flex;
   align-items: center;
   overflow: hidden;
+  /* Break out of body horizontal padding so hero is always full-width */
+  margin-inline: -1rem;
+  width: calc(100% + 2rem);
 }
 
 main > .hero-section:first-child {
   /* Compensate for main's 2rem top padding to make the hero flush with the header */
   margin-top: -2rem;
+}
+
+@media (min-width: 768px) {
+  .hero-section {
+    margin-inline: -2rem;
+    width: calc(100% + 4rem);
+  }
 }
 
 .hero-slideshow {
@@ -1073,14 +1074,21 @@ main > .hero-section:first-child {
 .slide.slide-2 {
   background-image: url('../imagens/Franceschini_Baldassare_St_Catherine_of_Siena.jpg');
   background-size: cover;
-  background-position: center;
+  /* 20% from top keeps the saint's face/upper body visible in portrait framing */
+  background-position: center 20%;
   background-attachment: fixed;
 }
 
-/* Touch devices (iOS Safari) do not support background-attachment: fixed properly */
-@media (hover: none) {
+/* Touch/mobile devices: background-attachment:fixed doesn't render correctly on iOS Safari
+   and many Android browsers. Use scroll to ensure images display properly. */
+@media (hover: none), (pointer: coarse) {
   .slide {
     background-attachment: scroll;
+    background-position: center top;
+  }
+
+  .slide.slide-2 {
+    background-position: center 20%;
   }
 }
 
@@ -2792,36 +2800,117 @@ main > .hero-section:first-child {
   }
 
   .hero-content {
-    padding: 4rem 1rem;
+    padding: 3.5rem 1.25rem;
   }
 
   .hero-content h1 {
-    font-size: 2rem;
+    /* Reduced from 3.5rem desktop to fit mobile viewport without overflow */
+    font-size: 2.1rem;
     letter-spacing: 0;
+    line-height: 1.25;
   }
 
   .hero-subtitle {
     font-size: 1rem;
+    margin-bottom: 2rem;
   }
 
   .hero-quote-badge {
     font-size: 0.7rem;
     letter-spacing: 2px;
     padding: 0.35rem 0.9rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .btn-hero, .btn-hero-outline {
+    width: 100%;
+    max-width: 280px;
+    text-align: center;
+    justify-content: center;
+    padding: 0.9rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .slide-indicators {
+    bottom: 1rem;
+  }
+
+  /* Cards de destaque em coluna única no mobile */
+  .destaques-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .destaque-card {
+    padding: 1.25rem 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .destaque-icon {
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+
+  .destaque-icon svg {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .destaque-card h3 {
+    margin-top: 0.15rem;
+    font-size: 1rem;
+  }
+
+  /* Galeria 2 colunas no mobile */
+  .arte-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+  }
+
+  /* Mural */
+  .mural-section {
+    padding: 2rem 1rem;
+    border-radius: 8px;
+  }
+
+  .mural-slide blockquote p {
+    font-size: 1.1rem;
+  }
+
+  /* Seção de partilha social */
+  .social-share {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  /* Seção de frase em destaque */
+  .frase blockquote p {
+    font-size: 1.1rem;
+  }
+
+  /* Rodapé */
+  .footer-grid {
+    gap: 1.5rem;
   }
 }
 
 @media (max-width: 480px) {
   .hero-content h1 {
-    font-size: 2.2rem;
+    font-size: 1.95rem;
   }
 
   .arte-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .destaques-grid {
-    grid-template-columns: 1fr;
   }
 
   .arte-lightbox-inner {
@@ -2841,24 +2930,24 @@ main > .hero-section:first-child {
   }
 
   .mural-slide blockquote p {
-    font-size: 1.15rem;
+    font-size: 1.05rem;
   }
 }
 
 @media (max-width: 360px) {
   .hero-content h1 {
-    font-size: 1.85rem;
-  }
-
-  .hero-actions {
-    flex-direction: column;
-    align-items: center;
+    font-size: 1.75rem;
   }
 
   .btn-hero, .btn-hero-outline {
     width: 100%;
+    max-width: 100%;
     text-align: center;
     justify-content: center;
+  }
+
+  .arte-grid {
+    grid-template-columns: 1fr;
   }
 }
 
