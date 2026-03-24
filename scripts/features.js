@@ -124,122 +124,41 @@ var ICONS = {
 (function () {
   var bg1 = document.querySelector('.page-bg-img.bg-1');
   var bg2 = document.querySelector('.page-bg-img.bg-2');
-  var pageGrain = document.getElementById('page-grain');
+  var grain = document.getElementById('page-grain');
   if (!bg1 || !bg2) return;
 
-  /* Array de imagens — substitua as URLs pelos seus arquivos */
-  var images = [
-    'imagens/Saint_Catherine_by_Andrea_Vanni,_San_Domenico,_Siena.jpg',
-    'imagens/Domenico_Beccafumi_-_Stigmatization_of_St_Catherine_of_Siena_-_WGA01536.jpg',
-    'imagens/Giovanni_Battista_Tiepolo_Santa_Catarina_de_Sena.jpg'
-  ];
-
-  /* Posições de scroll (em px) que disparam cada imagem */
-  var scrollBreakpoints = [0, 600, 1200];
-
-  /* Pré‑carregamento das imagens */
-  images.forEach(function (src) {
-    var img = new Image();
-    img.src = src;
-  });
-
-  /* Canvas de grão animado — criado dinamicamente */
-  var grainCanvas = document.createElement('canvas');
-  grainCanvas.id = 'page-parallax-grain';
-  grainCanvas.setAttribute('aria-hidden', 'true');
-  var pageBg = document.getElementById('page-bg');
-  if (pageBg) pageBg.appendChild(grainCanvas);
-
-  var ctx = grainCanvas.getContext('2d');
-  var grainRaf = null;
-
-  function resizeGrain() {
-    grainCanvas.width = window.innerWidth;
-    grainCanvas.height = window.innerHeight;
-  }
-  resizeGrain();
-  window.addEventListener('resize', resizeGrain, { passive: true });
-
-  function drawGrain() {
-    var w = grainCanvas.width;
-    var h = grainCanvas.height;
-    var imageData = ctx.createImageData(w, h);
-    var d = imageData.data;
-    for (var i = 0; i < d.length; i += 4) {
-      var v = (Math.random() * 180) | 0;
-      d[i] = d[i + 1] = d[i + 2] = v;
-      d[i + 3] = 45;
-    }
-    ctx.putImageData(imageData, 0, 0);
-    grainRaf = requestAnimationFrame(drawGrain);
-  }
-
-  function startGrain() {
-    grainCanvas.classList.add('active');
-    if (pageGrain) pageGrain.classList.add('active');
-    if (!grainRaf) drawGrain();
-  }
-
-  function stopGrain() {
-    grainCanvas.classList.remove('active');
-    if (pageGrain) pageGrain.classList.remove('active');
-    if (grainRaf) { cancelAnimationFrame(grainRaf); grainRaf = null; }
-  }
-
-  /* Estado atual */
-  var currentIdx = 0;
-  var activeBg = bg1;
-  var inactiveBg = bg2;
+  var currentBg = 1;
   var transitioning = false;
 
-  /* Determina o índice correto para a posição de scroll atual */
-  function getIdxForScroll() {
-    var scrolled = window.scrollY || document.documentElement.scrollTop;
-    var idx = 0;
-    for (var i = scrollBreakpoints.length - 1; i >= 0; i--) {
-      if (scrolled >= scrollBreakpoints[i]) {
-        idx = Math.min(i, images.length - 1);
-        break;
-      }
-    }
-    return idx;
-  }
-
-  function switchToImage(newIdx) {
-    if (transitioning || newIdx === currentIdx) return;
+  function switchToBg(n) {
+    if (transitioning || n === currentBg) return;
     transitioning = true;
 
-    /* Prepara a camada inativa com a nova imagem */
-    inactiveBg.style.backgroundImage = 'url("' + images[newIdx] + '")';
-
-    /* Fase 1 (0 ms): efeito de queima + grain na camada ativa */
-    activeBg.classList.add('burning');
-    startGrain();
+    if (grain) grain.classList.add('active');
 
     setTimeout(function () {
-      /* Fase 2 (300 ms): troca de camadas */
-      activeBg.classList.remove('active');
-      inactiveBg.classList.add('active');
-      var tmp = activeBg;
-      activeBg = inactiveBg;
-      inactiveBg = tmp;
-      currentIdx = newIdx;
-    }, 300);
+      if (n === 2) {
+        bg1.classList.remove('active');
+        bg2.classList.add('active');
+      } else {
+        bg2.classList.remove('active');
+        bg1.classList.add('active');
+      }
+      currentBg = n;
+    }, 180);
 
     setTimeout(function () {
-      /* Fase 3 (900 ms): remove filtro e grain */
-      inactiveBg.classList.remove('burning');
-      stopGrain();
+      if (grain) grain.classList.remove('active');
       transitioning = false;
-
-      /* Verifica se a posição de scroll exige outra troca */
-      var expected = getIdxForScroll();
-      if (expected !== currentIdx) switchToImage(expected);
-    }, 900);
+    }, 420);
   }
 
   window.addEventListener('scroll', function () {
-    switchToImage(getIdxForScroll());
+    var scrolled = window.scrollY || document.documentElement.scrollTop;
+    var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (totalHeight <= 0) return;
+    var fraction = scrolled / totalHeight;
+    switchToBg(fraction > 0.45 ? 2 : 1);
   }, { passive: true });
 })();
 
