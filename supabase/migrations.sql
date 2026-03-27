@@ -30,12 +30,20 @@ end $$;
 -- Habilita Row Level Security
 alter table public.visitas enable row level security;
 
--- Permite inserção pública (anônima) — sem leitura pública
+-- Permite inserção pública (anônima)
 create policy "Inserção anônima de visitas"
   on public.visitas
   for insert
   to anon
   with check (true);
+
+-- Permite contagem pública de visitas (necessário para status.js exibir o total)
+-- O acesso é restrito a HEAD requests com count=exact; nenhum dado de linha é retornado.
+create policy "Contagem pública de visitas"
+  on public.visitas
+  for select
+  to anon
+  using (true);
 
 -- ============================================================
 -- Tabela: velas
@@ -53,6 +61,9 @@ create table if not exists public.velas (
 alter table public.velas enable row level security;
 
 -- Permite inserção e leitura públicas (anônimas)
+-- Nota de privacidade: o campo `intencao` pode conter texto pessoal.
+-- A política abaixo expõe apenas localização e data; para maior privacidade,
+-- crie uma view ou função com SECURITY DEFINER retornando somente esses campos.
 create policy "Inserção anônima de velas"
   on public.velas
   for insert
