@@ -10,6 +10,7 @@
   <meta property="og:url" content="https://joaoclaudiano.github.io/sena/">
   <meta property="og:title" content="Santa Catarina de Sena - Doutora da Igreja">
   <meta property="og:description" content="Site dedicado a Santa Catarina de Sena: biografia, obras, cartas, orações e downloads.">
+  <meta property="og:image" content="https://joaoclaudiano.github.io/sena/imagens/Franceschini_Baldassare_St_Catherine_of_Siena.jpg">
   <meta property="og:site_name" content="Santa Catarina de Sena">
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary">
@@ -85,8 +86,8 @@
         </div>
       </div>
       <div class="slide-indicators" aria-hidden="true">
-        <button class="slide-dot active" onclick="goToSlide(0)"></button>
-        <button class="slide-dot" onclick="goToSlide(1)"></button>
+        <button class="slide-dot active" aria-label="Ir para o slide 1"></button>
+        <button class="slide-dot" aria-label="Ir para o slide 2"></button>
       </div>
     </section>
 
@@ -133,8 +134,8 @@
           </div>
         </div>
         <div class="mural-nav">
-          <button class="mural-prev" aria-label="Frase anterior" onclick="muralPrev()">‹</button>
-          <button class="mural-next" aria-label="Próxima frase" onclick="muralNext()">›</button>
+          <button class="mural-prev" id="muralPrevBtn" aria-label="Frase anterior">‹</button>
+          <button class="mural-next" id="muralNextBtn" aria-label="Próxima frase">›</button>
         </div>
       </section>
 

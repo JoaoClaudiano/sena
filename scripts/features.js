@@ -245,7 +245,17 @@ var ICONS = {
     dateEl.textContent = dayNames[today.getDay()] + ', ' + today.getDate() + ' de ' + monthNames[today.getMonth()];
   }
 
-  container.innerHTML = '<h3>' + pilula.titulo + '</h3><p>' + pilula.texto + '</p><p class="pilula-ref">— ' + pilula.ref + '</p>';
+  container.innerHTML = '';
+  var h3 = document.createElement('h3');
+  h3.textContent = pilula.titulo;
+  var pTexto = document.createElement('p');
+  pTexto.textContent = pilula.texto;
+  var pRef = document.createElement('p');
+  pRef.className = 'pilula-ref';
+  pRef.textContent = '— ' + pilula.ref;
+  container.appendChild(h3);
+  container.appendChild(pTexto);
+  container.appendChild(pRef);
 })();
 
 /* ===== MURAL SLIDESHOW ===== */
@@ -260,8 +270,10 @@ var ICONS = {
     slides[current].classList.add('mural-active');
   }
 
-  window.muralNext = function () { showSlide(current + 1); };
-  window.muralPrev = function () { showSlide(current - 1); };
+  var prevBtn = document.getElementById('muralPrevBtn');
+  var nextBtn = document.getElementById('muralNextBtn');
+  if (prevBtn) prevBtn.addEventListener('click', function () { showSlide(current - 1); });
+  if (nextBtn) nextBtn.addEventListener('click', function () { showSlide(current + 1); });
 
   setInterval(function () { showSlide(current + 1); }, 6000);
 })();
@@ -301,7 +313,9 @@ var ICONS = {
     }, 420);
   }
 
-  window.goToSlide = function (n) { showSlide(n); };
+  dots.forEach(function (dot, i) {
+    dot.addEventListener('click', function () { showSlide(i); });
+  });
 
   setInterval(function () { showSlide(current + 1); }, 5500);
 })();
