@@ -4,6 +4,9 @@
 
   var PROXIMITY_THRESHOLD = 220;
 
+  /* Variantes de animação flutuante (cicladas pelos nós) */
+  var FLOAT_CLASSES = ['ng-float-a', 'ng-float-b', 'ng-float-c', 'ng-float-d', 'ng-float-e'];
+
   var nodesData = [
     {
       id: 'v1',
@@ -133,6 +136,49 @@
     var container = document.getElementById('networkGraph');
     if (!container) return;
 
+    /* ── Modal overlay ── */
+    var modal = document.getElementById('ngModalOverlay');
+    var modalClose = document.getElementById('ngModalClose');
+    var modalType = document.getElementById('ngModalType');
+    var modalEmoji = document.getElementById('ngModalEmoji');
+    var modalTitle = document.getElementById('ngModalTitle');
+    var modalText = document.getElementById('ngModalText');
+
+    function openModal(node) {
+      if (!modal) return;
+      modalType.textContent = typeLabels[node.type] || node.type;
+      modalType.className = 'ng-modal-type type-' + node.type;
+      modalEmoji.textContent = node.emoji;
+      modalTitle.textContent = node.title;
+      modalText.textContent = node.fullText;
+      modal.setAttribute('aria-hidden', 'false');
+      modal.classList.add('ng-modal-open');
+      if (modalClose) modalClose.focus();
+    }
+
+    function closeModal() {
+      if (!modal) return;
+      modal.classList.remove('ng-modal-open');
+      modal.setAttribute('aria-hidden', 'true');
+    }
+
+    if (modalClose) {
+      modalClose.addEventListener('click', closeModal);
+    }
+
+    if (modal) {
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal) closeModal();
+      });
+    }
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && modal && modal.classList.contains('ng-modal-open')) {
+        closeModal();
+      }
+    });
+
+    /* ── SVG overlay ── */
     var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('class', 'network-svg');
     svg.setAttribute('aria-hidden', 'true');
@@ -140,31 +186,25 @@
 
     var nodeElements = {};
 
-    nodesData.forEach(function (node) {
+    nodesData.forEach(function (node, i) {
       var el = document.createElement('div');
       el.className = 'network-node';
       el.id = 'ng-node-' + node.id;
       el.setAttribute('tabindex', '0');
       el.setAttribute('role', 'button');
-      el.setAttribute('aria-label', node.title + ': ' + node.description);
+      el.setAttribute('aria-label', node.title + ': ' + node.description + ' — Clique para saber mais');
 
       var card = document.createElement('div');
-      card.className = 'node-card type-' + node.type;
+      /* Animação flutuante variada — usa módulo para ciclar entre as 5 variantes */
+      card.className = 'node-card type-' + node.type + ' ' + FLOAT_CLASSES[i % FLOAT_CLASSES.length];
+      /* Delay diferente por nó para movimento orgânico */
+      card.style.animationDelay = (i * 0.45) + 's';
       card.innerHTML =
         '<span class="node-emoji" aria-hidden="true">' + node.emoji + '</span>' +
         '<div class="node-title">' + node.title + '</div>' +
         '<div class="node-desc">' + node.description + '</div>';
 
-      var popup = document.createElement('div');
-      popup.className = 'node-popup';
-      popup.setAttribute('role', 'tooltip');
-      popup.innerHTML =
-        '<div class="popup-type popup-type-' + node.type + '">' + (typeLabels[node.type] || node.type) + '</div>' +
-        '<div class="popup-title">' + node.title + '</div>' +
-        '<div class="popup-text">' + node.fullText + '</div>';
-
       el.appendChild(card);
-      el.appendChild(popup);
       container.appendChild(el);
       nodeElements[node.id] = el;
     });
@@ -211,11 +251,11 @@
 
         var mx = (x1 + x2) / 2;
         var my = (y1 + y2) / 2;
-        var cx = mx + (w / 2 - mx) * 0.25;
-        var cy = my + (h / 2 - my) * 0.25;
+        var qx = mx + (w / 2 - mx) * 0.25;
+        var qy = my + (h / 2 - my) * 0.25;
 
         var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        path.setAttribute('d', 'M ' + x1 + ' ' + y1 + ' Q ' + cx + ' ' + cy + ' ' + x2 + ' ' + y2);
+        path.setAttribute('d', 'M ' + x1 + ' ' + y1 + ' Q ' + qx + ' ' + qy + ' ' + x2 + ' ' + y2);
         path.setAttribute('stroke', typeColors[(fromNode && fromNode.type) || 'virtude']);
         path.setAttribute('stroke-width', '1.5');
         path.setAttribute('fill', 'none');
@@ -232,30 +272,46 @@
 
     layout();
 
-    /* ── Proximity scale effect ── */
+    /* ── Proximity scale effect (mouse hover) ── */
     container.addEventListener('mousemove', function (e) {
       var rect = container.getBoundingClientRect();
       var mx = e.clientX - rect.left;
       var my = e.clientY - rect.top;
 
+      /* 3D parallax tilt on the whole container */
+      var nx = (mx / rect.width - 0.5) * 2;
+      var ny = (my / rect.height - 0.5) * 2;
+      var rotX = -ny * 3.5;
+      var rotY = nx * 3.5;
+      container.style.transform = 'perspective(1100px) rotateX(' + rotX + 'deg) rotateY(' + rotY + 'deg)';
+
+      /* Per-node proximity scale — inline style overrides CSS animation intentionally */
       nodesData.forEach(function (node) {
         var el = nodeElements[node.id];
-        if (!el) return;
-        var nx = parseFloat(el.style.left);
-        var ny = parseFloat(el.style.top);
-        var dist = Math.sqrt(Math.pow(mx - nx, 2) + Math.pow(my - ny, 2));
+        if (!el || el.classList.contains('ng-active')) return;
+        var nx2 = parseFloat(el.style.left);
+        var ny2 = parseFloat(el.style.top);
+        var dist = Math.sqrt(Math.pow(mx - nx2, 2) + Math.pow(my - ny2, 2));
         var proximity = Math.max(0, 1 - dist / PROXIMITY_THRESHOLD);
-        var scale = 1 + proximity * 0.18;
-        var opacity = 0.55 + proximity * 0.45;
         var card = el.querySelector('.node-card');
-        if (card && !el.classList.contains('ng-active')) {
-          card.style.transform = 'translate(-50%,-50%) scale(' + scale + ')';
-          card.style.opacity = opacity;
+        if (card) {
+          if (proximity > 0) {
+            /* Temporarily override the float animation with a scaled transform */
+            var scale = 1 + proximity * 0.16;
+            var opacity = 0.55 + proximity * 0.45;
+            card.style.transform = 'translate(-50%, -50%) scale(' + scale + ')';
+            card.style.opacity = opacity;
+          } else {
+            /* Restore animation by clearing inline style */
+            card.style.transform = '';
+            card.style.opacity = '';
+          }
         }
       });
     }, { passive: true });
 
     container.addEventListener('mouseleave', function () {
+      container.style.transform = '';
       nodesData.forEach(function (node) {
         var el = nodeElements[node.id];
         if (!el || el.classList.contains('ng-active')) return;
@@ -267,76 +323,61 @@
       });
     });
 
-    /* ── Hover: popup & connection highlight ── */
+    /* ── Click / keyboard: open modal ── */
     nodesData.forEach(function (node) {
       var el = nodeElements[node.id];
       if (!el) return;
 
-      function onEnter() {
-        el.classList.add('ng-active');
-        adjustPopup(el);
+      function onActivate() {
+        /* Highlight connections briefly */
         highlightConnections(node.id);
+        /* Open modal */
+        openModal(node);
       }
 
-      function onLeave() {
+      function onDeactivate() {
+        resetConnections();
+      }
+
+      el.addEventListener('click', onActivate);
+
+      el.addEventListener('mouseenter', function () {
+        el.classList.add('ng-active');
+        highlightConnections(node.id);
+      });
+
+      el.addEventListener('mouseleave', function () {
         el.classList.remove('ng-active');
         var card = el.querySelector('.node-card');
         if (card) {
           card.style.transform = '';
           card.style.opacity = '';
         }
-        resetConnections();
-      }
+        onDeactivate();
+      });
 
-      el.addEventListener('mouseenter', onEnter);
-      el.addEventListener('mouseleave', onLeave);
-      el.addEventListener('focus', onEnter);
-      el.addEventListener('blur', onLeave);
+      el.addEventListener('focus', function () {
+        el.classList.add('ng-active');
+        highlightConnections(node.id);
+      });
+
+      el.addEventListener('blur', function () {
+        el.classList.remove('ng-active');
+        var card = el.querySelector('.node-card');
+        if (card) {
+          card.style.transform = '';
+          card.style.opacity = '';
+        }
+        onDeactivate();
+      });
+
       el.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          el.classList.toggle('ng-active');
-          if (el.classList.contains('ng-active')) {
-            adjustPopup(el);
-            highlightConnections(node.id);
-          } else {
-            resetConnections();
-          }
+          onActivate();
         }
       });
     });
-
-    function adjustPopup(el) {
-      var popup = el.querySelector('.node-popup');
-      if (!popup) return;
-      var containerRect = container.getBoundingClientRect();
-      var elRect = el.getBoundingClientRect();
-      var topSpace = elRect.top - containerRect.top;
-      var elCenterX = elRect.left + elRect.width / 2 - containerRect.left;
-      var popupW = 220;
-
-      popup.style.cssText = '';
-
-      if (topSpace < 180) {
-        popup.style.top = 'calc(100% + 14px)';
-        popup.style.bottom = 'auto';
-      } else {
-        popup.style.bottom = 'calc(100% + 14px)';
-        popup.style.top = 'auto';
-      }
-
-      if (elCenterX - popupW / 2 < 10) {
-        popup.style.left = '-' + Math.round(elRect.width / 2) + 'px';
-        popup.style.transform = 'none';
-      } else if (containerRect.width - (elCenterX + popupW / 2) < 10) {
-        popup.style.right = '-' + Math.round(elRect.width / 2) + 'px';
-        popup.style.left = 'auto';
-        popup.style.transform = 'none';
-      } else {
-        popup.style.left = '50%';
-        popup.style.transform = 'translateX(-50%)';
-      }
-    }
 
     function highlightConnections(nodeId) {
       var lines = svg.querySelectorAll('.ng-line');

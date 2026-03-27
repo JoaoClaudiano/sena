@@ -292,7 +292,19 @@
 
   <button class="back-to-top" id="backToTop" aria-label="Voltar ao topo" title="Voltar ao topo">↑</button>
 
+  <!-- Modal da Rede de Virtudes -->
+  <div class="ng-modal-overlay" id="ngModalOverlay" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Detalhes do nó">
+    <div class="ng-modal-box">
+      <button class="ng-modal-close" id="ngModalClose" aria-label="Fechar">×</button>
+      <div class="ng-modal-emoji" id="ngModalEmoji"></div>
+      <div class="ng-modal-type" id="ngModalType"></div>
+      <div class="ng-modal-title" id="ngModalTitle"></div>
+      <p class="ng-modal-text" id="ngModalText"></p>
+    </div>
+  </div>
+
   <script src="scripts/menu.js" defer></script>
+  <script src="scripts/transitions.js" defer></script>
   <script src="scripts/network-graph.js" defer></script>
   <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
