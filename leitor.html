@@ -53,7 +53,9 @@
       font-family: 'Lato', sans-serif;
     }
 
-    .epub-container {
+    /* NOTE: epub.js internally uses the class name "epub-container" for its stage
+       element. We use "epub-reader-box" here to avoid any CSS collision. */
+    .epub-reader-box {
       width: 100%;
       height: 78vh;
       min-height: 460px;
@@ -158,7 +160,7 @@
       border-color: #5a4040;
     }
 
-    [data-theme="dark"] .epub-container {
+    [data-theme="dark"] .epub-reader-box {
       background: #2a2020;
       border-color: #5a4040;
     }
@@ -243,7 +245,7 @@
             </div>
           </div>
 
-          <div class="epub-container" role="region" aria-label="Conteúdo do livro">
+          <div class="epub-reader-box" role="region" aria-label="Conteúdo do livro">
             <div id="epub-viewer">
               <div class="epub-loading" id="epubLoading">
                 <div class="epub-spinner" aria-hidden="true"></div>
@@ -390,7 +392,14 @@
         spread: 'none'
       });
 
-      rendition.display().then(function () {
+      /* Saved position key — unique per book URL */
+      var posKey = 'epub-pos:' + bookUrl;
+
+      /* Restore saved CFI or start from beginning */
+      var startCfi = null;
+      try { startCfi = localStorage.getItem(posKey); } catch (e) {}
+
+      rendition.display(startCfi || undefined).then(function () {
         clearTimeout(loadTimeout);
         if (loadingEl) loadingEl.style.display = 'none';
         prevBtn.disabled = false;
@@ -405,18 +414,26 @@
           '<a href="obras.html">← Voltar</a></p>';
       });
 
+      /* Save position whenever the page changes */
+      rendition.on('relocated', function (location) {
+        if (location && location.start && location.start.cfi) {
+          try { localStorage.setItem(posKey, location.start.cfi); } catch (e) {}
+        }
+        updatePageInfo();
+      });
+
       /* Navigation */
       prevBtn.addEventListener('click', function () {
-        rendition.prev().then(updatePageInfo);
+        rendition.prev().catch(function () {});
       });
       nextBtn.addEventListener('click', function () {
-        rendition.next().then(updatePageInfo);
+        rendition.next().catch(function () {});
       });
 
       /* Keyboard navigation */
       document.addEventListener('keydown', function (e) {
-        if (e.key === 'ArrowLeft')  rendition.prev().then(updatePageInfo);
-        if (e.key === 'ArrowRight') rendition.next().then(updatePageInfo);
+        if (e.key === 'ArrowLeft')  rendition.prev().catch(function () {});
+        if (e.key === 'ArrowRight') rendition.next().catch(function () {});
       });
 
       function updatePageInfo() {
