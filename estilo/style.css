@@ -2794,25 +2794,31 @@ main > .hero-section:first-child {
 
 /* ===== MOBILE FIXES ===== */
 @media (max-width: 600px) {
+  /* Hero: reduzido para não ocupar toda a tela, melhorando visibilidade da imagem */
   .hero-section {
-    min-height: 100svh;
-    min-height: 100vh;
+    min-height: 68svh;
+    min-height: 68vh;
+  }
+
+  /* Foco melhor das pinturas retrato no mobile — centraliza no terço superior */
+  .slide.slide-1,
+  .slide.slide-2 {
+    background-position: center 12%;
   }
 
   .hero-content {
-    padding: 3.5rem 1.25rem;
+    padding: 2.25rem 1.25rem;
   }
 
   .hero-content h1 {
-    /* Reduced from 3.5rem desktop to fit mobile viewport without overflow */
     font-size: 2.1rem;
     letter-spacing: 0;
     line-height: 1.25;
   }
 
   .hero-subtitle {
-    font-size: 1rem;
-    margin-bottom: 2rem;
+    font-size: 0.95rem;
+    margin-bottom: 1.75rem;
   }
 
   .hero-quote-badge {
@@ -2848,7 +2854,7 @@ main > .hero-section:first-child {
   }
 
   .destaque-card {
-    padding: 1.25rem 1rem;
+    padding: 1.25rem 1.1rem;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -2868,6 +2874,11 @@ main > .hero-section:first-child {
   .destaque-card h3 {
     margin-top: 0.15rem;
     font-size: 1rem;
+  }
+
+  /* Cards genéricos com mais respiro no mobile */
+  .card {
+    padding: 1.25rem 1.1rem;
   }
 
   /* Galeria 2 colunas no mobile */
@@ -2896,6 +2907,10 @@ main > .hero-section:first-child {
   /* Seção de frase em destaque */
   .frase blockquote p {
     font-size: 1.1rem;
+  }
+
+  .frase blockquote {
+    padding: 1.25rem 1rem;
   }
 
   /* Rodapé */
@@ -3323,5 +3338,360 @@ main > .hero-section:first-child {
 @media (max-width: 600px) {
   [data-theme="dark"] .node-popup {
     border-color: #3d2f3a;
+  }
+}
+
+/* ===== TRANSIÇÕES DE PÁGINA ===== */
+
+/* Fade-in suave ao carregar qualquer página */
+@keyframes page-enter {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
+
+@keyframes page-leave {
+  from { opacity: 1; transform: translateY(0);   }
+  to   { opacity: 0; transform: translateY(-6px); }
+}
+
+body {
+  animation: page-enter 0.38s ease-out both;
+}
+
+/* Classe adicionada por JS ao sair da página (fallback sem View Transitions API) */
+body.page-exit {
+  animation: page-leave 0.26s ease-in forwards;
+}
+
+/* View Transitions API — MPA nativa (Chrome 126+) */
+@view-transition {
+  navigation: auto;
+}
+
+/* View Transitions API — navegadores com suporte (Chrome 111+) */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) {
+    animation: 0.22s ease-in page-leave;
+  }
+  ::view-transition-new(root) {
+    animation: 0.32s ease-out page-enter;
+  }
+}
+
+/* Sem animação para usuários que preferem movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+  body { animation: none; }
+  body.page-exit { animation: none; }
+  ::view-transition-old(root),
+  ::view-transition-new(root) { animation: none; }
+}
+
+/* ===== REDE DE VIRTUDES — ANIMAÇÕES FLUTUANTES ===== */
+
+/* Diferentes keyframes para variação orgânica */
+@keyframes ng-float-a {
+  0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
+  50%       { transform: translate(-50%, -50%) translateY(-7px); }
+}
+@keyframes ng-float-b {
+  0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
+  40%      { transform: translate(-50%, -50%) translateY(5px) translateX(3px); }
+  80%      { transform: translate(-50%, -50%) translateY(-5px) translateX(-2px); }
+}
+@keyframes ng-float-c {
+  0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
+  60%      { transform: translate(-50%, -50%) translateY(-9px); }
+}
+@keyframes ng-float-d {
+  0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
+  35%      { transform: translate(-50%, -50%) translateY(6px) translateX(-3px); }
+  70%      { transform: translate(-50%, -50%) translateY(-4px) translateX(2px); }
+}
+@keyframes ng-float-e {
+  0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
+  50%      { transform: translate(-50%, -50%) translateY(-6px) translateX(4px); }
+}
+
+/* Associa classes float aos cards */
+.ng-float-a { animation: ng-float-a 3.4s ease-in-out infinite; }
+.ng-float-b { animation: ng-float-b 4.1s ease-in-out infinite; }
+.ng-float-c { animation: ng-float-c 3.8s ease-in-out infinite; }
+.ng-float-d { animation: ng-float-d 4.6s ease-in-out infinite; }
+.ng-float-e { animation: ng-float-e 3.2s ease-in-out infinite; }
+
+/* Para o float quando o nó está ativo */
+.network-node.ng-active .node-card {
+  animation: none;
+  transform: translate(-50%, -50%) scale(1.18);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.22);
+  z-index: 10;
+}
+
+/* Respeita preferência de movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+  .ng-float-a, .ng-float-b, .ng-float-c, .ng-float-d, .ng-float-e {
+    animation: none;
+  }
+}
+
+/* Container com perspectiva 3D para efeito de profundidade */
+.network-graph {
+  transform-style: preserve-3d;
+  transition: transform 0.12s ease-out;
+}
+
+/* ===== REDE DE VIRTUDES — MODAL OVERLAY ===== */
+.ng-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease;
+}
+
+.ng-modal-overlay.ng-modal-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.ng-modal-box {
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem 1.75rem 1.75rem;
+  max-width: 460px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.25);
+  transform: scale(0.9) translateY(10px);
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.22s ease;
+  opacity: 0;
+  font-family: 'Lato', sans-serif;
+}
+
+.ng-modal-overlay.ng-modal-open .ng-modal-box {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+.ng-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: #f5f0eb;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #5a3a28;
+  transition: background 0.2s;
+}
+
+.ng-modal-close:hover {
+  background: #a67c52;
+  color: #fff;
+}
+
+.ng-modal-emoji {
+  font-size: 2.2rem;
+  line-height: 1;
+  margin-bottom: 0.75rem;
+}
+
+.ng-modal-type {
+  display: inline-block;
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  color: #fff;
+  margin-bottom: 0.6rem;
+}
+
+.ng-modal-type.type-virtude  { background: #a67c52; }
+.ng-modal-type.type-citacao  { background: #6b8e9f; }
+.ng-modal-type.type-episodio { background: #7a9e7e; }
+
+.ng-modal-title {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #2c2c2c;
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+
+.ng-modal-text {
+  font-size: 0.92rem;
+  color: #555;
+  line-height: 1.7;
+}
+
+[data-theme="dark"] .ng-modal-box {
+  background: #2a1f2e;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+}
+
+[data-theme="dark"] .ng-modal-close {
+  background: #3d2f3a;
+  color: #e8ddd5;
+}
+
+[data-theme="dark"] .ng-modal-close:hover {
+  background: #a67c52;
+  color: #fff;
+}
+
+[data-theme="dark"] .ng-modal-title {
+  color: #e8c8a8;
+}
+
+[data-theme="dark"] .ng-modal-text {
+  color: #b0a0a8;
+}
+
+/* ===== PDF VIEWER — LEITOR ===== */
+.pdf-viewer-container {
+  width: 100%;
+  height: 78vh;
+  min-height: 460px;
+  border: 1px solid #ddd;
+  border-radius: 0 0 8px 8px;
+  overflow: hidden;
+  background: #525659;
+  position: relative;
+}
+
+.pdf-viewer-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+.reader-mode-toggle {
+  display: flex;
+  gap: 0.35rem;
+  background: rgba(0,0,0,0.06);
+  border-radius: 8px;
+  padding: 0.25rem;
+}
+
+.reader-mode-btn {
+  padding: 0.3rem 0.75rem;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: transparent;
+  color: #555;
+  transition: background 0.2s, color 0.2s;
+}
+
+.reader-mode-btn.active {
+  background: #a67c52;
+  color: #fff;
+}
+
+.reader-mode-btn:hover:not(.active) {
+  background: rgba(166,124,82,0.15);
+  color: #a67c52;
+}
+
+[data-theme="dark"] .reader-mode-toggle {
+  background: rgba(255,255,255,0.08);
+}
+
+[data-theme="dark"] .reader-mode-btn {
+  color: #ccc;
+}
+
+[data-theme="dark"] .reader-mode-btn.active {
+  background: #a67c52;
+  color: #fff;
+}
+
+/* ===== MELHORIAS MOBILE ADICIONAIS ===== */
+@media (max-width: 600px) {
+  /* Padding interno adequado em cards — evita texto colado nas bordas */
+  .sobre-content {
+    padding: 1.5rem 1.1rem;
+  }
+
+  .prayer-section {
+    padding: 1.5rem 1.1rem;
+  }
+
+  .siena-place {
+    padding: 1.5rem 1.1rem;
+  }
+
+  .contact-form {
+    padding: 1.5rem 1.1rem;
+  }
+
+  .pilula-section {
+    padding: 1.5rem 1.1rem;
+  }
+
+  .oratorio-hero {
+    padding: 2rem 1.1rem;
+  }
+
+  .evento-item {
+    padding: 1.1rem;
+    gap: 1rem;
+  }
+
+  /* Network modal em tela cheia no mobile */
+  .ng-modal-box {
+    max-width: 100%;
+    margin: 0;
+    border-radius: 16px 16px 0 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem 1.25rem;
+  }
+
+  .ng-modal-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .ng-modal-overlay.ng-modal-open .ng-modal-box {
+    transform: scale(1) translateY(0);
+  }
+
+  .ng-modal-overlay .ng-modal-box {
+    transform: scale(1) translateY(100%);
+  }
+
+  /* Arte item hint visível no mobile */
+  .arte-item-hint {
+    display: none;
+  }
+
+  /* PDF viewer menor em mobile */
+  .pdf-viewer-container {
+    height: 65vh;
+    min-height: 300px;
   }
 }
