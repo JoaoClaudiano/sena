@@ -285,7 +285,7 @@
       var rotY = nx * 3.5;
       container.style.transform = 'perspective(1100px) rotateX(' + rotX + 'deg) rotateY(' + rotY + 'deg)';
 
-      /* Per-node proximity scale */
+      /* Per-node proximity scale — inline style overrides CSS animation intentionally */
       nodesData.forEach(function (node) {
         var el = nodeElements[node.id];
         if (!el || el.classList.contains('ng-active')) return;
@@ -293,12 +293,19 @@
         var ny2 = parseFloat(el.style.top);
         var dist = Math.sqrt(Math.pow(mx - nx2, 2) + Math.pow(my - ny2, 2));
         var proximity = Math.max(0, 1 - dist / PROXIMITY_THRESHOLD);
-        var scale = 1 + proximity * 0.16;
-        var opacity = 0.55 + proximity * 0.45;
         var card = el.querySelector('.node-card');
         if (card) {
-          card.style.transform = card.style.transform.replace(/scale\([^)]*\)/, '') + ' scale(' + scale + ')';
-          card.style.opacity = opacity;
+          if (proximity > 0) {
+            /* Temporarily override the float animation with a scaled transform */
+            var scale = 1 + proximity * 0.16;
+            var opacity = 0.55 + proximity * 0.45;
+            card.style.transform = 'translate(-50%, -50%) scale(' + scale + ')';
+            card.style.opacity = opacity;
+          } else {
+            /* Restore animation by clearing inline style */
+            card.style.transform = '';
+            card.style.opacity = '';
+          }
         }
       });
     }, { passive: true });

@@ -330,6 +330,12 @@
     (function () {
       'use strict';
 
+      /* Expose a global so error-state buttons can switch to PDF mode */
+      window.__readerSwitchPdf = function () {
+        var btn = document.getElementById('modePdfBtn');
+        if (btn) btn.click();
+      };
+
       var params  = new URLSearchParams(window.location.search);
       var bookUrl = params.get('book');
 
@@ -364,7 +370,9 @@
         }
       }
 
-      /* Map EPUB path → PDF path */
+      /* Map EPUB path → PDF path.
+       * Convention: all EPUBs in /conteudo/ have a matching PDF at the same path
+       * (e.g. conteudo/cartas-completas.epub → conteudo/cartas-completas.pdf). */
       function epubToPdf(epubPath) {
         return epubPath.replace(/\.epub$/i, '.pdf');
       }
@@ -443,7 +451,7 @@
         if (loadingEl && loadingEl.style.display !== 'none') {
           loadingEl.innerHTML =
             '<p class="epub-error">O livro demorou muito para carregar. ' +
-            '<button onclick="document.getElementById(\'modePdfBtn\').click()" ' +
+            '<button onclick="__readerSwitchPdf()" ' +
             'style="background:#a67c52;color:#fff;border:none;padding:0.4rem 1rem;border-radius:4px;cursor:pointer;font-family:Lato,sans-serif;margin:0 0.25rem;">Ler em PDF</button> ' +
             'ou <a href="' + bookUrl + '" download>baixar EPUB</a>. ' +
             '<a href="obras.html">← Voltar</a></p>';
@@ -454,7 +462,7 @@
         console.error('Erro ao abrir EPUB:', err);
         if (loadingEl) loadingEl.innerHTML =
           '<p class="epub-error">Não foi possível carregar o livro. ' +
-          '<button onclick="document.getElementById(\'modePdfBtn\').click()" ' +
+          '<button onclick="__readerSwitchPdf()" ' +
           'style="background:#a67c52;color:#fff;border:none;padding:0.4rem 1rem;border-radius:4px;cursor:pointer;font-family:Lato,sans-serif;margin:0 0.25rem;">Tentar PDF</button> ' +
           '<a href="obras.html">← Voltar</a></p>';
       });
@@ -476,7 +484,7 @@
         console.error('Erro ao renderizar EPUB:', err);
         if (loadingEl) loadingEl.innerHTML =
           '<p class="epub-error">Não foi possível carregar o EPUB. ' +
-          '<button onclick="document.getElementById(\'modePdfBtn\').click()" ' +
+          '<button onclick="__readerSwitchPdf()" ' +
           'style="background:#a67c52;color:#fff;border:none;padding:0.4rem 1rem;border-radius:4px;cursor:pointer;font-family:Lato,sans-serif;margin:0 0.25rem;">Ler em PDF</button> ' +
           '<a href="obras.html">← Voltar</a></p>';
       });

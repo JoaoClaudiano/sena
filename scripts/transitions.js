@@ -27,18 +27,13 @@
 
     e.preventDefault();
 
-    /* Use native View Transitions API when available (Chrome 111+, Edge 111+) */
-    if (document.startViewTransition) {
-      var dest = href;
-      document.startViewTransition(function () {
-        window.location.href = dest;
-      });
-    } else {
-      /* Fallback: add exit class → short delay → navigate */
-      document.body.classList.add('page-exit');
-      setTimeout(function () {
-        window.location.href = href;
-      }, 260);
-    }
+    /* Fade-out via CSS class → short delay → navigate.
+     * Browsers that support @view-transition (Chrome 126+) handle the full
+     * cross-page animation natively via CSS. This JS fallback ensures a smooth
+     * exit animation on all other browsers. */
+    document.body.classList.add('page-exit');
+    setTimeout(function () {
+      window.location.href = href;
+    }, 260);
   });
 })();
