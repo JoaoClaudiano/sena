@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <script>!function(){var t=localStorage.getItem("theme")||(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");if(t==="dark")document.documentElement.setAttribute("data-theme","dark")}()</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Leitor de Livro — Santa Catarina de Sena</title>
   <meta name="description" content="Leia online as obras de Santa Catarina de Sena em formato EPUB.">
@@ -225,20 +226,8 @@
           <h1 id="bookTitle" style="margin:0;font-size:1.4rem;">Carregando…</h1>
           <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
             <a id="downloadEpubBtn" href="#" download class="btn btn-outline" style="font-size:0.85rem;">Baixar EPUB</a>
-            <a id="downloadPdfBtn" href="#" download class="btn btn-outline" style="font-size:0.85rem;">Baixar PDF</a>
             <a href="obras.html" class="btn btn-outline" style="font-size:0.85rem;">← Voltar</a>
           </div>
-        </div>
-
-        <!-- Seletor de modo de leitura -->
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.5rem;">
-          <div class="reader-mode-toggle" role="group" aria-label="Modo de leitura">
-            <button class="reader-mode-btn active" id="modeEpubBtn" aria-pressed="true">📖 EPUB</button>
-            <button class="reader-mode-btn" id="modePdfBtn" aria-pressed="false">📄 PDF</button>
-          </div>
-          <p style="font-size:0.8rem;color:#888;margin:0;">
-            <span id="modeHint">Leitor EPUB interativo</span>
-          </p>
         </div>
 
         <!-- Viewer EPUB -->
@@ -266,16 +255,6 @@
               <ul id="epubTocList"></ul>
             </div>
           </div>
-        </div>
-
-        <!-- Viewer PDF (iframe nativo do browser) -->
-        <div id="pdfReaderWrap" style="display:none;">
-          <div class="pdf-viewer-container">
-            <iframe id="pdfViewer" title="Visualizador PDF" allow="fullscreen"></iframe>
-          </div>
-          <p style="font-size:0.82rem;color:#888;margin-top:0.5rem;font-family:'Lato',sans-serif;">
-            Se o PDF não carregar, <a id="pdfDirectLink" href="#">clique aqui para abrir diretamente</a>.
-          </p>
         </div>
       </div>
     </div>
@@ -330,33 +309,19 @@
     (function () {
       'use strict';
 
-      /* Expose a global so error-state buttons can switch to PDF mode */
-      window.__readerSwitchPdf = function () {
-        var btn = document.getElementById('modePdfBtn');
-        if (btn) btn.click();
-      };
-
       var params  = new URLSearchParams(window.location.search);
       var bookUrl = params.get('book');
 
-      var titleEl        = document.getElementById('bookTitle');
-      var breadcrumbEl   = document.getElementById('breadcrumbTitle');
-      var loadingEl      = document.getElementById('epubLoading');
-      var prevBtn        = document.getElementById('epubPrev');
-      var nextBtn        = document.getElementById('epubNext');
-      var pageInfoEl     = document.getElementById('epubPageInfo');
-      var tocBtn         = document.getElementById('epubToc');
-      var tocPanel       = document.getElementById('epubTocPanel');
-      var tocList        = document.getElementById('epubTocList');
-      var downloadBtn    = document.getElementById('downloadEpubBtn');
-      var downloadPdfBtn = document.getElementById('downloadPdfBtn');
-      var pdfDirectLink  = document.getElementById('pdfDirectLink');
-      var pdfViewer      = document.getElementById('pdfViewer');
-      var epubWrap       = document.getElementById('epubReaderWrap');
-      var pdfWrap        = document.getElementById('pdfReaderWrap');
-      var modeEpubBtn    = document.getElementById('modeEpubBtn');
-      var modePdfBtn     = document.getElementById('modePdfBtn');
-      var modeHint       = document.getElementById('modeHint');
+      var titleEl      = document.getElementById('bookTitle');
+      var breadcrumbEl = document.getElementById('breadcrumbTitle');
+      var loadingEl    = document.getElementById('epubLoading');
+      var prevBtn      = document.getElementById('epubPrev');
+      var nextBtn      = document.getElementById('epubNext');
+      var pageInfoEl   = document.getElementById('epubPageInfo');
+      var tocBtn       = document.getElementById('epubToc');
+      var tocPanel     = document.getElementById('epubTocPanel');
+      var tocList      = document.getElementById('epubTocList');
+      var downloadBtn  = document.getElementById('downloadEpubBtn');
 
       /* Derive a clean title from the URL */
       function titleFromUrl(url) {
@@ -368,13 +333,6 @@
         } catch (e) {
           return 'Livro';
         }
-      }
-
-      /* Map EPUB path → PDF path.
-       * Convention: all EPUBs in /conteudo/ have a matching PDF at the same path
-       * (e.g. conteudo/cartas-completas.epub → conteudo/cartas-completas.pdf). */
-      function epubToPdf(epubPath) {
-        return epubPath.replace(/\.epub$/i, '.pdf');
       }
 
       if (!bookUrl) {
@@ -393,77 +351,36 @@
       }
 
       var cleanTitle = titleFromUrl(bookUrl);
-      var pdfUrl = epubToPdf(bookUrl);
 
       if (titleEl) titleEl.textContent = cleanTitle;
       if (breadcrumbEl) breadcrumbEl.textContent = cleanTitle;
       document.title = cleanTitle + ' — Santa Catarina de Sena';
 
-      /* Download links */
+      /* Download link */
       if (downloadBtn) {
         downloadBtn.href = bookUrl;
         downloadBtn.setAttribute('download', cleanTitle + '.epub');
       }
-      if (downloadPdfBtn) {
-        downloadPdfBtn.href = pdfUrl;
-        downloadPdfBtn.setAttribute('download', cleanTitle + '.pdf');
-      }
-      if (pdfDirectLink) {
-        pdfDirectLink.href = pdfUrl;
-        pdfDirectLink.setAttribute('target', '_blank');
-        pdfDirectLink.setAttribute('rel', 'noopener noreferrer');
-      }
-
-      /* ── Mode switching (EPUB ↔ PDF) ── */
-      var currentMode = 'epub';
-
-      function switchMode(mode) {
-        if (mode === currentMode) return;
-        currentMode = mode;
-        if (mode === 'pdf') {
-          epubWrap.style.display = 'none';
-          pdfWrap.style.display = 'block';
-          if (!pdfViewer.src) pdfViewer.src = pdfUrl;
-          modeEpubBtn.classList.remove('active');
-          modeEpubBtn.setAttribute('aria-pressed', 'false');
-          modePdfBtn.classList.add('active');
-          modePdfBtn.setAttribute('aria-pressed', 'true');
-          if (modeHint) modeHint.textContent = 'Visualizador de PDF (nativo do browser)';
-        } else {
-          pdfWrap.style.display = 'none';
-          epubWrap.style.display = 'block';
-          modeEpubBtn.classList.add('active');
-          modeEpubBtn.setAttribute('aria-pressed', 'true');
-          modePdfBtn.classList.remove('active');
-          modePdfBtn.setAttribute('aria-pressed', 'false');
-          if (modeHint) modeHint.textContent = 'Leitor EPUB interativo';
-        }
-      }
-
-      if (modeEpubBtn) modeEpubBtn.addEventListener('click', function () { switchMode('epub'); });
-      if (modePdfBtn)  modePdfBtn.addEventListener('click',  function () { switchMode('pdf'); });
 
       /* ── EPUB rendering ── */
       var book = ePub(bookUrl);
 
-      /* Safety timeout — 20 s → suggest PDF fallback */
+      /* Safety timeout — 20 s → suggest downloading the file */
       var loadTimeout = setTimeout(function () {
         if (loadingEl && loadingEl.style.display !== 'none') {
           loadingEl.innerHTML =
             '<p class="epub-error">O livro demorou muito para carregar. ' +
-            '<button onclick="__readerSwitchPdf()" ' +
-            'style="background:#a67c52;color:#fff;border:none;padding:0.4rem 1rem;border-radius:4px;cursor:pointer;font-family:Lato,sans-serif;margin:0 0.25rem;">Ler em PDF</button> ' +
-            'ou <a href="' + bookUrl + '" download>baixar EPUB</a>. ' +
-            '<a href="obras.html">← Voltar</a></p>';
+            '<a href="' + bookUrl + '" download>Baixar EPUB</a> ou ' +
+            '<a href="obras.html">← Voltar para obras</a>.</p>';
         }
       }, 20000);
 
       book.on('openFailed', function (err) {
         console.error('Erro ao abrir EPUB:', err);
+        clearTimeout(loadTimeout);
         if (loadingEl) loadingEl.innerHTML =
           '<p class="epub-error">Não foi possível carregar o livro. ' +
-          '<button onclick="__readerSwitchPdf()" ' +
-          'style="background:#a67c52;color:#fff;border:none;padding:0.4rem 1rem;border-radius:4px;cursor:pointer;font-family:Lato,sans-serif;margin:0 0.25rem;">Tentar PDF</button> ' +
+          '<a href="' + bookUrl + '" download>Baixar EPUB</a> · ' +
           '<a href="obras.html">← Voltar</a></p>';
       });
 
@@ -484,8 +401,7 @@
         console.error('Erro ao renderizar EPUB:', err);
         if (loadingEl) loadingEl.innerHTML =
           '<p class="epub-error">Não foi possível carregar o EPUB. ' +
-          '<button onclick="__readerSwitchPdf()" ' +
-          'style="background:#a67c52;color:#fff;border:none;padding:0.4rem 1rem;border-radius:4px;cursor:pointer;font-family:Lato,sans-serif;margin:0 0.25rem;">Ler em PDF</button> ' +
+          '<a href="' + bookUrl + '" download>Baixar EPUB</a> · ' +
           '<a href="obras.html">← Voltar</a></p>';
       });
 
@@ -499,7 +415,6 @@
 
       /* Keyboard navigation */
       document.addEventListener('keydown', function (e) {
-        if (currentMode !== 'epub') return;
         if (e.key === 'ArrowLeft')  rendition.prev().then(updatePageInfo);
         if (e.key === 'ArrowRight') rendition.next().then(updatePageInfo);
       });
