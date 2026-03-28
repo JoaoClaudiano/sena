@@ -404,39 +404,32 @@
       var startCfi = null;
       try { startCfi = localStorage.getItem(posKey); } catch (e) {}
 
-      rendition.display(startCfi || undefined).then(function () {
+      function onDisplayReady() {
         clearTimeout(loadTimeout);
         if (loadingEl) loadingEl.style.display = 'none';
         prevBtn.disabled = false;
         nextBtn.disabled = false;
         updatePageInfo();
-      }).catch(function (err) {
-        if (startCfi) {
-          /* Saved CFI is stale/invalid — clear it and retry from start */
-          try { localStorage.removeItem(posKey); } catch (e) {}
-          startCfi = null;
-          rendition.display(undefined).then(function () {
-            clearTimeout(loadTimeout);
-            if (loadingEl) loadingEl.style.display = 'none';
-            prevBtn.disabled = false;
-            nextBtn.disabled = false;
-            updatePageInfo();
-          }).catch(function (err2) {
-            clearTimeout(loadTimeout);
-            console.error('Erro ao renderizar EPUB:', err2);
-            if (loadingEl) loadingEl.innerHTML =
-              '<p class="epub-error">Não foi possível carregar o EPUB. ' +
-              '<a href="' + bookUrl + '" download>Baixar EPUB</a> · ' +
-              '<a href="obras.html">← Voltar</a></p>';
-          });
-          return;
-        }
+      }
+
+      function onDisplayError(err) {
         clearTimeout(loadTimeout);
         console.error('Erro ao renderizar EPUB:', err);
         if (loadingEl) loadingEl.innerHTML =
           '<p class="epub-error">Não foi possível carregar o EPUB. ' +
           '<a href="' + bookUrl + '" download>Baixar EPUB</a> · ' +
           '<a href="obras.html">← Voltar</a></p>';
+      }
+
+      rendition.display(startCfi || undefined).then(onDisplayReady).catch(function (err) {
+        if (startCfi) {
+          /* Saved CFI is stale/invalid — clear it and retry from start */
+          try { localStorage.removeItem(posKey); } catch (e) {}
+          startCfi = null;
+          rendition.display(undefined).then(onDisplayReady).catch(onDisplayError);
+          return;
+        }
+        onDisplayError(err);
       });
 
       /* Save position whenever the page changes */
