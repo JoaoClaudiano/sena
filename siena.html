@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <script>!function(){var t=localStorage.getItem("theme")||(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");if(t==="dark")document.documentElement.setAttribute("data-theme","dark")}()</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#a67c52" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#2a1f2e" media="(prefers-color-scheme: dark)">
   <title>Siena - Santa Catarina de Sena</title>
   <meta name="description" content="Conheça os lugares sagrados de Siena ligados a Santa Catarina: casa natal, Basílica de São Domingos, relíquias e arte sacra.">
   <meta property="og:type" content="website">
@@ -11,8 +13,10 @@
   <meta property="og:title" content="Siena — Santa Catarina de Sena">
   <meta property="og:description" content="Os lugares sagrados de Siena e a arte que imortalizou Santa Catarina.">
   <meta property="og:image" content="https://joaoclaudiano.github.io/sena/imagens/Franceschini_Baldassare_St_Catherine_of_Siena.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:site_name" content="Santa Catarina de Sena">
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Siena — Santa Catarina de Sena">
   <meta name="twitter:description" content="Os lugares sagrados de Siena e a arte que imortalizou Santa Catarina.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -244,7 +248,7 @@
       <div class="social-share" aria-label="Compartilhar esta página">
         <span>Compartilhar:</span>
         <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjoaoclaudiano.github.io%2Fsena%2Fsiena.html" target="_blank" rel="noopener noreferrer" class="share-btn share-facebook" aria-label="Compartilhar no Facebook">Facebook</a>
-        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fjoaoclaudiano.github.io%2Fsena%2Fsiena.html&text=Siena+-+A+cidade+de+Santa+Catarina" target="_blank" rel="noopener noreferrer" class="share-btn share-twitter" aria-label="Compartilhar no Twitter">Twitter</a>
+        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fjoaoclaudiano.github.io%2Fsena%2Fsiena.html&text=Siena+-+A+cidade+de+Santa+Catarina" target="_blank" rel="noopener noreferrer" class="share-btn share-twitter" aria-label="Compartilhar no X (Twitter)">X</a>
         <a href="https://api.whatsapp.com/send?text=Siena+-+A+cidade+de+Santa+Catarina+de+Sena%20https%3A%2F%2Fjoaoclaudiano.github.io%2Fsena%2Fsiena.html" target="_blank" rel="noopener noreferrer" class="share-btn share-whatsapp" aria-label="Compartilhar no WhatsApp">WhatsApp</a>
       </div>
     </div>
@@ -290,9 +294,11 @@
   <script src="scripts/menu.js" defer></script>
   <script src="scripts/transitions.js" defer></script>
   <!-- Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
   <script src="scripts/supabase.js" defer></script>
-  <script src="scripts/features.js" defer></script>
+  <script src="scripts/theme.js" defer></script>
+  <script src="scripts/ui.js" defer></script>
+  <script src="scripts/content.js" defer></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin defer></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {

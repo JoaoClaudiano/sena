@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <script>!function(){var t=localStorage.getItem("theme")||(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");if(t==="dark")document.documentElement.setAttribute("data-theme","dark")}()</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#a67c52" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#2a1f2e" media="(prefers-color-scheme: dark)">
   <title>Leitor de Livro — Santa Catarina de Sena</title>
   <meta name="description" content="Leia online as obras de Santa Catarina de Sena em formato EPUB.">
   <meta name="robots" content="noindex">
@@ -307,9 +309,11 @@
   <script src="scripts/menu.js" defer></script>
   <script src="scripts/transitions.js" defer></script>
   <!-- Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
   <script src="scripts/supabase.js" defer></script>
-  <script src="scripts/features.js" defer></script>
+  <script src="scripts/theme.js" defer></script>
+  <script src="scripts/ui.js" defer></script>
+  <script src="scripts/content.js" defer></script>
   <!-- JSZip required by epub.js -->
   <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
   <!-- epub.js pinned to stable 0.3.93 -->

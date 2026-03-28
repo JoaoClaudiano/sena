@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <script>!function(){var t=localStorage.getItem("theme")||(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");if(t==="dark")document.documentElement.setAttribute("data-theme","dark")}()</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#a67c52" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#2a1f2e" media="(prefers-color-scheme: dark)">
   <title>Política de Privacidade — Santa Catarina de Sena</title>
   <meta name="description" content="Política de Privacidade do site Santa Catarina de Sena. Saiba como tratamos seus dados com transparência e respeito.">
   <meta name="robots" content="noindex">
@@ -184,7 +186,7 @@
       <div class="social-share" aria-label="Compartilhar esta página" style="margin-top:2rem;">
         <span>Compartilhar:</span>
         <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjoaoclaudiano.github.io%2Fsena%2Fprivacidade.html" target="_blank" rel="noopener noreferrer" class="share-btn share-facebook" aria-label="Compartilhar no Facebook">Facebook</a>
-        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fjoaoclaudiano.github.io%2Fsena%2Fprivacidade.html&text=Pol%C3%ADtica+de+Privacidade+-+Santa+Catarina+de+Sena" target="_blank" rel="noopener noreferrer" class="share-btn share-twitter" aria-label="Compartilhar no Twitter">Twitter</a>
+        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fjoaoclaudiano.github.io%2Fsena%2Fprivacidade.html&text=Pol%C3%ADtica+de+Privacidade+-+Santa+Catarina+de+Sena" target="_blank" rel="noopener noreferrer" class="share-btn share-twitter" aria-label="Compartilhar no X (Twitter)">X</a>
         <a href="https://api.whatsapp.com/send?text=Santa+Catarina+de+Sena+-+Pol%C3%ADtica+de+Privacidade%20https%3A%2F%2Fjoaoclaudiano.github.io%2Fsena%2Fprivacidade.html" target="_blank" rel="noopener noreferrer" class="share-btn share-whatsapp" aria-label="Compartilhar no WhatsApp">WhatsApp</a>
       </div>
     </div>
@@ -229,9 +231,11 @@
 
   <script src="scripts/menu.js" defer></script>
   <script src="scripts/transitions.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
   <script src="scripts/supabase.js" defer></script>
-  <script src="scripts/features.js" defer></script>
+  <script src="scripts/theme.js" defer></script>
+  <script src="scripts/ui.js" defer></script>
+  <script src="scripts/content.js" defer></script>
   <script>
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("/sena/sw.js")

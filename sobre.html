@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <script>!function(){var t=localStorage.getItem("theme")||(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");if(t==="dark")document.documentElement.setAttribute("data-theme","dark")}()</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#a67c52" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#2a1f2e" media="(prefers-color-scheme: dark)">
   <title>Sobre - Santa Catarina de Sena</title>
   <meta name="description" content="Conheça a história por trás deste site devotional dedicado a Santa Catarina de Sena — um projeto voluntário de fé.">
   <meta property="og:type" content="website">
@@ -11,8 +13,10 @@
   <meta property="og:title" content="Sobre — Santa Catarina de Sena">
   <meta property="og:description" content="Um projeto voluntário de devoção a Santa Catarina de Sena.">
   <meta property="og:image" content="https://joaoclaudiano.github.io/sena/imagens/Franceschini_Baldassare_St_Catherine_of_Siena.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:site_name" content="Santa Catarina de Sena">
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Sobre — Santa Catarina de Sena">
   <meta name="twitter:description" content="Um projeto voluntário de devoção a Santa Catarina de Sena.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -235,9 +239,11 @@
   <script src="scripts/menu.js" defer></script>
   <script src="scripts/transitions.js" defer></script>
   <!-- Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
   <script src="scripts/supabase.js" defer></script>
-  <script src="scripts/features.js" defer></script>
+  <script src="scripts/theme.js" defer></script>
+  <script src="scripts/ui.js" defer></script>
+  <script src="scripts/content.js" defer></script>
   <script>
     (function () {
       var LAUNCH = new Date('2025-04-29T00:00:00');

@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <script>!function(){var t=localStorage.getItem("theme")||(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");if(t==="dark")document.documentElement.setAttribute("data-theme","dark")}()</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#a67c52" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#2a1f2e" media="(prefers-color-scheme: dark)">
   <title>Santa Catarina de Sena - Doutora da Igreja</title>
   <meta name="description" content="Site dedicado a Santa Catarina de Sena: biografia, obras, cartas, orações e downloads. Conheça a vida e os escritos desta grande mística e doutora da Igreja.">
   <!-- Open Graph / Facebook -->
@@ -12,9 +14,11 @@
   <meta property="og:title" content="Santa Catarina de Sena - Doutora da Igreja">
   <meta property="og:description" content="Site dedicado a Santa Catarina de Sena: biografia, obras, cartas, orações e downloads.">
   <meta property="og:image" content="https://joaoclaudiano.github.io/sena/imagens/Franceschini_Baldassare_St_Catherine_of_Siena.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:site_name" content="Santa Catarina de Sena">
   <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Santa Catarina de Sena - Doutora da Igreja">
   <meta name="twitter:description" content="Site dedicado a Santa Catarina de Sena: biografia, obras, cartas, orações e downloads.">
   <!-- Preconnect para fontes -->
@@ -135,9 +139,10 @@
           </div>
         </div>
         <div class="mural-nav">
-          <button class="mural-prev" id="muralPrevBtn" aria-label="Frase anterior">‹</button>
-          <button class="mural-next" id="muralNextBtn" aria-label="Próxima frase">›</button>
-        </div>
+  <button id="muralPrevBtn" class="mural-prev" aria-label="Frases anteriores">‹</button>
+  <button id="muralPauseBtn" class="mural-pause" aria-label="Pausar slideshow" aria-pressed="false">⏸</button>
+  <button id="muralNextBtn" class="mural-next" aria-label="Próximas frases">›</button>
+</div>
       </section>
 
       <!-- Pílulas de sabedoria diária -->
@@ -250,7 +255,7 @@
       <div class="social-share" aria-label="Compartilhar esta página">
         <span>Compartilhar:</span>
         <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjoaoclaudiano.github.io%2Fsena%2F" target="_blank" rel="noopener noreferrer" class="share-btn share-facebook" aria-label="Compartilhar no Facebook">Facebook</a>
-        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fjoaoclaudiano.github.io%2Fsena%2F&text=Santa+Catarina+de+Sena+-+Doutora+da+Igreja" target="_blank" rel="noopener noreferrer" class="share-btn share-twitter" aria-label="Compartilhar no Twitter">Twitter</a>
+        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fjoaoclaudiano.github.io%2Fsena%2F&text=Santa+Catarina+de+Sena+-+Doutora+da+Igreja" target="_blank" rel="noopener noreferrer" class="share-btn share-twitter" aria-label="Compartilhar no X (Twitter)">X</a>
         <a href="https://api.whatsapp.com/send?text=Santa+Catarina+de+Sena+-+Doutora+da+Igreja%20https%3A%2F%2Fjoaoclaudiano.github.io%2Fsena%2F" target="_blank" rel="noopener noreferrer" class="share-btn share-whatsapp" aria-label="Compartilhar no WhatsApp">WhatsApp</a>
       </div>
     </div>
@@ -308,9 +313,12 @@
   <script src="scripts/transitions.js" defer></script>
   <script src="scripts/network-graph.js" defer></script>
   <!-- Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
   <script src="scripts/supabase.js" defer></script>
-  <script src="scripts/features.js" defer></script>
+  <script src="scripts/theme.js" defer></script>
+  <script src="scripts/ui.js" defer></script>
+  <script src="scripts/content.js" defer></script>
+  <script src="scripts/slideshows.js" defer></script>
   <script src="scripts/lightbox.js" defer></script>
   <script>
     if ("serviceWorker" in navigator) {
