@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <script>!function(){var t=localStorage.getItem("theme")||(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");if(t==="dark")document.documentElement.setAttribute("data-theme","dark")}()</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página não encontrada — Santa Catarina de Sena</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#a67c52" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#2a1f2e" media="(prefers-color-scheme: dark)">
+  <!-- Preconnect para fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="estilo/style.css">
+  <link rel="icon" type="image/x-icon" href="icons/favicon.ico">
+  <link rel="manifest" href="site.webmanifest">
+</head>
+
+<body>
+  <div id="page-bg" aria-hidden="true">
+    <div class="page-bg-img bg-1 active"></div>
+    <div class="page-bg-img bg-2"></div>
+    <div id="page-bg-overlay"></div>
+  </div>
+  <div id="page-grain" aria-hidden="true"></div>
+  <a href="#main-content" class="skip-to-content">Ir para o conteúdo</a>
+
+  <header>
+    <div class="header-content container">
+      <div class="logo">
+        <a href="index.html">Catarina de Sena</a>
+      </div>
+      <nav aria-label="Navegação principal">
+        <button class="dark-toggle" id="darkToggle" aria-label="Alternar modo noturno" aria-pressed="false"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+        <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-menu"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+        <ul class="menu" id="main-menu" role="list">
+          <li><a href="index.html">Início</a></li>
+          <li><a href="biografia.html">Biografia</a></li>
+          <li><a href="obras.html">Obras</a></li>
+          <li><a href="siena.html">Siena</a></li>
+          <li><a href="oratorio.html">Oratório</a></li>
+          <li><a href="eventos.html">Eventos</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div class="container">
+      <div style="text-align:center; padding: 5rem 1rem;">
+        <p style="font-size: 5rem; margin-bottom: 1rem;" aria-hidden="true">🕯️</p>
+        <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">404 — Página não encontrada</h1>
+        <p style="color: var(--c-text-muted); max-width: 40ch; margin: 0 auto 2rem; font-size: 1.05rem; line-height: 1.7;">
+          "Deus é como o mar: quanto mais você nele mergulha, mais sente que é imenso."<br>
+          <em style="font-size: 0.9rem;">— Santa Catarina de Sena</em>
+        </p>
+        <p style="color: var(--c-text-soft); margin-bottom: 2rem;">
+          A página que você procura não existe ou foi movida.
+        </p>
+        <a href="index.html" class="btn" style="display:inline-block;">← Voltar ao início</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <p class="footer-title">Catarina de Sena</p>
+        <p>Um espaço de fé, devoção e conhecimento dedicado à Santa Catarina de Sena.</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="anoAtual">2025</span> — Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="scripts/menu.js" defer></script>
+  <script src="scripts/theme.js" defer></script>
+  <script src="scripts/content.js" defer></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sena/sw.js")
+        .catch(function(err) { console.warn("SW:", err); });
+    }
+  </script>
+</body>
+</html>

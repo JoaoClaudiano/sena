@@ -110,7 +110,7 @@
 }
 
 .node-desc {
-  font-size: 0.75rem; /* WCAG: increased from 0.63rem */
+  font-size: 0.8125rem; /* 13px at default — improved from 0.63rem for WCAG readability */
   color: var(--c-node-desc);
   line-height: 1.35;
 }
@@ -287,7 +287,7 @@
 
 .ng-modal-type {
   display: inline-block;
-  font-size: 0.75rem; /* WCAG: increased from 0.62rem */
+  font-size: 0.8125rem; /* 13px at default — improved from 0.62rem for WCAG readability */
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1.5px;
