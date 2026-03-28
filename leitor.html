@@ -72,14 +72,20 @@
     }
 
     .epub-loading {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100%;
       gap: 1rem;
       color: #666;
       font-family: 'Lato', sans-serif;
+      z-index: 5;
+      background: inherit;
     }
 
     .epub-spinner {
@@ -246,11 +252,10 @@
           </div>
 
           <div class="epub-reader-box" role="region" aria-label="Conteúdo do livro">
-            <div id="epub-viewer">
-              <div class="epub-loading" id="epubLoading">
-                <div class="epub-spinner" aria-hidden="true"></div>
-                <p>Carregando livro…</p>
-              </div>
+            <div id="epub-viewer"></div>
+            <div class="epub-loading" id="epubLoading">
+              <div class="epub-spinner" aria-hidden="true"></div>
+              <p>Carregando livro…</p>
             </div>
             <div class="epub-toc-panel" id="epubTocPanel" aria-label="Índice do livro">
               <h3>Índice</h3>
@@ -305,6 +310,8 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="scripts/supabase.js" defer></script>
   <script src="scripts/features.js" defer></script>
+  <!-- JSZip required by epub.js -->
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
   <!-- epub.js pinned to stable 0.3.93 -->
   <script src="https://cdn.jsdelivr.net/npm/epubjs@0.3.93/dist/epub.min.js"></script>
   <script>
@@ -399,19 +406,32 @@
       var startCfi = null;
       try { startCfi = localStorage.getItem(posKey); } catch (e) {}
 
-      rendition.display(startCfi || undefined).then(function () {
+      function onDisplayReady() {
         clearTimeout(loadTimeout);
         if (loadingEl) loadingEl.style.display = 'none';
         prevBtn.disabled = false;
         nextBtn.disabled = false;
         updatePageInfo();
-      }).catch(function (err) {
+      }
+
+      function onDisplayError(err) {
         clearTimeout(loadTimeout);
         console.error('Erro ao renderizar EPUB:', err);
         if (loadingEl) loadingEl.innerHTML =
           '<p class="epub-error">Não foi possível carregar o EPUB. ' +
           '<a href="' + bookUrl + '" download>Baixar EPUB</a> · ' +
           '<a href="obras.html">← Voltar</a></p>';
+      }
+
+      rendition.display(startCfi || undefined).then(onDisplayReady).catch(function (err) {
+        if (startCfi) {
+          /* Saved CFI is stale/invalid — clear it and retry from start */
+          try { localStorage.removeItem(posKey); } catch (e) {}
+          startCfi = null;
+          rendition.display(undefined).then(onDisplayReady).catch(onDisplayError);
+          return;
+        }
+        onDisplayError(err);
       });
 
       /* Save position whenever the page changes */
