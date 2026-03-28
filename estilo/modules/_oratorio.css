@@ -1,0 +1,312 @@
+/* ===== ORATORY / CANDLE ===== */
+.oratorio-hero {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: linear-gradient(135deg, #1a0a0a 0%, #3a1020 100%);
+  border-radius: 12px;
+  color: #fff;
+  margin-bottom: 2rem;
+}
+
+.oratorio-hero h1 {
+  color: #f0c070;
+}
+
+.oratorio-hero p {
+  color: rgba(255,255,255,0.8);
+  max-width: 600px;
+  margin: 0 auto 1.5rem;
+}
+
+.candle-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2rem auto;
+}
+
+.candle-container {
+  position: relative;
+  width: 100px;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.candle-body {
+  width: 40px;
+  height: 120px;
+  background: linear-gradient(to right, #f5e6c8 0%, #fff8e7 40%, #f5e6c8 100%);
+  border-radius: 4px 4px 2px 2px;
+  margin: 0 auto;
+  position: relative;
+  box-shadow: inset -3px 0 5px rgba(0,0,0,0.1);
+}
+
+.candle-wick {
+  width: 3px;
+  height: 15px;
+  background: #333;
+  border-radius: 2px;
+  margin: 0 auto;
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.candle-flame {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+}
+
+.candle-flame.lit {
+  display: block;
+}
+
+.flame-outer {
+  width: 24px;
+  height: 45px;
+  background: linear-gradient(to top, #ff9500 0%, #ffcc00 40%, #fff4b8 100%);
+  border-radius: 50% 50% 20% 20% / 60% 60% 40% 40%;
+  margin: 0 auto;
+  animation: flicker 0.8s infinite alternate;
+  position: relative;
+}
+
+.flame-inner {
+  width: 12px;
+  height: 25px;
+  background: linear-gradient(to top, #fff 0%, #fffde0 100%);
+  border-radius: 50% 50% 20% 20% / 60% 60% 40% 40%;
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@keyframes flicker {
+  0%   { transform: scaleX(1)    scaleY(1)    rotate(-1deg); opacity: 1; }
+  25%  { transform: scaleX(0.95) scaleY(1.03) rotate(1deg);  opacity: 0.95; }
+  50%  { transform: scaleX(1.02) scaleY(0.97) rotate(-0.5deg); opacity: 1; }
+  75%  { transform: scaleX(0.97) scaleY(1.02) rotate(1.5deg); opacity: 0.97; }
+  100% { transform: scaleX(1)    scaleY(1)    rotate(-1deg); opacity: 1; }
+}
+
+.candle-glow {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 180, 0, 0.4) 0%, transparent 70%);
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  animation: glow-pulse 1.5s infinite alternate;
+}
+
+.candle-glow.lit {
+  display: block;
+}
+
+@keyframes glow-pulse {
+  0%   { transform: translateX(-50%) scale(1);   opacity: 0.7; }
+  100% { transform: translateX(-50%) scale(1.2); opacity: 0.5; }
+}
+
+.candle-btn {
+  background: linear-gradient(135deg, #c8860a 0%, #f0a020 100%);
+  color: #fff;
+  border: none;
+  padding: 0.7rem 2rem;
+  border-radius: 25px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 12px rgba(200,134,10,0.3);
+}
+
+.candle-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(200,134,10,0.4);
+}
+
+.intencao-input {
+  width: 100%;
+  max-width: 420px;
+  padding: 0.65rem 1rem;
+  border: 1.5px solid var(--c-intencao-border);
+  border-radius: 10px;
+  font-family: 'Merriweather', serif;
+  font-size: 0.9rem;
+  color: var(--c-intencao-text);
+  background: var(--c-intencao-bg);
+  resize: vertical;
+  margin-bottom: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.intencao-input:focus {
+  outline: none;
+  border-color: #f0a020;
+  box-shadow: 0 0 0 3px rgba(240,160,32,0.18);
+}
+
+.intencao-input::placeholder {
+  color: #b09060;
+  font-style: italic;
+}
+
+.candle-count {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--c-text-muted);
+  font-family: 'Lato', sans-serif;
+}
+
+.prayer-section {
+  background: var(--c-prayer-bg);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+  margin-bottom: 2rem;
+}
+
+.prayer-section h2 {
+  margin-top: 0;
+}
+
+.prayer-tabs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.prayer-tab {
+  background: var(--c-prayer-tab-bg);
+  border: 1px solid var(--c-prayer-tab-border);
+  color: var(--c-prayer-tab-text);
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+.prayer-tab.active, .prayer-tab:hover {
+  background: var(--c-primary);
+  color: #fff;
+  border-color: var(--c-primary);
+}
+
+.prayer-content {
+  display: none;
+}
+
+.prayer-content.active {
+  display: block;
+}
+
+.prayer-text {
+  font-style: italic;
+  border-left: 3px solid var(--c-primary);
+  padding-left: 1.2rem;
+  line-height: 1.8;
+}
+
+/* ===== MAPA DE VELAS — ORATÓRIO ===== */
+.candle-map-section {
+  margin: 2.5rem 0;
+}
+
+.candle-map-header {
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
+
+.candle-map-header h2 {
+  margin-bottom: 0.5rem;
+}
+
+.candle-map-header p {
+  font-size: 0.95rem;
+  color: var(--c-candle-map-header);
+  margin-bottom: 0.25rem;
+}
+
+.candle-map-count {
+  font-size: 0.9rem;
+  color: var(--c-candle-map-count);
+  font-weight: 600;
+  min-height: 1.4rem;
+}
+
+.candle-map-wrapper {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+}
+
+.candle-map {
+  width: 100%;
+  height: 420px;
+  background: #1a1a2e;
+}
+
+.candle-map-geo-msg {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--c-candle-map-geo);
+  min-height: 1.4rem;
+  margin-top: 0.75rem;
+  font-style: italic;
+}
+
+.candle-map-marker {
+  background: transparent;
+  border: none;
+}
+
+.candle-marker-flame {
+  font-size: 1.5rem;
+  display: block;
+  filter: drop-shadow(0 0 6px rgba(255, 180, 50, 0.9));
+  animation: candleFlicker 2s ease-in-out infinite alternate;
+}
+
+@keyframes candleFlicker {
+  from { filter: drop-shadow(0 0 4px rgba(255, 180, 50, 0.7)); }
+  to   { filter: drop-shadow(0 0 10px rgba(255, 220, 80, 1)); }
+}
+
+.candle-popup {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* Leaflet popup — themed via CSS variables */
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: var(--c-leaflet-popup-bg);
+  color: var(--c-leaflet-popup-text);
+}
+
+.leaflet-bar a {
+  background: var(--c-leaflet-bar-bg);
+  color: var(--c-leaflet-popup-text);
+  border-color: var(--c-leaflet-bar-border);
+}
+
+.leaflet-bar a:hover {
+  background: var(--c-surface-3);
+}

@@ -1,0 +1,400 @@
+/* ===== REDE DE VIRTUDES — NETWORK GRAPH ===== */
+.network-section {
+  margin: 3rem 0;
+}
+
+.network-section h2 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.network-subtitle {
+  text-align: center;
+  color: var(--c-text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  font-family: 'Lato', sans-serif;
+}
+
+.network-legend {
+  display: flex;
+  justify-content: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.75rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--c-ng-text);
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.legend-dot.type-virtude  { background: #a67c52; }
+.legend-dot.type-citacao  { background: #6b8e9f; }
+.legend-dot.type-episodio { background: #7a9e7e; }
+
+/* Graph container — circular layout on desktop */
+.network-graph {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  margin: 0 auto;
+  transform-style: preserve-3d;
+  transition: transform 0.12s ease-out;
+}
+
+/* SVG overlay for connection lines */
+.network-svg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: visible;
+}
+
+/* Individual node wrapper */
+.network-node {
+  position: absolute;
+  z-index: 2;
+  cursor: pointer;
+}
+
+/* Card */
+.node-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  background: var(--c-ng-card);
+  border-radius: 12px;
+  padding: 0.6rem 0.75rem 0.65rem;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.09);
+  border-top: 3px solid var(--c-primary);
+  font-family: 'Lato', sans-serif;
+  text-align: center;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.3s ease,
+              opacity 0.3s ease;
+  will-change: transform, opacity;
+}
+
+.node-card.type-virtude  { border-top-color: #a67c52; }
+.node-card.type-citacao  { border-top-color: #6b8e9f; }
+.node-card.type-episodio { border-top-color: #7a9e7e; }
+
+.node-emoji {
+  display: block;
+  font-size: 1.3rem;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.node-title {
+  font-weight: 700;
+  font-size: 0.72rem;
+  color: var(--c-node-title);
+  margin-bottom: 0.2rem;
+  line-height: 1.2;
+}
+
+.node-desc {
+  font-size: 0.75rem; /* WCAG: increased from 0.63rem */
+  color: var(--c-node-desc);
+  line-height: 1.35;
+}
+
+/* Active (hovered/focused) card scale */
+.network-node.ng-active .node-card {
+  transform: translate(-50%, -50%) scale(1.18);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.22);
+  z-index: 10;
+  animation: none;
+}
+
+/* Popup tooltip */
+.node-popup {
+  position: absolute;
+  width: 220px;
+  background: var(--c-ng-popup);
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  box-shadow: 0 10px 36px rgba(0,0,0,0.18);
+  font-family: 'Lato', sans-serif;
+  font-size: 0.78rem;
+  color: var(--c-ng-text);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 20;
+  transition: opacity 0.25s ease,
+              transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform: translateX(-50%) scale(0.88);
+  left: 50%;
+  bottom: calc(100% + 14px);
+}
+
+.network-node.ng-active .node-popup {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) scale(1);
+}
+
+.popup-type {
+  display: inline-block;
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  padding: 0.15rem 0.5rem;
+  border-radius: 20px;
+  margin-bottom: 0.4rem;
+  color: #fff;
+}
+
+.popup-type-virtude  { background: #a67c52; }
+.popup-type-citacao  { background: #6b8e9f; }
+.popup-type-episodio { background: #7a9e7e; }
+
+.popup-title {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--c-popup-title);
+  margin-bottom: 0.4rem;
+}
+
+.popup-text {
+  font-size: 0.75rem;
+  color: var(--c-popup-text);
+  line-height: 1.55;
+}
+
+/* ===== REDE DE VIRTUDES — ANIMAÇÕES FLUTUANTES ===== */
+@keyframes ng-float-a {
+  0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
+  50%       { transform: translate(-50%, -50%) translateY(-7px); }
+}
+@keyframes ng-float-b {
+  0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
+  40%      { transform: translate(-50%, -50%) translateY(5px) translateX(3px); }
+  80%      { transform: translate(-50%, -50%) translateY(-5px) translateX(-2px); }
+}
+@keyframes ng-float-c {
+  0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
+  60%      { transform: translate(-50%, -50%) translateY(-9px); }
+}
+@keyframes ng-float-d {
+  0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
+  35%      { transform: translate(-50%, -50%) translateY(6px) translateX(-3px); }
+  70%      { transform: translate(-50%, -50%) translateY(-4px) translateX(2px); }
+}
+@keyframes ng-float-e {
+  0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
+  50%      { transform: translate(-50%, -50%) translateY(-6px) translateX(4px); }
+}
+
+.ng-float-a { animation: ng-float-a 3.4s ease-in-out infinite; }
+.ng-float-b { animation: ng-float-b 4.1s ease-in-out infinite; }
+.ng-float-c { animation: ng-float-c 3.8s ease-in-out infinite; }
+.ng-float-d { animation: ng-float-d 4.6s ease-in-out infinite; }
+.ng-float-e { animation: ng-float-e 3.2s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ng-float-a, .ng-float-b, .ng-float-c, .ng-float-d, .ng-float-e {
+    animation: none;
+  }
+}
+
+/* ===== REDE DE VIRTUDES — MODAL OVERLAY ===== */
+.ng-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease;
+}
+
+.ng-modal-overlay.ng-modal-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.ng-modal-box {
+  background: var(--c-ng-modal);
+  border-radius: 16px;
+  padding: 2rem 1.75rem 1.75rem;
+  max-width: 460px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.25);
+  transform: scale(0.9) translateY(10px);
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.22s ease;
+  opacity: 0;
+  font-family: 'Lato', sans-serif;
+}
+
+.ng-modal-overlay.ng-modal-open .ng-modal-box {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+.ng-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: var(--c-ng-modal-close);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--c-ng-modal-close-text);
+  transition: background 0.2s;
+}
+
+.ng-modal-close:hover {
+  background: var(--c-primary);
+  color: #fff;
+}
+
+.ng-modal-emoji {
+  font-size: 2.2rem;
+  line-height: 1;
+  margin-bottom: 0.75rem;
+}
+
+.ng-modal-type {
+  display: inline-block;
+  font-size: 0.75rem; /* WCAG: increased from 0.62rem */
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  color: #fff;
+  margin-bottom: 0.6rem;
+}
+
+.ng-modal-type.type-virtude  { background: #a67c52; }
+.ng-modal-type.type-citacao  { background: #6b8e9f; }
+.ng-modal-type.type-episodio { background: #7a9e7e; }
+
+.ng-modal-title {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--c-ng-title);
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+
+.ng-modal-text {
+  font-size: 0.92rem;
+  color: var(--c-ng-text);
+  line-height: 1.7;
+}
+
+/* Mobile: stacked grid, no SVG lines */
+@media (max-width: 600px) {
+  .network-graph {
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    padding: 0.25rem;
+  }
+
+  .network-svg {
+    display: none;
+  }
+
+  .network-node {
+    position: static;
+  }
+
+  .node-card {
+    position: static;
+    transform: none;
+    width: 100%;
+    text-align: left;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0.6rem 0.7rem;
+  }
+
+  .node-emoji {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    margin-bottom: 0;
+  }
+
+  .network-node.ng-active .node-card {
+    transform: none;
+  }
+
+  .node-popup {
+    position: static;
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+    box-shadow: none;
+    border: 1px solid var(--c-border);
+    margin-top: 0.4rem;
+    width: 100%;
+    display: none;
+    border-radius: 8px;
+    padding: 0.65rem 0.75rem;
+  }
+
+  .network-node.ng-active .node-popup {
+    display: block;
+  }
+
+  /* Network modal em tela cheia no mobile */
+  .ng-modal-box {
+    max-width: 100%;
+    margin: 0;
+    border-radius: 16px 16px 0 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem 1.25rem;
+  }
+
+  .ng-modal-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .ng-modal-overlay.ng-modal-open .ng-modal-box {
+    transform: scale(1) translateY(0);
+  }
+
+  .ng-modal-overlay .ng-modal-box {
+    transform: scale(1) translateY(100%);
+  }
+}

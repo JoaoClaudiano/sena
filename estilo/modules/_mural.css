@@ -1,0 +1,214 @@
+/* ===== MURAL SLIDESHOW ===== */
+.mural-section {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: var(--c-mural-bg);
+  border-radius: 12px;
+  margin: 2rem 0;
+}
+
+.mural-section h2 {
+  margin-bottom: 2rem;
+}
+
+.mural-slideshow {
+  position: relative;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.mural-slide {
+  position: absolute;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+  pointer-events: none;
+}
+
+.mural-slide.mural-active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  position: relative;
+}
+
+.mural-slide blockquote {
+  border: none;
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.mural-slide blockquote p {
+  font-size: 1.4rem;
+  font-style: italic;
+  color: var(--c-mural-quote);
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.mural-slide blockquote cite {
+  color: var(--c-primary);
+  font-family: 'Lato', sans-serif;
+  font-size: 0.95rem;
+}
+
+.mural-nav {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.mural-prev, .mural-next {
+  background: var(--c-primary);
+  color: #fff;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.3rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: background 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mural-prev:hover, .mural-next:hover {
+  background: var(--c-primary-hover);
+}
+
+.mural-pause {
+  background: transparent;
+  color: var(--c-primary);
+  border: 1px solid var(--c-primary);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 0.85rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: background 0.3s, color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mural-pause:hover {
+  background: var(--c-primary);
+  color: #fff;
+}
+
+/* ===== PÍLULAS DE SABEDORIA ===== */
+.pilula-section {
+  background: linear-gradient(135deg, var(--c-primary) 0%, var(--c-primary-hover) 100%);
+  color: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 2rem 0;
+}
+
+.pilula-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.pilula-badge {
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.4);
+  color: #fff;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+}
+
+.pilula-date {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.75);
+}
+
+.pilula-content h3 {
+  color: #fff;
+  margin-top: 0;
+}
+
+.pilula-content p {
+  color: rgba(255,255,255,0.9);
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.pilula-content .pilula-ref {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.65);
+  font-style: italic;
+}
+
+/* ===== DESTAQUES GRID ===== */
+.destaques-section {
+  margin: 3rem 0;
+}
+
+.destaques-section h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.destaques-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.destaque-card {
+  background: var(--c-destaque-bg);
+  border-radius: 12px;
+  padding: 1.8rem 1.5rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+  text-decoration: none;
+  color: var(--c-destaque-text);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: block;
+  border-bottom: 3px solid transparent;
+}
+
+.destaque-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+  border-bottom-color: var(--c-primary);
+  text-decoration: none;
+  color: var(--c-destaque-text);
+}
+
+.destaque-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.destaque-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.destaque-card p {
+  font-size: 0.9rem;
+  color: var(--c-destaque-p);
+  margin-bottom: 0;
+  line-height: 1.6;
+}

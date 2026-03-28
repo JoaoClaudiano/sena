@@ -1,0 +1,17 @@
+/* ===== BOOK / LEITOR ===== */
+.book-content {
+  background-color: var(--c-book-bg);
+  color: var(--c-book-text);
+  line-height: 1.9;
+  font-size: 1.1rem;
+}
+
+.chapter-list {
+  background-color: var(--c-chapter-bg);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.chapter-list a {
+  color: var(--c-link);
+}
