@@ -5,8 +5,8 @@
    • Stale-While-Revalidate → imagens de arte, páginas HTML
    =================================================== */
 
-var CACHE_NAME   = 'catarina-v6';
-var CACHE_STATIC = 'catarina-static-v6';
+var CACHE_NAME   = 'catarina-v7';
+var CACHE_STATIC = 'catarina-static-v7';
 
 /* Base da URL do site (ex.: "/sena" no GitHub Pages) */
 var BASE = self.registration.scope.replace(/\/$/, '');
