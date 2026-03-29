@@ -33,6 +33,12 @@
     return;
   }
 
+  /* Rejeita URLs absolutas — apenas caminhos relativos (mesmo origem) são permitidos */
+  if (/^[a-zA-Z][a-zA-Z\d+\-.]*:/.test(bookUrl)) {
+    loadingEl.innerHTML = '<p class="epub-error">URL de livro inválida. <a href="obras.html">← Voltar para obras</a></p>';
+    return;
+  }
+
   /* Remapeia caminhos legados para os nomes atuais */
   var legacyPaths = {
     'conteudo/Cartas Completas (Santa Catarina de Sena).epub': 'conteudo/cartas-completas.epub',
@@ -78,9 +84,10 @@
   });
 
   var rendition = book.renderTo('epub-viewer', {
-    width:  '100%',
-    height: '100%',
-    spread: 'none'
+    width:               '100%',
+    height:              '100%',
+    spread:              'none',
+    allowScriptedContent: true
   });
 
   /* Chave de posição salva — única por URL do livro */
@@ -164,7 +171,9 @@
       a.textContent = item.label;
       a.addEventListener('click', function (e) {
         e.preventDefault();
-        rendition.display(item.href).then(updatePageInfo);
+        rendition.display(item.href).then(updatePageInfo).catch(function (err) {
+          if (err && err.name !== 'AbortError') { console.warn('EPUB navigation error:', err); }
+        });
         tocPanel.classList.remove('open');
       });
       li.appendChild(a);
