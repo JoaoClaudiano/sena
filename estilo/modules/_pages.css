@@ -1,0 +1,321 @@
+/* ===== EVENTS PAGE ===== */
+.eventos-list {
+  list-style: none;
+  padding: 0;
+}
+
+.evento-item {
+  background: var(--c-evento-bg);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.evento-date {
+  background: var(--c-primary);
+  color: #fff;
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  text-align: center;
+  min-width: 70px;
+  font-family: 'Lato', sans-serif;
+  flex-shrink: 0;
+}
+
+.evento-day {
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1;
+  display: block;
+}
+
+.evento-month {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.evento-info h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+}
+
+.evento-info p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--c-evento-p);
+}
+
+.evento-tipo {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-family: 'Lato', sans-serif;
+  padding: 0.2rem 0.6rem;
+  border-radius: 10px;
+  background: var(--c-evento-tipo-bg);
+  color: var(--c-evento-tipo-text);
+  margin-bottom: 0.4rem;
+}
+
+/* ===== SIENA PAGE ===== */
+.siena-place {
+  background: var(--c-siena-place);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+  border-left: 4px solid var(--c-primary);
+}
+
+.siena-place h3 {
+  margin-top: 0;
+}
+
+.art-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.art-piece {
+  background: var(--c-art-piece);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+  transition: transform 0.3s ease;
+}
+
+.art-piece:hover {
+  transform: translateY(-4px);
+}
+
+.art-image-placeholder {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  background: linear-gradient(135deg, var(--c-art-placeholder-1) 0%, var(--c-art-placeholder-2) 100%);
+}
+
+.art-piece img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+.art-info {
+  padding: 1.25rem;
+}
+
+.art-info h4 {
+  margin: 0 0 0.5rem;
+  font-size: 0.95rem;
+  color: var(--c-primary);
+}
+
+.art-info p {
+  font-size: 0.875rem;
+  color: var(--c-art-info-p);
+  margin: 0;
+}
+
+/* ===== SOBRE PAGE ===== */
+.sobre-hero {
+  text-align: center;
+  padding: 3rem 1rem 2rem;
+  background: var(--c-sobre-bg);
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+.sobre-hero h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.sobre-content {
+  background: var(--c-sobre-content);
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+  margin-bottom: 2rem;
+  line-height: 1.9;
+}
+
+.sobre-content p {
+  margin-bottom: 1.2rem;
+}
+
+.sobre-content h2 {
+  margin-top: 2rem;
+}
+
+/* ===== CONTACT IMPROVED ===== */
+.contact-info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .contact-info-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.contact-info-card {
+  background: var(--c-contact-card);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  text-align: center;
+}
+
+.contact-info-card .info-icon {
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+  color: var(--c-primary);
+}
+
+.contact-info-card .info-icon svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.contact-info-card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+}
+
+.contact-info-card p {
+  font-size: 0.875rem;
+  color: var(--c-contact-card-p);
+  margin: 0;
+}
+
+.faq-section {
+  margin-top: 2.5rem;
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--c-faq-border);
+  padding: 1rem 0;
+}
+
+.faq-question {
+  font-weight: 700;
+  color: var(--c-primary);
+  font-family: 'Lato', sans-serif;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.faq-answer {
+  margin-top: 0.75rem;
+  font-size: 0.95rem;
+  color: var(--c-faq-answer);
+  display: none;
+}
+
+.faq-answer.open {
+  display: block;
+}
+
+/* ===== BARRA DE PESQUISA — MAPA DO SITE ===== */
+.sitemap-search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  max-width: 500px;
+  margin: 1.5rem 0 1rem;
+  background: var(--c-sitemap-bg);
+  border: 1.5px solid #c9ad90;
+  border-radius: 30px;
+  padding: 0 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.sitemap-search-wrap:focus-within {
+  border-color: var(--c-primary);
+  box-shadow: 0 0 0 3px rgba(166,124,82,0.15);
+}
+
+.sitemap-search-label {
+  color: var(--c-sitemap-label);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-right: 0.5rem;
+}
+
+.sitemap-search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 0.65rem 0;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.95rem;
+  color: var(--c-sitemap-input);
+}
+
+.sitemap-search-input::placeholder {
+  color: #a0867a;
+}
+
+.sitemap-search-clear {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #a0867a;
+  font-size: 0.85rem;
+  padding: 0.2rem 0.4rem;
+  border-radius: 50%;
+  line-height: 1;
+  flex-shrink: 0;
+  transition: color 0.2s;
+}
+
+.sitemap-search-clear:hover {
+  color: var(--c-primary);
+}
+
+.sitemap-no-results {
+  color: var(--c-text-muted);
+  font-style: italic;
+  font-size: 0.9rem;
+  margin: 0.5rem 0 1rem;
+}
+
+/* ===== CANDLE MAP FALLBACK ===== */
+.candle-map-fallback {
+  width: 100%;
+  height: 420px;
+  background: #1a1a2e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
+}
+
+.candle-map-fallback p {
+  color: var(--c-text-muted);
+  font-size: 0.95rem;
+  text-align: center;
+  padding: 1.5rem;
+  max-width: 40ch;
+}

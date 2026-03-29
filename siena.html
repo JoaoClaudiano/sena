@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <script>!function(){var t=localStorage.getItem("theme")||(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");if(t==="dark")document.documentElement.setAttribute("data-theme","dark")}()</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#a67c52" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#2a1f2e" media="(prefers-color-scheme: dark)">
   <title>Siena - Santa Catarina de Sena</title>
   <meta name="description" content="Conheça os lugares sagrados de Siena ligados a Santa Catarina: casa natal, Basílica de São Domingos, relíquias e arte sacra.">
   <meta property="og:type" content="website">
@@ -11,8 +13,10 @@
   <meta property="og:title" content="Siena — Santa Catarina de Sena">
   <meta property="og:description" content="Os lugares sagrados de Siena e a arte que imortalizou Santa Catarina.">
   <meta property="og:image" content="https://joaoclaudiano.github.io/sena/imagens/Franceschini_Baldassare_St_Catherine_of_Siena.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:site_name" content="Santa Catarina de Sena">
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Siena — Santa Catarina de Sena">
   <meta name="twitter:description" content="Os lugares sagrados de Siena e a arte que imortalizou Santa Catarina.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,6 +32,28 @@
   <link rel="icon" type="image/png" sizes="256x256" href="icons/icon_256x256.png">
   <link rel="icon" type="image/png" sizes="512x512" href="icons/icon_512x512.png">
   <link rel="manifest" href="site.webmanifest">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "headline": "Siena — A cidade de Santa Catarina",
+        "description": "Conheça Siena, a cidade natal de Santa Catarina de Sena — sua história, monumentos e o legado da santa padroeira.",
+        "url": "https://joaoclaudiano.github.io/sena/siena.html",
+        "inLanguage": "pt-BR",
+        "about": {"@id": "https://joaoclaudiano.github.io/sena/#catarina"}
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type":"ListItem","position":1,"name":"Início","item":"https://joaoclaudiano.github.io/sena/"},
+          {"@type":"ListItem","position":2,"name":"Siena","item":"https://joaoclaudiano.github.io/sena/siena.html"}
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <div id="page-bg" aria-hidden="true">
@@ -244,7 +270,7 @@
       <div class="social-share" aria-label="Compartilhar esta página">
         <span>Compartilhar:</span>
         <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjoaoclaudiano.github.io%2Fsena%2Fsiena.html" target="_blank" rel="noopener noreferrer" class="share-btn share-facebook" aria-label="Compartilhar no Facebook">Facebook</a>
-        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fjoaoclaudiano.github.io%2Fsena%2Fsiena.html&text=Siena+-+A+cidade+de+Santa+Catarina" target="_blank" rel="noopener noreferrer" class="share-btn share-twitter" aria-label="Compartilhar no Twitter">Twitter</a>
+        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fjoaoclaudiano.github.io%2Fsena%2Fsiena.html&text=Siena+-+A+cidade+de+Santa+Catarina" target="_blank" rel="noopener noreferrer" class="share-btn share-twitter" aria-label="Compartilhar no X (Twitter)">X</a>
         <a href="https://api.whatsapp.com/send?text=Siena+-+A+cidade+de+Santa+Catarina+de+Sena%20https%3A%2F%2Fjoaoclaudiano.github.io%2Fsena%2Fsiena.html" target="_blank" rel="noopener noreferrer" class="share-btn share-whatsapp" aria-label="Compartilhar no WhatsApp">WhatsApp</a>
       </div>
     </div>
@@ -290,64 +316,13 @@
   <script src="scripts/menu.js" defer></script>
   <script src="scripts/transitions.js" defer></script>
   <!-- Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
   <script src="scripts/supabase.js" defer></script>
-  <script src="scripts/features.js" defer></script>
+  <script src="scripts/theme.js" defer></script>
+  <script src="scripts/ui.js" defer></script>
+  <script src="scripts/content.js" defer></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin defer></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      if (typeof L === 'undefined') return;
-
-      /* ── Mapa de Siena ── */
-      var mapa = L.map('mapa-siena', { scrollWheelZoom: false }).setView([43.3186, 11.3309], 13);
-
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 18,
-        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      }).addTo(mapa);
-
-      var lugares = [
-        { lat: 43.3182, lng: 11.3275, nome: 'Casa de Santa Catarina — Santuário', desc: 'Casa natal de Catarina Benincasa, hoje Santuário. Capelas nas antigas dependências da casa familiar.' },
-        { lat: 43.3197, lng: 11.3262, nome: 'Basílica de São Domingos (San Domenico)', desc: 'Guarda a relíquia da cabeça de Santa Catarina e o único retrato feito em vida (Andrea Vanni, c. 1375).' },
-        { lat: 43.3187, lng: 11.3312, nome: 'Piazza del Campo', desc: 'O coração de Siena medieval, palco do Palio e da vida pública que Catarina conheceu.' },
-        { lat: 43.3172, lng: 11.3278, nome: 'Fonte Branda', desc: 'A antiga fonte medieval junto à qual Catarina vivia. Ponto de encontro do bairro da Oca, onde nasceu.' },
-        { lat: 43.3168, lng: 11.3330, nome: 'Catedral de Siena (Duomo)', desc: 'A espetacular catedral de Siena, em mármore branco e negro. Parte do cenário espiritual que Catarina conheceu.' }
-      ];
-
-      lugares.forEach(function (l) {
-        L.marker([l.lat, l.lng])
-          .addTo(mapa)
-          .bindPopup('<strong>' + l.nome + '</strong><br>' + l.desc);
-      });
-
-      /* ── Mapa do Brasil ── */
-      if (document.getElementById('mapa-brasil')) {
-        var mapaBR = L.map('mapa-brasil', { scrollWheelZoom: false }).setView([-15.78, -47.93], 4);
-
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          maxZoom: 18,
-          attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(mapaBR);
-
-        var lugaresBR = [
-          { lat: -8.0089, lng: -34.8553, nome: 'Convento de São Domingos — Olinda/PE', desc: 'O mais antigo mosteiro dominicano das Américas (1558). Berço da espiritualidade dominicana no Brasil, que inclui a devoção a Santa Catarina de Sena.' },
-          { lat: -23.5937, lng: -46.6547, nome: 'Paróquia Santa Catarina de Sena — São Paulo/SP', desc: 'Bairro Saúde. Comunidade paroquial dedicada à santa sienense, com celebração especial em 29 de abril.' },
-          { lat: -20.3194, lng: -40.3380, nome: 'Convento São Domingos — Vitória/ES', desc: 'Sede da Província Dominicana do Brasil. Centro da espiritualidade dominicana, onde a memória de Santa Catarina é especialmente cultivada.' },
-          { lat: -22.8833, lng: -43.1036, nome: 'Instituto Teológico São Domingos — Niterói/RJ', desc: 'Centro acadêmico dominicano com estudos sobre a mística e escritos de Santa Catarina de Sena.' },
-          { lat: -29.1678, lng: -51.1794, nome: 'Comunidade Ítalo-Brasileira — Caxias do Sul/RS', desc: 'Região de forte imigração italiana. Devoção popular a Santa Catarina de Sena mantida por famílias de descendência italiana há gerações.' },
-          { lat: -28.6848, lng: -49.3594, nome: 'Região de Imigração Italiana — Criciúma/SC', desc: 'Sul de Santa Catarina: cidades como Criciúma, Urussanga e Nova Veneza guardam tradição devocional italiana, incluindo a devoção à padroeira da Itália.' },
-          { lat: -22.9035, lng: -43.1731, nome: 'Igreja do Glicério — Rio de Janeiro/RJ', desc: 'Região histórica da colônia italiana no Rio de Janeiro, com imagens e devoções ligadas a Santa Catarina de Sena.' },
-          { lat: -25.4284, lng: -49.2733, nome: 'Fraternidade Dominicana Leiga — Curitiba/PR', desc: 'Grupo de leigos dominicanos que celebra a festa de Santa Catarina de Sena em 29 de abril com orações, meditação e estudo dos escritos de Santa Catarina.' }
-        ];
-
-        lugaresBR.forEach(function (l) {
-          L.marker([l.lat, l.lng])
-            .addTo(mapaBR)
-            .bindPopup('<strong>' + l.nome + '</strong><br>' + l.desc);
-        });
-      }
-    });
-  </script>
+  <script src="scripts/mapa-siena.js" defer></script>
   <script>
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("/sena/sw.js")

@@ -1,0 +1,184 @@
+/* ===== STATUS PROFISSIONAL (SOBRE PAGE) ===== */
+.system-status-card {
+  background: var(--c-system-card);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  margin-bottom: 2rem;
+}
+
+.system-status-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--c-system-header-border);
+}
+
+.system-status-title {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--c-status-label);
+  margin: 0;
+}
+
+.system-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #16a34a;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.35rem 0.85rem;
+  border-radius: 20px;
+}
+
+/* Ping pulsivo */
+.ping-dot {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
+}
+
+.ping-dot::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-color: #22c55e;
+  animation: ping-pulse 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.ping-dot::after {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  border-radius: 50%;
+  background-color: #16a34a;
+}
+
+@keyframes ping-pulse {
+  0%   { transform: scale(1);   opacity: 0.85; }
+  70%  { transform: scale(2.2); opacity: 0; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+.system-status-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 600px) {
+  .system-status-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .system-status-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.system-status-metric {
+  background: var(--c-system-metric-bg);
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.system-status-metric-label {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-status-label);
+  margin-bottom: 0.35rem;
+}
+
+.system-status-metric-value {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--c-system-metric-value);
+  line-height: 1.2;
+}
+
+.system-status-metric-sub {
+  font-size: 0.75rem;
+  color: var(--c-status-label);
+  margin-top: 0.15rem;
+}
+
+.system-stack-list {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--c-api-border);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.stack-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: var(--c-stack-tag-bg);
+  color: var(--c-stack-tag);
+  font-family: 'Lato', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.3rem 0.7rem;
+  border-radius: 6px;
+  letter-spacing: 0.03em;
+}
+
+.stack-tag svg {
+  flex-shrink: 0;
+}
+
+.api-status-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--c-api-border);
+  font-family: 'Lato', sans-serif;
+  font-size: 0.8rem;
+}
+
+.api-status-label {
+  color: var(--c-status-label);
+  font-weight: 600;
+}
+
+.api-status-value {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 700;
+  color: var(--c-api-value);
+}
+
+.api-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--c-status-label);
+  display: inline-block;
+}
+
+.api-dot.online  { background-color: #22c55e; }
+.api-dot.offline { background-color: #ef4444; }

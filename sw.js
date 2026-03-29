@@ -5,8 +5,8 @@
    • Stale-While-Revalidate → imagens de arte, páginas HTML
    =================================================== */
 
-var CACHE_NAME   = 'catarina-v3';
-var CACHE_STATIC = 'catarina-static-v3';
+var CACHE_NAME   = 'catarina-v6';
+var CACHE_STATIC = 'catarina-static-v6';
 
 /* Base da URL do site (ex.: "/sena" no GitHub Pages) */
 var BASE = self.registration.scope.replace(/\/$/, '');
@@ -15,10 +15,37 @@ var BASE = self.registration.scope.replace(/\/$/, '');
 var PRE_CACHE = [
   BASE + '/',
   BASE + '/index.html',
+  BASE + '/sobre.html',
+  BASE + '/404.html',
   BASE + '/estilo/style.css',
+  BASE + '/estilo/modules/_variables.css',
+  BASE + '/estilo/modules/_base.css',
+  BASE + '/estilo/modules/_layout.css',
+  BASE + '/estilo/modules/_components.css',
+  BASE + '/estilo/modules/_hero.css',
+  BASE + '/estilo/modules/_mural.css',
+  BASE + '/estilo/modules/_gallery.css',
+  BASE + '/estilo/modules/_network.css',
+  BASE + '/estilo/modules/_footer.css',
+  BASE + '/estilo/modules/_oratorio.css',
+  BASE + '/estilo/modules/_status.css',
+  BASE + '/estilo/modules/_pages.css',
+  BASE + '/estilo/modules/_animations.css',
+  BASE + '/estilo/modules/_book.css',
+  BASE + '/estilo/modules/_responsive.css',
   BASE + '/scripts/menu.js',
-  BASE + '/scripts/features.js',
+  BASE + '/scripts/transitions.js',
+  BASE + '/scripts/theme.js',
+  BASE + '/scripts/ui.js',
+  BASE + '/scripts/content.js',
+  BASE + '/scripts/slideshows.js',
   BASE + '/scripts/lightbox.js',
+  BASE + '/scripts/sobre.js',
+  BASE + '/scripts/dialogo.js',
+  BASE + '/scripts/leitor.js',
+  BASE + '/scripts/mapa-biografia.js',
+  BASE + '/scripts/mapa-siena.js',
+  BASE + '/scripts/mapa-do-site.js',
   BASE + '/scripts/supabase.js',
   BASE + '/site.webmanifest',
   BASE + '/icons/favicon.ico',

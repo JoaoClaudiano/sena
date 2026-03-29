@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <script>!function(){var t=localStorage.getItem("theme")||(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");if(t==="dark")document.documentElement.setAttribute("data-theme","dark")}()</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#a67c52" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#2a1f2e" media="(prefers-color-scheme: dark)">
   <title>Contato - Santa Catarina de Sena</title>
   <meta name="description" content="Entre em contato para sugestões, pedidos de oração ou informações sobre o site.">
   <!-- Open Graph / Facebook -->
@@ -12,9 +14,11 @@
   <meta property="og:title" content="Contato - Santa Catarina de Sena">
   <meta property="og:description" content="Entre em contato para sugestões, pedidos de oração ou informações sobre o site.">
   <meta property="og:image" content="https://joaoclaudiano.github.io/sena/imagens/Franceschini_Baldassare_St_Catherine_of_Siena.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:site_name" content="Santa Catarina de Sena">
   <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Contato - Santa Catarina de Sena">
   <meta name="twitter:description" content="Entre em contato para sugestões, pedidos de oração ou informações sobre o site.">
   <!-- Preconnect para fontes -->
@@ -30,6 +34,28 @@
   <link rel="icon" type="image/png" sizes="256x256" href="icons/icon_256x256.png">
   <link rel="icon" type="image/png" sizes="512x512" href="icons/icon_512x512.png">
   <link rel="manifest" href="site.webmanifest">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ContactPage",
+        "headline": "Contato — Santa Catarina de Sena",
+        "description": "Entre em contato com o projeto Santa Catarina de Sena para sugestões, correções ou mensagens de devoção.",
+        "url": "https://joaoclaudiano.github.io/sena/contato.html",
+        "inLanguage": "pt-BR",
+        "about": {"@id": "https://joaoclaudiano.github.io/sena/#catarina"}
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type":"ListItem","position":1,"name":"Início","item":"https://joaoclaudiano.github.io/sena/"},
+          {"@type":"ListItem","position":2,"name":"Contato","item":"https://joaoclaudiano.github.io/sena/contato.html"}
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <div id="page-bg" aria-hidden="true">
@@ -231,10 +257,12 @@
   <script src="scripts/menu.js" defer></script>
   <script src="scripts/transitions.js" defer></script>
   <!-- Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
   <script src="scripts/supabase.js" defer></script>
   <script src="scripts/validation.js" defer></script>
-  <script src="scripts/features.js" defer></script>
+  <script src="scripts/theme.js" defer></script>
+  <script src="scripts/ui.js" defer></script>
+  <script src="scripts/content.js" defer></script>
   <script>
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("/sena/sw.js")

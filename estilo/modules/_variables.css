@@ -1,0 +1,300 @@
+/* ===== VARIÁVEIS CSS — CATARINA DE SENA ===== */
+
+:root {
+  /* Focus rings */
+  --focus-ring: 0 0 0 3px rgba(166,124,82,0.45);
+  --focus-ring-dark: 0 0 0 3px rgba(201,149,108,0.45);
+
+  /* Brand / primary */
+  --c-primary:             #a67c52;
+  --c-primary-hover:       #8e5a4b;
+
+  /* Text */
+  --c-text:                #2c3e50;
+  --c-text-muted:          #7f8c8d;
+  --c-text-soft:           #5a6a7a;
+  --c-heading:             #a67c52;
+  --c-link:                #8e5a4b;
+  --c-link-hover:          #b76e79;
+
+  /* Page background overlay */
+  --c-bg-overlay:          rgba(249,247,244,0.84);
+
+  /* Surfaces */
+  --c-surface:             #ffffff;
+  --c-surface-2:           #f9f7f4;
+  --c-surface-3:           #f5ede4;
+  --c-surface-4:           #fdf6ee;
+
+  /* Borders */
+  --c-border:              #ece8e2;
+  --c-border-subtle:       #eee;
+  --c-border-form:         #ccc;
+
+  /* Brown tones */
+  --c-brown-dark:          #5a3a28;
+  --c-brown-mid:           #3d2b1f;
+
+  /* Header / menu */
+  --c-header-bg:           #ffffff;
+  --c-menu-bg:             #ffffff;
+  --c-menu-link:           #3d2b1f;
+  --c-menu-hover-bg:       #f5ede4;
+
+  /* Toggle (dark mode button) */
+  --c-toggle-border:       #a67c52;
+  --c-toggle-text:         #a67c52;
+  --c-toggle-hover-bg:     #a67c52;
+  --c-toggle-hover-text:   #fff;
+
+  /* Menu toggle (hamburger) */
+  --c-menu-toggle-text:    #5a3a28;
+  --c-menu-toggle-hover-bg: #f5ede4;
+
+  /* Mural section */
+  --c-mural-bg:            linear-gradient(135deg, #fdf6ee 0%, #f5ece0 100%);
+  --c-mural-quote:         #5a3a28;
+
+  /* Network graph */
+  --c-ng-card:             #ffffff;
+  --c-ng-popup:            #ffffff;
+  --c-ng-modal:            #ffffff;
+  --c-ng-modal-close:      #f5f0eb;
+  --c-ng-modal-close-text: #5a3a28;
+  --c-ng-title:            #2c2c2c;
+  --c-ng-text:             #555;
+
+  /* Node card */
+  --c-node-title:          #4a3428;
+  --c-node-desc:           #666;
+
+  /* Popup */
+  --c-popup-title:         #2c2c2c;
+  --c-popup-text:          #555;
+
+  /* Lightbox */
+  --c-lightbox-bg:         #ffffff;
+  --c-lightbox-titulo:     #3d2b1f;
+  --c-lightbox-meta:       #f5ede4;
+  --c-lightbox-dd:         #3d2b1f;
+  --c-lightbox-context:    #5a6a7a;
+
+  /* Sobre page */
+  --c-sobre-bg:            linear-gradient(135deg, #fdf6ee 0%, #f5ece0 100%);
+  --c-sobre-content:       #ffffff;
+
+  /* Book / reader */
+  --c-book-bg:             #ffffff;
+  --c-book-text:           #2c3e50;
+  --c-chapter-bg:          #f9f7f4;
+  --c-reading-bg:          #f9f7f4;
+  --c-reading-border:      #eee;
+
+  /* Quote / blockquote */
+  --c-quote-bg:            #ffffff;
+
+  /* Destaque cards */
+  --c-destaque-bg:         #ffffff;
+  --c-destaque-text:       #2c3e50;
+  --c-destaque-p:          #5a6a7a;
+
+  /* Intenção input */
+  --c-intencao-bg:         #fffdf5;
+  --c-intencao-border:     #e0c88a;
+  --c-intencao-text:       #3d2b00;
+
+  /* Prayer section */
+  --c-prayer-bg:           #ffffff;
+  --c-prayer-tab-bg:       #f9f7f4;
+  --c-prayer-tab-border:   #e0d5c8;
+  --c-prayer-tab-text:     #5a3a28;
+
+  /* Eventos */
+  --c-evento-bg:           #ffffff;
+  --c-evento-p:            #5a6a7a;
+  --c-evento-tipo-bg:      #f0e8df;
+  --c-evento-tipo-text:    #8e5a4b;
+
+  /* Siena page */
+  --c-siena-place:         #ffffff;
+
+  /* Art pieces */
+  --c-art-piece:           #ffffff;
+  --c-art-placeholder-1:   #f0e8df;
+  --c-art-placeholder-2:   #e8d5c4;
+  --c-art-info-p:          #5a6a7a;
+
+  /* Contact */
+  --c-contact-card:        #ffffff;
+  --c-contact-card-p:      #5a6a7a;
+
+  /* FAQ */
+  --c-faq-border:          #eee;
+  --c-faq-answer:          #5a6a7a;
+
+  /* Footer status */
+  --c-status-border:       #eee;
+  --c-status-label:        #a0a0a0;
+  --c-status-value:        #5a5a5a;
+
+  /* System status card */
+  --c-system-card:         #ffffff;
+  --c-system-header-border: #f0ede8;
+  --c-system-metric-bg:    #f9f7f4;
+  --c-system-metric-value: #3d2b1f;
+  --c-stack-tag-bg:        #f5ede4;
+  --c-stack-tag:           #8e5a4b;
+  --c-api-border:          #f0ede8;
+  --c-api-value:           #3d2b1f;
+
+  /* Sitemap */
+  --c-sitemap-bg:          #ffffff;
+  --c-sitemap-input:       #2c3e50;
+  --c-sitemap-label:       #a67c52;
+
+  /* Timeline */
+  --c-timeline-dot-border: #f9f7f4;
+
+  /* Leaflet map */
+  --c-leaflet-popup-bg:    #ffffff;
+  --c-leaflet-popup-text:  #2c3e50;
+  --c-leaflet-bar-bg:      #ffffff;
+  --c-leaflet-bar-border:  #ccc;
+
+  /* Candle map */
+  --c-candle-map-header:   #7f8c8d;
+  --c-candle-map-count:    #c07820;
+  --c-candle-map-geo:      #c07820;
+}
+
+[data-theme="dark"] {
+  --c-primary:             #c9956c;
+  --c-primary-hover:       #a67c52;
+
+  --c-text:                #e8ddd5;
+  --c-text-muted:          #9e8e90;
+  --c-text-soft:           #b0a0a8;
+  --c-heading:             #c9956c;
+  --c-link:                #c9956c;
+  --c-link-hover:          #e0b090;
+
+  --c-bg-overlay:          rgba(26,21,32,0.88);
+
+  --c-surface:             #2a1f2e;
+  --c-surface-2:           #221828;
+  --c-surface-3:           #3d2f3a;
+  --c-surface-4:           #2a1f2e;
+
+  --c-border:              #2e2035;
+  --c-border-subtle:       #3d2f3a;
+  --c-border-form:         #3d2f3a;
+
+  --c-brown-dark:          #e8ddd5;
+  --c-brown-mid:           #e8ddd5;
+
+  --c-header-bg:           #1e1525;
+  --c-menu-bg:             #1e1525;
+  --c-menu-link:           #e8ddd5;
+  --c-menu-hover-bg:       #2a1f2e;
+
+  --c-toggle-border:       #c9956c;
+  --c-toggle-text:         #c9956c;
+  --c-toggle-hover-bg:     #c9956c;
+  --c-toggle-hover-text:   #1a1520;
+
+  --c-menu-toggle-text:    #e8ddd5;
+  --c-menu-toggle-hover-bg: #2a1f2e;
+
+  --c-mural-bg:            linear-gradient(135deg, #2a1f2e 0%, #221828 100%);
+  --c-mural-quote:         #e8ddd5;
+
+  --c-ng-card:             #2a1f2e;
+  --c-ng-popup:            #2a1f2e;
+  --c-ng-modal:            #2a1f2e;
+  --c-ng-modal-close:      #3d2f3a;
+  --c-ng-modal-close-text: #e8ddd5;
+  --c-ng-title:            #e8c8a8;
+  --c-ng-text:             #b0a0a8;
+
+  --c-node-title:          #e8c8a8;
+  --c-node-desc:           #9e8e90;
+
+  --c-popup-title:         #e8c8a8;
+  --c-popup-text:          #b0a0a8;
+
+  --c-lightbox-bg:         #221828;
+  --c-lightbox-titulo:     #e8ddd5;
+  --c-lightbox-meta:       #3d2f3a;
+  --c-lightbox-dd:         #e8ddd5;
+  --c-lightbox-context:    #b0a0a8;
+
+  --c-sobre-bg:            linear-gradient(135deg, #2a1f2e 0%, #221828 100%);
+  --c-sobre-content:       #2a1f2e;
+
+  --c-book-bg:             #2a1f2e;
+  --c-book-text:           #e8ddd5;
+  --c-chapter-bg:          #221828;
+  --c-reading-bg:          #2a1f2e;
+  --c-reading-border:      #3d2f3a;
+
+  --c-quote-bg:            #2a1f2e;
+
+  --c-destaque-bg:         #2a1f2e;
+  --c-destaque-text:       #e8ddd5;
+  --c-destaque-p:          #b0a0a8;
+
+  --c-intencao-bg:         #2a2010;
+  --c-intencao-border:     #6b4e1a;
+  --c-intencao-text:       #f0e0b0;
+
+  --c-prayer-bg:           #2a1f2e;
+  --c-prayer-tab-bg:       #221828;
+  --c-prayer-tab-border:   #3d2f3a;
+  --c-prayer-tab-text:     #e8ddd5;
+
+  --c-evento-bg:           #2a1f2e;
+  --c-evento-p:            #b0a0a8;
+  --c-evento-tipo-bg:      #3d2f3a;
+  --c-evento-tipo-text:    #c9956c;
+
+  --c-siena-place:         #2a1f2e;
+
+  --c-art-piece:           #2a1f2e;
+  --c-art-placeholder-1:   #2a1f2e;
+  --c-art-placeholder-2:   #3d2f3a;
+  --c-art-info-p:          #b0a0a8;
+
+  --c-contact-card:        #2a1f2e;
+  --c-contact-card-p:      #b0a0a8;
+
+  --c-faq-border:          #3d2f3a;
+  --c-faq-answer:          #b0a0a8;
+
+  --c-status-border:       #3d2f3a;
+  --c-status-label:        #6a5a60;
+  --c-status-value:        #bfafb0;
+
+  --c-system-card:         #2a1f2e;
+  --c-system-header-border: #3d2f3a;
+  --c-system-metric-bg:    #221828;
+  --c-system-metric-value: #e8ddd5;
+  --c-stack-tag-bg:        #3d2f3a;
+  --c-stack-tag:           #c9956c;
+  --c-api-border:          #3d2f3a;
+  --c-api-value:           #e8ddd5;
+
+  --c-sitemap-bg:          #2a1f2e;
+  --c-sitemap-input:       #e8ddd5;
+  --c-sitemap-label:       #c9956c;
+
+  --c-timeline-dot-border: #1a1520;
+
+  --c-leaflet-popup-bg:    #2a1f2e;
+  --c-leaflet-popup-text:  #e8ddd5;
+  --c-leaflet-bar-bg:      #2a1f2e;
+  --c-leaflet-bar-border:  #3d2f3a;
+
+  --c-candle-map-header:   #9e8e90;
+  --c-candle-map-count:    #d4a040;
+  --c-candle-map-geo:      #9e8e90;
+}

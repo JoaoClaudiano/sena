@@ -133,6 +133,7 @@
     document.getElementById('arteLightboxContexto').textContent = obra.contexto;
 
     lb.classList.add('open');
+    lb.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
 
     /* Foco acessível */
@@ -140,26 +141,52 @@
     if (closeBtn) closeBtn.focus();
   }
 
+  /* Último elemento focusável que abriu o lightbox */
+  var lastFocused = null;
+
   /* Fecha o lightbox */
   function fecharLightbox() {
     var lb = document.getElementById('arteLightbox');
     if (!lb) return;
     lb.classList.remove('open');
+    lb.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    /* Devolve foco ao elemento original */
+    if (lastFocused) { lastFocused.focus(); lastFocused = null; }
+  }
+
+  /* Focus trap: mantém Tab/Shift+Tab dentro do lightbox */
+  function trapFocus(e) {
+    var lb = document.getElementById('arteLightbox');
+    if (!lb || !lb.classList.contains('open')) return;
+    var focusable = lb.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    var first = focusable[0];
+    var last  = focusable[focusable.length - 1];
+    if (e.key === 'Tab') {
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+      } else {
+        if (document.activeElement === last)  { e.preventDefault(); first.focus(); }
+      }
+    }
   }
 
   /* Inicializa após o DOM estar pronto */
   function init() {
     /* Cria o lightbox no DOM */
     var lb = criarLightbox();
+    lb.setAttribute('aria-hidden', 'true');
 
     /* Fecha ao clicar no backdrop ou no botão fechar */
     lb.querySelector('.arte-lightbox-backdrop').addEventListener('click', fecharLightbox);
     document.getElementById('arteLightboxClose').addEventListener('click', fecharLightbox);
 
-    /* Fecha com Escape */
+    /* Fecha com Escape e gerencia focus trap */
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') fecharLightbox();
+      else trapFocus(e);
     });
 
     /* Adiciona evento de clique a cada item de arte */
@@ -171,12 +198,14 @@
       item.setAttribute('aria-label', 'Ver detalhes da obra: ' + (item.getAttribute('data-titulo') || 'obra de arte'));
 
       item.addEventListener('click', function () {
+        lastFocused = item;
         abrirLightbox(item.getAttribute('data-obra'));
       });
 
       item.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
+          lastFocused = item;
           abrirLightbox(item.getAttribute('data-obra'));
         }
       });

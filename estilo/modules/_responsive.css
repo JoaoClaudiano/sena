@@ -1,0 +1,227 @@
+/* ===== RESPONSIVE — MEDIA QUERIES CONSOLIDADAS ===== */
+
+/* ===== MOBILE FIXES (max-width: 600px) ===== */
+@media (max-width: 600px) {
+  /* Hero: reduzido para não ocupar toda a tela, melhorando visibilidade da imagem */
+  .hero-section {
+    min-height: 68svh;
+    min-height: 68vh;
+  }
+
+  /* Foco melhor das pinturas retrato no mobile — centraliza no terço superior */
+  .slide.slide-1,
+  .slide.slide-2 {
+    background-position: center 12%;
+  }
+
+  .hero-content {
+    padding: 2.25rem 1.25rem;
+  }
+
+  .hero-content h1 {
+    font-size: 2.1rem;
+    letter-spacing: 0;
+    line-height: 1.25;
+  }
+
+  .hero-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .hero-quote-badge {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    padding: 0.35rem 0.9rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .btn-hero, .btn-hero-outline {
+    width: 100%;
+    max-width: 280px;
+    text-align: center;
+    justify-content: center;
+    padding: 0.9rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .slide-indicators {
+    bottom: 1rem;
+  }
+
+  /* Cards de destaque em coluna única no mobile */
+  .destaques-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .destaque-card {
+    padding: 1.25rem 1.1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .destaque-icon {
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+
+  .destaque-icon svg {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .destaque-card h3 {
+    margin-top: 0.15rem;
+    font-size: 1rem;
+  }
+
+  /* Cards genéricos com mais respiro no mobile */
+  .card {
+    padding: 1.25rem 1.1rem;
+  }
+
+  /* Galeria 2 colunas no mobile */
+  .arte-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+  }
+
+  /* Arte item hint oculto no mobile */
+  .arte-item-hint {
+    display: none;
+  }
+
+  /* Mural */
+  .mural-section {
+    padding: 2rem 1rem;
+    border-radius: 8px;
+  }
+
+  .mural-slide blockquote p {
+    font-size: 1.1rem;
+  }
+
+  /* Seção de partilha social */
+  .social-share {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  /* Seção de frase em destaque */
+  .frase blockquote p {
+    font-size: 1.1rem;
+  }
+
+  .frase blockquote {
+    padding: 1.25rem 1rem;
+  }
+
+  /* Rodapé */
+  .footer-grid {
+    gap: 1.5rem;
+  }
+
+  /* Padding interno adequado em cards */
+  .sobre-content {
+    padding: 1.5rem 1.1rem;
+  }
+
+  .prayer-section {
+    padding: 1.5rem 1.1rem;
+  }
+
+  .siena-place {
+    padding: 1.5rem 1.1rem;
+  }
+
+  .contact-form {
+    padding: 1.5rem 1.1rem;
+  }
+
+  .pilula-section {
+    padding: 1.5rem 1.1rem;
+  }
+
+  .oratorio-hero {
+    padding: 2rem 1.1rem;
+  }
+
+  .evento-item {
+    padding: 1.1rem;
+    gap: 1rem;
+  }
+
+  .candle-map-fallback {
+    height: 280px;
+  }
+
+  .candle-map {
+    height: 280px;
+  }
+}
+
+/* ===== SMALLER MOBILE (max-width: 480px) ===== */
+@media (max-width: 480px) {
+  .hero-content h1 {
+    font-size: 1.95rem;
+  }
+
+  .arte-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .arte-lightbox-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .arte-meta-row {
+    grid-template-columns: 1fr;
+  }
+
+  .arte-meta-row dt {
+    margin-bottom: 0;
+  }
+
+  .system-status-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .mural-slide blockquote p {
+    font-size: 1.05rem;
+  }
+}
+
+/* ===== VERY SMALL (max-width: 360px) ===== */
+@media (max-width: 360px) {
+  .hero-content h1 {
+    font-size: 1.75rem;
+  }
+
+  .btn-hero, .btn-hero-outline {
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .arte-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== GALLERY (min-width: 1024px) ===== */
+@media (min-width: 1024px) {
+  .gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

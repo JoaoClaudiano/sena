@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <script>!function(){var t=localStorage.getItem("theme")||(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");if(t==="dark")document.documentElement.setAttribute("data-theme","dark")}()</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#a67c52" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#2a1f2e" media="(prefers-color-scheme: dark)">
   <title>O Diálogo - Santa Catarina de Sena (leitura online)</title>
   <meta name="description" content="Leia online a obra O Diálogo da Divina Providência, de Santa Catarina de Sena.">
   <!-- Open Graph / Facebook -->
@@ -12,9 +14,11 @@
   <meta property="og:title" content="O Diálogo da Divina Providência - Santa Catarina de Sena">
   <meta property="og:description" content="Leia online a obra O Diálogo da Divina Providência, de Santa Catarina de Sena.">
   <meta property="og:image" content="https://joaoclaudiano.github.io/sena/imagens/Franceschini_Baldassare_St_Catherine_of_Siena.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:site_name" content="Santa Catarina de Sena">
   <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="O Diálogo da Divina Providência - Santa Catarina de Sena">
   <meta name="twitter:description" content="Leia online a obra O Diálogo da Divina Providência, de Santa Catarina de Sena.">
   <!-- Preconnect para fontes -->
@@ -117,6 +121,29 @@
       .pdf-toolbar { justify-content: center; }
     }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "headline": "O Diálogo da Divina Providência",
+        "description": "O Diálogo da Divina Providência — obra-prima de Santa Catarina de Sena, ditada em êxtase místico entre 1377 e 1378.",
+        "url": "https://joaoclaudiano.github.io/sena/dialogo.html",
+        "inLanguage": "pt-BR",
+        "about": {"@id": "https://joaoclaudiano.github.io/sena/#catarina"}
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type":"ListItem","position":1,"name":"Início","item":"https://joaoclaudiano.github.io/sena/"},
+          {"@type":"ListItem","position":2,"name":"Obras","item":"https://joaoclaudiano.github.io/sena/obras.html"},
+          {"@type":"ListItem","position":3,"name":"O Diálogo","item":"https://joaoclaudiano.github.io/sena/dialogo.html"}
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <div id="page-bg" aria-hidden="true">
@@ -190,7 +217,7 @@
       <div class="social-share" aria-label="Compartilhar esta página">
         <span>Compartilhar:</span>
         <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjoaoclaudiano.github.io%2Fsena%2Fdialogo.html" target="_blank" rel="noopener noreferrer" class="share-btn share-facebook" aria-label="Compartilhar no Facebook">Facebook</a>
-        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fjoaoclaudiano.github.io%2Fsena%2Fdialogo.html&text=O+Di%C3%A1logo+da+Divina+Provid%C3%AAncia+-+Santa+Catarina+de+Sena" target="_blank" rel="noopener noreferrer" class="share-btn share-twitter" aria-label="Compartilhar no Twitter">Twitter</a>
+        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fjoaoclaudiano.github.io%2Fsena%2Fdialogo.html&text=O+Di%C3%A1logo+da+Divina+Provid%C3%AAncia+-+Santa+Catarina+de+Sena" target="_blank" rel="noopener noreferrer" class="share-btn share-twitter" aria-label="Compartilhar no X (Twitter)">X</a>
         <a href="https://api.whatsapp.com/send?text=O+Di%C3%A1logo+da+Divina+Provid%C3%AAncia%20https%3A%2F%2Fjoaoclaudiano.github.io%2Fsena%2Fdialogo.html" target="_blank" rel="noopener noreferrer" class="share-btn share-whatsapp" aria-label="Compartilhar no WhatsApp">WhatsApp</a>
       </div>
     </div>
@@ -236,117 +263,14 @@
   <script src="scripts/menu.js" defer></script>
   <script src="scripts/transitions.js" defer></script>
   <!-- Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
   <script src="scripts/supabase.js" defer></script>
-  <script src="scripts/features.js" defer></script>
+  <script src="scripts/theme.js" defer></script>
+  <script src="scripts/ui.js" defer></script>
+  <script src="scripts/content.js" defer></script>
   <!-- PDF.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-  <script>
-    (function () {
-      'use strict';
-
-      pdfjsLib.GlobalWorkerOptions.workerSrc =
-        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-
-      const PDF_PATH = 'conteudo/dialogo.pdf';
-      const SCALE_STEP = 0.25;
-      const MIN_SCALE = 0.5;
-      const MAX_SCALE = 3.0;
-
-      let pdfDoc = null;
-      let currentPage = 1;
-      let currentScale = 1.5;
-      let renderTask = null;
-
-      const canvas       = document.getElementById('pdfCanvas');
-      const ctx          = canvas.getContext('2d');
-      const loadingEl    = document.getElementById('pdfLoading');
-      const currentPageEl = document.getElementById('pdfCurrentPage');
-      const totalPagesEl  = document.getElementById('pdfTotalPages');
-      const zoomLevelEl   = document.getElementById('pdfZoomLevel');
-      const prevBtn      = document.getElementById('pdfPrevPage');
-      const nextBtn      = document.getElementById('pdfNextPage');
-      const zoomInBtn    = document.getElementById('pdfZoomIn');
-      const zoomOutBtn   = document.getElementById('pdfZoomOut');
-
-      function updateNavButtons() {
-        prevBtn.disabled  = currentPage <= 1;
-        nextBtn.disabled  = currentPage >= pdfDoc.numPages;
-        zoomInBtn.disabled  = currentScale >= MAX_SCALE;
-        zoomOutBtn.disabled = currentScale <= MIN_SCALE;
-      }
-
-      function renderPage(pageNum) {
-        var renderingPage = pageNum;
-        var prevTask = renderTask;
-        renderTask = null;
-
-        // Wait for any previous render to finish cancelling before starting new one
-        var ready = prevTask
-          ? (prevTask.cancel(), prevTask.promise.catch(function () {}))
-          : Promise.resolve();
-
-        ready.then(function () {
-          return pdfDoc.getPage(renderingPage);
-        }).then(function (page) {
-          var viewport = page.getViewport({ scale: currentScale });
-          canvas.width  = viewport.width;
-          canvas.height = viewport.height;
-
-          var task = page.render({ canvasContext: ctx, viewport: viewport });
-          renderTask = task;
-          return task.promise;
-        }).then(function () {
-          renderTask = null;
-          currentPageEl.textContent = renderingPage;
-          zoomLevelEl.textContent   = Math.round(currentScale * 100) + '%';
-          updateNavButtons();
-        }).catch(function (err) {
-          if (err && err.name !== 'RenderingCancelledException') {
-            console.error('Erro ao renderizar página:', err);
-          }
-        });
-      }
-
-      pdfjsLib.getDocument(PDF_PATH).promise.then(function (doc) {
-        pdfDoc = doc;
-        totalPagesEl.textContent = doc.numPages;
-        loadingEl.style.display  = 'none';
-        canvas.style.display     = 'block';
-        renderPage(currentPage);
-      }).catch(function (err) {
-        console.error('Erro ao carregar PDF:', err);
-        var msg = 'Não foi possível carregar o PDF.';
-        if (err && err.message) { msg += ' (' + err.message + ')'; }
-        msg += ' Por favor, tente o botão "Baixar PDF".';
-        loadingEl.textContent = msg;
-      });
-
-      prevBtn.addEventListener('click', function () {
-        if (currentPage <= 1) return;
-        currentPage--;
-        renderPage(currentPage);
-      });
-
-      nextBtn.addEventListener('click', function () {
-        if (currentPage >= pdfDoc.numPages) return;
-        currentPage++;
-        renderPage(currentPage);
-      });
-
-      zoomInBtn.addEventListener('click', function () {
-        if (currentScale >= MAX_SCALE) return;
-        currentScale = Math.min(MAX_SCALE, currentScale + SCALE_STEP);
-        renderPage(currentPage);
-      });
-
-      zoomOutBtn.addEventListener('click', function () {
-        if (currentScale <= MIN_SCALE) return;
-        currentScale = Math.max(MIN_SCALE, currentScale - SCALE_STEP);
-        renderPage(currentPage);
-      });
-    })();
-  </script>
+  <script src="scripts/dialogo.js" defer></script>
   <script>
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("/sena/sw.js")
