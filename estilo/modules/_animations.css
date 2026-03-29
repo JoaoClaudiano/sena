@@ -12,7 +12,8 @@
 
 /* ===== TRANSIÇÕES DE PÁGINA ===== */
 
-/* Fade-in suave ao carregar qualquer página.
+/* Fade-in e fade-out — usados como fallback nos pseudo-elementos de
+   View Transition e, nos browsers mais antigos, diretamente no body.
    Using opacity-only (no transform) avoids creating a new stacking context on
    <body>, which would break position:fixed children (e.g. lightbox, menus). */
 @keyframes page-enter {
@@ -25,13 +26,20 @@
   to   { opacity: 0; }
 }
 
-body {
-  animation: page-enter 0.38s ease-out both;
-}
+/* Fallback para browsers sem View Transitions API nativa (Chrome < 111,
+   Firefox < 117, Safari < 18). Browsers com suporte usam
+   ::view-transition-new(root) para animar a entrada — aplicar a animação
+   no body E no pseudo-elemento ao mesmo tempo multiplica as opacidades
+   (0 × 0 = 0) e causa o efeito brusco que prejudica a UX. */
+@supports not (view-transition-name: root) {
+  body {
+    animation: page-enter 0.38s ease-out both;
+  }
 
-/* Classe adicionada por JS ao sair da página (fallback sem View Transitions API) */
-body.page-exit {
-  animation: page-leave 0.26s ease-in forwards;
+  /* Classe adicionada pelo JS ao sair da página (fallback sem View Transitions API) */
+  body.page-exit {
+    animation: page-leave 0.26s ease-in forwards;
+  }
 }
 
 /* View Transitions API — MPA nativa (Chrome 126+) */
