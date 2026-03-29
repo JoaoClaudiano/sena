@@ -4,9 +4,16 @@
 
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* Skip JS fallback entirely when the browser supports the native
+   * View Transitions API — in that case the CSS @view-transition rule
+   * handles cross-document animations automatically, and intercepting
+   * navigation here would cause "AbortError: Transition was skipped". */
+  var hasNativeTransitions = 'startViewTransition' in document;
+
   /* ─── Intercept internal link clicks ─── */
   document.addEventListener('click', function (e) {
     if (reduced) return;
+    if (hasNativeTransitions) return;
 
     var link = e.target.closest('a[href]');
     if (!link) return;
@@ -28,9 +35,9 @@
     e.preventDefault();
 
     /* Fade-out via CSS class → short delay → navigate.
-     * Browsers that support @view-transition (Chrome 126+) handle the full
-     * cross-page animation natively via CSS. This JS fallback ensures a smooth
-     * exit animation on all other browsers. */
+     * This JS fallback runs only on browsers that do not support the
+     * native View Transitions API (startViewTransition unavailable),
+     * such as older Firefox and Safari releases. */
     document.body.classList.add('page-exit');
     setTimeout(function () {
       window.location.href = href;
