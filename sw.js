@@ -5,8 +5,8 @@
    • Stale-While-Revalidate → imagens de arte, páginas HTML
    =================================================== */
 
-var CACHE_NAME   = 'catarina-v4';
-var CACHE_STATIC = 'catarina-static-v4';
+var CACHE_NAME   = 'catarina-v5';
+var CACHE_STATIC = 'catarina-static-v5';
 
 /* Base da URL do site (ex.: "/sena" no GitHub Pages) */
 var BASE = self.registration.scope.replace(/\/$/, '');
@@ -15,6 +15,8 @@ var BASE = self.registration.scope.replace(/\/$/, '');
 var PRE_CACHE = [
   BASE + '/',
   BASE + '/index.html',
+  BASE + '/sobre.html',
+  BASE + '/404.html',
   BASE + '/estilo/style.css',
   BASE + '/estilo/modules/_variables.css',
   BASE + '/estilo/modules/_base.css',
@@ -38,6 +40,7 @@ var PRE_CACHE = [
   BASE + '/scripts/content.js',
   BASE + '/scripts/slideshows.js',
   BASE + '/scripts/lightbox.js',
+  BASE + '/scripts/sobre.js',
   BASE + '/scripts/supabase.js',
   BASE + '/site.webmanifest',
   BASE + '/icons/favicon.ico',

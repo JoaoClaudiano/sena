@@ -31,6 +31,28 @@
   <link rel="icon" type="image/png" sizes="256x256" href="icons/icon_256x256.png">
   <link rel="icon" type="image/png" sizes="512x512" href="icons/icon_512x512.png">
   <link rel="manifest" href="site.webmanifest">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "AboutPage",
+        "headline": "Sobre — Santa Catarina de Sena",
+        "description": "Conheça a história por trás deste site devotional dedicado a Santa Catarina de Sena — um projeto voluntário de fé.",
+        "url": "https://joaoclaudiano.github.io/sena/sobre.html",
+        "inLanguage": "pt-BR",
+        "about": {"@id": "https://joaoclaudiano.github.io/sena/#catarina"}
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type":"ListItem","position":1,"name":"Início","item":"https://joaoclaudiano.github.io/sena/"},
+          {"@type":"ListItem","position":2,"name":"Sobre","item":"https://joaoclaudiano.github.io/sena/sobre.html"}
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <div id="page-bg" aria-hidden="true">
@@ -244,81 +266,7 @@
   <script src="scripts/theme.js" defer></script>
   <script src="scripts/ui.js" defer></script>
   <script src="scripts/content.js" defer></script>
-  <script>
-    (function () {
-      var LAUNCH = new Date('2025-04-29T00:00:00');
-
-      /* Dias no ar */
-      var now = new Date();
-      var days = Math.floor((now - LAUNCH) / (1000 * 60 * 60 * 24));
-      var diasEl = document.getElementById('diasNoAr');
-      if (diasEl) diasEl.textContent = days.toLocaleString('pt-BR');
-
-      /* Tempo humanizado */
-      var months = Math.floor(days / 30);
-      var remaining = days % 30;
-      var tempoEl = document.getElementById('tempoNoArSobre');
-      if (tempoEl) {
-        if (months > 0) {
-          tempoEl.textContent = months + (months > 1 ? ' meses' : ' mês') + ' e ' + remaining + ' dia' + (remaining !== 1 ? 's' : '');
-        } else {
-          tempoEl.textContent = days + ' dia' + (days !== 1 ? 's' : '');
-        }
-      }
-
-      /* Visitas neste dispositivo */
-      var visitEl = document.getElementById('visitasSobre');
-      if (visitEl) {
-        var count = parseInt(localStorage.getItem('visitCount') || '0', 10);
-        visitEl.textContent = count.toLocaleString('pt-BR');
-      }
-
-      /* Horário da última verificação */
-      var pad = function (v) { return String(v).padStart(2, '0'); };
-      var verifEl = document.getElementById('ultimaVerif');
-      if (verifEl) {
-        verifEl.textContent = pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
-      }
-
-      /* Ano no rodapé */
-      var anoEl = document.getElementById('anoAtual');
-      if (anoEl) anoEl.textContent = now.getFullYear();
-
-      /* Status da API Supabase (via contagem de velas) */
-      var apiDot = document.getElementById('apiDot');
-      var apiText = document.getElementById('apiStatusText');
-      var velasEl = document.getElementById('totalVelasSobre');
-
-      function setApiOnline(total) {
-        if (apiDot) { apiDot.classList.add('online'); apiDot.classList.remove('offline'); }
-        if (apiText) apiText.textContent = 'conectado';
-        if (velasEl) velasEl.textContent = total != null ? total.toLocaleString('pt-BR') : '—';
-      }
-
-      function setApiOffline() {
-        if (apiDot) { apiDot.classList.add('offline'); apiDot.classList.remove('online'); }
-        if (apiText) apiText.textContent = 'indisponível';
-        if (velasEl) velasEl.textContent = '—';
-      }
-
-      /* Aguarda o SupabaseSena estar disponível */
-      function tentarStatus() {
-        var sena = window.SupabaseSena;
-        if (!sena) { setApiOffline(); return; }
-        sena.contarVelas().then(function (total) {
-          setApiOnline(total);
-        }).catch(function () {
-          setApiOffline();
-        });
-      }
-
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', tentarStatus);
-      } else {
-        tentarStatus();
-      }
-    })();
-  </script>
+  <script src="scripts/sobre.js" defer></script>
   <script>
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("/sena/sw.js")
