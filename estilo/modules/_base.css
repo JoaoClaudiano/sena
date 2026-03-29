@@ -36,12 +36,12 @@ body {
 }
 
 .page-bg-img.bg-1 {
-  background-image: url('../imagens/Saint_Catherine_by_Andrea_Vanni,_San_Domenico,_Siena.jpg');
+  background-image: url('../../imagens/Saint_Catherine_by_Andrea_Vanni,_San_Domenico,_Siena.jpg');
   background-position: center top;
 }
 
 .page-bg-img.bg-2 {
-  background-image: url('../imagens/Domenico_Beccafumi_-_Stigmatization_of_St_Catherine_of_Siena_-_WGA01536.jpg');
+  background-image: url('../../imagens/Domenico_Beccafumi_-_Stigmatization_of_St_Catherine_of_Siena_-_WGA01536.jpg');
   background-position: center center;
 }
 
