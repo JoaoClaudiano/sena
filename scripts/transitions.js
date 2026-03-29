@@ -10,6 +10,23 @@
    * navigation here would cause "AbortError: Transition was skipped". */
   var hasNativeTransitions = 'startViewTransition' in document;
 
+  /* Suppress the unhandled-rejection noise that Chrome emits when a
+   * cross-document view transition (triggered by @view-transition
+   * { navigation: auto }) is interrupted by rapid navigation.
+   * Only needed in browsers that support the native View Transitions API,
+   * since older browsers never trigger this error. */
+  if (hasNativeTransitions) {
+    window.addEventListener('unhandledrejection', function (e) {
+      if (
+        e.reason instanceof DOMException &&
+        e.reason.name === 'AbortError' &&
+        e.reason.message === 'Transition was skipped'
+      ) {
+        e.preventDefault();
+      }
+    });
+  }
+
   /* ─── Intercept internal link clicks ─── */
   document.addEventListener('click', function (e) {
     if (reduced) return;
