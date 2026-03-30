@@ -12,7 +12,8 @@
 
 /* ===== TRANSIÇÕES DE PÁGINA ===== */
 
-/* Fade-in suave ao carregar qualquer página.
+/* Fade-in e fade-out — usados como fallback nos pseudo-elementos de
+   View Transition e, nos browsers mais antigos, diretamente no body.
    Using opacity-only (no transform) avoids creating a new stacking context on
    <body>, which would break position:fixed children (e.g. lightbox, menus). */
 @keyframes page-enter {
@@ -25,13 +26,25 @@
   to   { opacity: 0; }
 }
 
+/* Fade-in de entrada aplicado a todos os browsers (fallback para Firefox,
+   Safari < 18 e Chrome < 111 que não têm transições MPA nativas).
+   Quando uma transição cross-document está ativa (Chrome 126+/Safari 18.2+),
+   o script inline adiciona a classe .vt-active ao <html> e esta animação é
+   desligada — o pseudo-elemento ::view-transition-new(root) assume o controle,
+   evitando o efeito duplo de opacidade (0 × 0 = 0) que causava o salto brusco. */
 body {
   animation: page-enter 0.38s ease-out both;
 }
 
-/* Classe adicionada por JS ao sair da página (fallback sem View Transitions API) */
+/* Classe adicionada pelo JS ao sair da página (fallback sem View Transitions API) */
 body.page-exit {
   animation: page-leave 0.26s ease-in forwards;
+}
+
+/* Desliga a animação do body quando a View Transitions API cross-document está
+   em execução — o ::view-transition-new(root) já cuida do fade-in. */
+html.vt-active body {
+  animation: none;
 }
 
 /* View Transitions API — MPA nativa (Chrome 126+) */

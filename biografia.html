@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <script>!function(){var t=localStorage.getItem("theme")||(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");if(t==="dark")document.documentElement.setAttribute("data-theme","dark")}()</script>
+  <!-- Registro antecipado dos handlers de View Transition (deve ser inline para executar antes do pagereveal, que dispara antes dos scripts defer) -->
+  <script>window.addEventListener("unhandledrejection",function(e){if(e.reason instanceof DOMException&&e.reason.name==="AbortError")e.preventDefault()});window.addEventListener("pagereveal",function(e){if(!e.viewTransition)return;document.documentElement.classList.add("vt-active");var s=function(r){if(r instanceof DOMException&&r.name==="AbortError")return;throw r};e.viewTransition.ready.catch(s);e.viewTransition.finished.catch(s)})</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#a67c52" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#2a1f2e" media="(prefers-color-scheme: dark)">
