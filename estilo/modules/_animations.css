@@ -26,20 +26,25 @@
   to   { opacity: 0; }
 }
 
-/* Fallback para browsers sem View Transitions API nativa (Chrome < 111,
-   Firefox < 117, Safari < 18). Browsers com suporte usam
-   ::view-transition-new(root) para animar a entrada — aplicar a animação
-   no body E no pseudo-elemento ao mesmo tempo multiplica as opacidades
-   (0 × 0 = 0) e causa o efeito brusco que prejudica a UX. */
-@supports not (view-transition-name: root) {
-  body {
-    animation: page-enter 0.38s ease-out both;
-  }
+/* Fade-in de entrada aplicado a todos os browsers (fallback para Firefox,
+   Safari < 18 e Chrome < 111 que não têm transições MPA nativas).
+   Quando uma transição cross-document está ativa (Chrome 126+/Safari 18.2+),
+   o script inline adiciona a classe .vt-active ao <html> e esta animação é
+   desligada — o pseudo-elemento ::view-transition-new(root) assume o controle,
+   evitando o efeito duplo de opacidade (0 × 0 = 0) que causava o salto brusco. */
+body {
+  animation: page-enter 0.38s ease-out both;
+}
 
-  /* Classe adicionada pelo JS ao sair da página (fallback sem View Transitions API) */
-  body.page-exit {
-    animation: page-leave 0.26s ease-in forwards;
-  }
+/* Classe adicionada pelo JS ao sair da página (fallback sem View Transitions API) */
+body.page-exit {
+  animation: page-leave 0.26s ease-in forwards;
+}
+
+/* Desliga a animação do body quando a View Transitions API cross-document está
+   em execução — o ::view-transition-new(root) já cuida do fade-in. */
+html.vt-active body {
+  animation: none;
 }
 
 /* View Transitions API — MPA nativa (Chrome 126+) */

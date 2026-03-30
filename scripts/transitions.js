@@ -10,28 +10,47 @@
    * navigation here would cause "AbortError: Transition was skipped". */
   var hasNativeTransitions = 'startViewTransition' in document;
 
+  /* Helper shared by both pageswap and pagereveal handlers. */
+  function suppressAbort(err) {
+    if (err instanceof DOMException && err.name === 'AbortError') return;
+    throw err;
+  }
+
   /* ─── Outgoing-page handler (fires on the OLD document, before unload) ───
-   * The pageswap event fires just before the page is navigated away from.
-   * At this point transitions.js is already loaded, so we can safely attach
-   * .catch() handlers to the ViewTransition promises and prevent any
-   * "AbortError: Transition was skipped" from becoming an unhandled rejection
-   * in the console when a cross-document transition is interrupted.
-   * pageswap is available in Chrome 124+ (all browsers that support the
-   * @view-transition { navigation: auto } MPA API, i.e. Chrome 126+). */
+   * pageswap fires just before navigation, while transitions.js is already
+   * loaded.  Attaching .catch() here prevents the ViewTransition promises
+   * from the outgoing side from becoming unhandled rejections. */
   window.addEventListener('pageswap', function (e) {
     if (!e.viewTransition) return;
-    var vt = e.viewTransition;
-    function suppressAbort(err) {
-      if (err instanceof DOMException && err.name === 'AbortError') return;
-      throw err;
-    }
-    vt.ready.catch(suppressAbort);
-    vt.finished.catch(suppressAbort);
+    e.viewTransition.ready.catch(suppressAbort);
+    e.viewTransition.finished.catch(suppressAbort);
   });
 
-  /* Safety-net: also suppress any AbortError that surfaces as an unhandled
-   * rejection on the incoming page (e.g., rapid back-navigation before the
-   * deferred script on the previous page had a chance to register pageswap). */
+  /* ─── Incoming-page handler (fires on the NEW document, before first paint) ───
+   * pagereveal gives us the ViewTransition for the destination page.
+   * Attaching .catch() here is the canonical way to suppress
+   * "AbortError: Transition was skipped" on the incoming side.
+   *
+   * TIMING: Chrome fires pagereveal during the "reveal" step, which is
+   * scheduled BEFORE deferred scripts execute.  This handler may therefore
+   * miss the very first pagereveal event on each page.  For that reason
+   * every HTML page also contains an early inline <script> that registers
+   * identical unhandledrejection and pagereveal handlers synchronously
+   * during HTML parsing.  This deferred copy provides redundant coverage
+   * for any subsequent pagereveal (BFCache restore) and for pages that
+   * might not yet have the inline script (e.g., future pages added by hand). */
+  window.addEventListener('pagereveal', function (e) {
+    if (!e.viewTransition) return;
+    /* Mark the document so CSS can disable the body animation that would
+     * otherwise compete with ::view-transition-new(root). */
+    document.documentElement.classList.add('vt-active');
+    e.viewTransition.ready.catch(suppressAbort);
+    e.viewTransition.finished.catch(suppressAbort);
+  });
+
+  /* Safety-net: suppress any AbortError that surfaces as an unhandled
+   * rejection on the incoming page (covers rapid navigation and any timing
+   * edge where pagereveal fires before this deferred script runs). */
   if (hasNativeTransitions) {
     window.addEventListener('unhandledrejection', function (e) {
       if (e.reason instanceof DOMException && e.reason.name === 'AbortError') {
@@ -65,8 +84,8 @@
     e.preventDefault();
 
     /* Fade-out via CSS class → short delay → navigate.
-     * This JS fallback runs only on browsers that do not support the
-     * native View Transitions API (startViewTransition unavailable),
+     * This JS fallback runs only on browsers without the native
+     * View Transitions API (startViewTransition unavailable),
      * such as older Firefox and Safari releases. */
     document.body.classList.add('page-exit');
     setTimeout(function () {
