@@ -27,8 +27,34 @@ import './foliate/view.js' // registers <foliate-view> custom element
     } catch (_) { return 'Livro' }
   }
 
-  function showError(msg) {
-    if (loadingEl) loadingEl.innerHTML = '<p class="epub-error">' + msg + '</p>'
+  /* Show a static HTML error string (no user-supplied values) */
+  function showError(html) {
+    if (!loadingEl) return
+    var p = document.createElement('p')
+    p.className = 'epub-error'
+    p.innerHTML = html
+    loadingEl.textContent = ''
+    loadingEl.appendChild(p)
+  }
+
+  /* Show an error that includes a download link built via DOM — never uses bookUrl in innerHTML */
+  function showBookError(msg) {
+    if (!loadingEl) return
+    var p = document.createElement('p')
+    p.className = 'epub-error'
+    p.appendChild(document.createTextNode(msg + ' '))
+    var dl = document.createElement('a')
+    dl.href    = safeBookUrl
+    dl.download = cleanTitle + '.epub'
+    dl.textContent = 'Baixar EPUB'
+    p.appendChild(dl)
+    p.appendChild(document.createTextNode(' · '))
+    var back = document.createElement('a')
+    back.href = 'obras.html'
+    back.textContent = '← Voltar'
+    p.appendChild(back)
+    loadingEl.textContent = ''
+    loadingEl.appendChild(p)
   }
 
   if (!bookUrl) {
@@ -52,13 +78,27 @@ import './foliate/view.js' // registers <foliate-view> custom element
     history.replaceState(null, '', location.pathname + '?book=' + encodeURIComponent(bookUrl))
   }
 
+  /* Resolve and verify the book URL stays on the same origin */
+  var safeBookUrl
+  try {
+    var resolved = new URL(bookUrl, window.location.href)
+    if (resolved.origin !== window.location.origin) {
+      showError('URL de livro inválida. <a href="obras.html">← Voltar para obras</a>')
+      return
+    }
+    safeBookUrl = resolved.href
+  } catch (_) {
+    showError('URL de livro inválida. <a href="obras.html">← Voltar para obras</a>')
+    return
+  }
+
   var cleanTitle = titleFromUrl(bookUrl)
   if (titleEl)      titleEl.textContent = cleanTitle
   if (breadcrumbEl) breadcrumbEl.textContent = cleanTitle
   document.title   = cleanTitle + ' — Santa Catarina de Sena'
 
   if (downloadBtn) {
-    downloadBtn.href = bookUrl
+    downloadBtn.href = safeBookUrl
     downloadBtn.setAttribute('download', cleanTitle + '.epub')
   }
 
@@ -68,11 +108,7 @@ import './foliate/view.js' // registers <foliate-view> custom element
   /* Safety timeout — 30 s */
   var loadTimeout = setTimeout(function () {
     if (loadingEl && loadingEl.style.display !== 'none') {
-      showError(
-        'O livro demorou muito para carregar. ' +
-        '<a href="' + bookUrl + '" download>Baixar EPUB</a> ou ' +
-        '<a href="obras.html">← Voltar para obras</a>.'
-      )
+      showBookError('O livro demorou muito para carregar.')
     }
   }, 30000)
 
@@ -94,7 +130,7 @@ import './foliate/view.js' // registers <foliate-view> custom element
   /* Main init */
   async function init() {
     try {
-      await view.open(bookUrl)
+      await view.open(safeBookUrl)
 
       /* Title from metadata */
       var metaTitle = view.book && view.book.metadata && view.book.metadata.title
@@ -128,11 +164,7 @@ import './foliate/view.js' // registers <foliate-view> custom element
     } catch (err) {
       clearTimeout(loadTimeout)
       console.error('Erro ao abrir EPUB:', err)
-      showError(
-        'Não foi possível carregar o livro. ' +
-        '<a href="' + bookUrl + '" download>Baixar EPUB</a> · ' +
-        '<a href="obras.html">← Voltar</a>'
-      )
+      showBookError('Não foi possível carregar o livro.')
     }
   }
 
