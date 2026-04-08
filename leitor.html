@@ -57,8 +57,6 @@
       font-family: 'Lato', sans-serif;
     }
 
-    /* NOTE: epub.js internally uses the class name "epub-container" for its stage
-       element. We use "epub-reader-box" here to avoid any CSS collision. */
     .epub-reader-box {
       width: 100%;
       height: 78vh;
@@ -73,6 +71,7 @@
     #epub-viewer {
       width: 100%;
       height: 100%;
+      display: block;
     }
 
     .epub-loading {
@@ -279,7 +278,7 @@
           </div>
 
           <div class="epub-reader-box" role="region" aria-label="Conteúdo do livro">
-            <div id="epub-viewer"></div>
+            <foliate-view id="epub-viewer"></foliate-view>
             <div class="epub-loading" id="epubLoading">
               <div class="epub-spinner" aria-hidden="true"></div>
               <p>Carregando livro…</p>
@@ -339,11 +338,8 @@
   <script src="scripts/theme.js" defer></script>
   <script src="scripts/ui.js" defer></script>
   <script src="scripts/content.js" defer></script>
-  <!-- JSZip required by epub.js -->
-  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
-  <!-- epub.js pinned to stable 0.3.93 -->
-  <script src="https://cdn.jsdelivr.net/npm/epubjs@0.3.93/dist/epub.min.js"></script>
-  <script src="scripts/leitor.js" defer></script>
+  <!-- foliate-js EPUB reader: pure ES modules, no build step needed -->
+  <script type="module" src="scripts/leitor.js"></script>
   <script>
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("/sena/sw.js")
