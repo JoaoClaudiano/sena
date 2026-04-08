@@ -47,7 +47,7 @@ const makeZipLoader = async file => {
 const makeHttpLoader = async url => {
     const { configure, ZipReader, HttpRangeReader, TextWriter, BlobWriter } =
         await import('https://cdn.jsdelivr.net/npm/@zip.js/zip.js@2/dist/zip.min.js')
-    configure({ useWebWorkers: false })
+    if (typeof configure === 'function') configure({ useWebWorkers: false })
     const reader = new ZipReader(new HttpRangeReader(url))
     const entries = await reader.getEntries()
     const map = new Map(entries.map(entry => [entry.filename, entry]))
