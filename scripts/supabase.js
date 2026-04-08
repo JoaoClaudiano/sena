@@ -71,7 +71,13 @@
       referrer: document.referrer || null
     }).then(function (result) {
       /* Ignora silenciosamente erros esperados: tabela/coluna inexistente (migração pendente) e falhas de rede */
-      if (result.error && !/Could not find the (table|column)|Failed to fetch|NetworkError|ERR_NAME_NOT_RESOLVED/i.test(result.error.message)) {
+      var EXPECTED_ERRORS = [
+        /Could not find the (table|column)/i,
+        /Failed to fetch/i,
+        /NetworkError/i,
+        /ERR_NAME_NOT_RESOLVED/i
+      ];
+      if (result.error && !EXPECTED_ERRORS.some(function (re) { return re.test(result.error.message); })) {
         console.warn('[Supabase] Erro ao registrar visita:', result.error.message);
       }
     });
