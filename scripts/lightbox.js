@@ -71,6 +71,116 @@
       ondefoi: 'Itália',
       contexto: 'Esta composição retrata as tentações e provações espirituais que Santa Catarina enfrentou em sua vida de oração. Em suas cartas e no Diálogo, ela descreve longos períodos de aridez espiritual e assaltos de visões perturbadoras — que ela suportou com fé inabalável, reconhecendo-os como provas de Deus. A santa, em meio a criaturas demoníacas, mantém a serenidade da fé e o olhar fixo em Cristo.',
       src: 'imagens/St_Catherine_of_Siena_besieged_by_demons.jpg'
+    },
+    'catarina-escrevendo': {
+      titulo: 'Santa Catarina de Sena Escrevendo',
+      autor: 'Anônimo (escola italiana)',
+      data: 'Século XVII–XIX',
+      tipo: 'Óleo sobre tela',
+      localizacao: 'Coleção privada / acervo eclesiástico',
+      ondefoi: 'Itália',
+      contexto: 'Esta cena evoca a extraordinária produção intelectual de Santa Catarina. Analfabeta até a vida adulta, ela ditou cerca de 380 cartas e o Diálogo da Divina Providência a secretários, entre eles o beato Raimundo de Cápua. Em 1970, Paulo VI a declarou Doutora da Igreja — a primeira mulher a receber esse título.',
+      src: 'imagens/Catherine_of_Siena_writing.jpg'
+    },
+    'catherine-de-ricci': {
+      titulo: 'Santa Catarina de Ricci',
+      autor: 'Anônimo (escola florentina)',
+      data: 'Século XVII–XVIII',
+      tipo: 'Óleo sobre tela',
+      localizacao: 'Convento de San Vincenzo, Prato, Itália',
+      ondefoi: 'Florença / Prato, Itália',
+      contexto: 'Catarina de Ricci (1522–1590) foi uma freira dominicana florentina que viveu no Convento de San Vincenzo em Prato. Profundamente inspirada pela espiritualidade de Santa Catarina de Sena, ela recebeu os estigmas de Cristo e experimentou êxtases em que reviveu a Paixão cada semana por doze anos. Foi canonizada por Bento XIV em 1746.',
+      src: 'imagens/Catherine-de-ricci.jpg'
+    },
+    'plautilla-nelli': {
+      titulo: 'Santa Catarina de Sena',
+      autor: 'Plautilla Nelli',
+      data: 'Século XVI',
+      tipo: 'Óleo sobre tela / têmpera',
+      localizacao: 'Convento de Santa Catarina de Siena, Florença, Itália',
+      ondefoi: 'Florença, Itália',
+      contexto: 'Plautilla Nelli (1524–1588), freira dominicana do Convento de Santa Catarina em Florença, foi a primeira pintora documentada da cidade. Autodidacta, ela produziu obras de arte religiosa para seu convento e para igrejas florentinas. Como dominicana, compartilhava a herança espiritual de Catarina, conferindo à obra uma devoção particular e genuína.',
+      src: 'imagens/St._Catherine_of_Siena_painted_by_Plautilla_Nelli.jpg'
+    },
+    'carlo-dolci': {
+      titulo: 'Santa Catarina de Sena',
+      autor: 'Atribuído a Carlo Dolci',
+      data: 'c. 1650–1680',
+      tipo: 'Óleo sobre tela',
+      localizacao: 'Coleção privada / museu italiano',
+      ondefoi: 'Florença, Itália',
+      contexto: 'Carlo Dolci (1616–1686) foi um dos mais devotos pintores barrocos de Florença, célebre por representações de santos e da Virgem com expressão de intensa interioridade espiritual. Seu estilo refinado e contemplativo torna esta obra atribuída um exemplo eloquente da espiritualidade mística que Santa Catarina representou para a arte italiana do século XVII.',
+      src: 'imagens/santa catarina de sena pintura atribuida ao pintor barroco italiano Carlo Dolci.png'
+    },
+    'alessandro-franchi': {
+      titulo: 'Santa Catarina de Sena',
+      autor: 'Alessandro Franchi',
+      data: 'Século XIX',
+      tipo: 'Óleo sobre tela',
+      localizacao: 'Siena, Itália',
+      ondefoi: 'Siena, Itália',
+      contexto: 'Alessandro Franchi (1838–1914) foi um pintor sienense do movimento purista, profundamente influenciado pelos primitivos italianos e pela arte medieval de sua cidade natal. Nascido em Siena como Santa Catarina, trouxe à representação da padroeira um sentimento de reverência e pertencimento local, celebrando sua herança espiritual com sensibilidade oitocentista.',
+      src: 'imagens/catarina siena Alessandro Franchi.JPG'
+    },
+    'catarina-rosario-roma': {
+      titulo: 'Santa Catarina de Sena',
+      autor: 'Anônimo',
+      data: 'Século XIX–XX',
+      tipo: 'Pintura mural / óleo sobre tela',
+      localizacao: 'Igreja de Santa Maria del Rosario in Prati, Roma, Itália',
+      ondefoi: 'Roma, Itália',
+      contexto: 'A Igreja de Santa Maria del Rosario in Prati, em Roma, é um templo dominicano dedicado ao culto do Rosário. A representação de Santa Catarina neste espaço sagrado insere-se na rica tradição iconográfica da Ordem dos Pregadores, que venerou Catarina como modelo de vida mística, apostolado e amor à Igreja.',
+      src: 'imagens/Saint Catherine of Siena. From chiesa di Santa Maria del Rosario in Prati, Roma.jpg'
+    },
+    'catarina-caleruega': {
+      titulo: 'Santa Catarina de Sena — Convento de Caleruega',
+      autor: 'Anônimo',
+      data: 'Século XIX–XX',
+      tipo: 'Pintura religiosa',
+      localizacao: 'Convento das Freiras Dominicanas, Caleruega, Espanha',
+      ondefoi: 'Caleruega, Burgos, Espanha',
+      contexto: 'Caleruega, na província de Burgos, é a terra natal de São Domingos de Gusmão, fundador da Ordem dos Pregadores. O convento dominicano ali estabelecido preserva a memória do fundador e venera os santos da Ordem, entre eles Santa Catarina de Sena. Esta imagem evoca os laços profundos entre a espiritualidade de Catarina e as origens da tradição dominicana.',
+      src: "imagens/catarina - the Dominican nuns' convent at Caleruega, Spain.jpg"
+    },
+    'catalina-siena': {
+      titulo: 'Santa Catarina de Sena',
+      autor: 'Anônimo',
+      data: 'Século XVII–XIX',
+      tipo: 'Óleo sobre tela',
+      localizacao: 'Acervo eclesiástico',
+      ondefoi: 'Itália / Espanha',
+      contexto: 'Retrato devocional de Santa Catarina de Sena exibindo os atributos iconográficos tradicionais da santa: o hábito branco e negro dominicano, o lírio da pureza, o livro das Escrituras e, por vezes, a coroa de espinhos — símbolo de sua participação nos sofrimentos de Cristo. A imagem expressa séculos de devoção popular à Mística de Siena.',
+      src: 'imagens/catalina-siena.jpg'
+    },
+    'catarina-de-sena': {
+      titulo: 'Santa Catarina de Sena',
+      autor: 'Anônimo',
+      data: 'Século XVII–XIX',
+      tipo: 'Óleo sobre tela',
+      localizacao: 'Acervo eclesiástico',
+      ondefoi: 'Itália',
+      contexto: 'Representação clássica de Santa Catarina, figura central da espiritualidade cristã do século XIV. Conselheira de papas, reformadora da Igreja e Doutora da Igreja, Catarina (1347–1380) viveu apenas 33 anos, mas sua influência atravessou séculos. Em 1999, João Paulo II a proclamou co-padroeira da Europa ao lado de Santa Brígida da Suécia e Santa Edith Stein.',
+      src: 'imagens/catarina de sena.jpg'
+    },
+    'catarina-retrato': {
+      titulo: 'Retrato de Santa Catarina de Sena',
+      autor: 'Anônimo',
+      data: 'Século XVII–XIX',
+      tipo: 'Óleo sobre tela',
+      localizacao: 'Acervo eclesiástico / coleção privada',
+      ondefoi: 'Itália',
+      contexto: 'Imagem devocional que captura a serenidade e a força espiritual de Santa Catarina. Seu rosto concentra séculos de devoção popular e a memória viva de uma mulher que, por meio de cartas, visões e ações concretas, transformou a história da Igreja com palavras de fogo e um amor ardente a Deus.',
+      src: 'imagens/catarina.jpg'
+    },
+    'sena-retrato': {
+      titulo: 'Santa Catarina de Sena',
+      autor: 'Anônimo',
+      data: 'Século XIX–XX',
+      tipo: 'Pintura religiosa',
+      localizacao: 'Acervo eclesiástico',
+      ondefoi: 'Itália',
+      contexto: 'Imagem inspirada na espiritualidade mística de Santa Catarina de Sena, Virgem, Doutora da Igreja e co-padroeira da Europa e da Itália. A data de sua festa litúrgica, 29 de abril, é celebrada em todo o mundo católico como um convite à contemplação, à caridade e ao compromisso com a unidade da Igreja.',
+      src: 'imagens/sena.jpg'
     }
   };
 
