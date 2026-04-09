@@ -46,7 +46,7 @@ const makeZipLoader = async file => {
 // so large books open quickly without downloading the entire file up front.
 const makeHttpLoader = async url => {
     const { configure, ZipReader, HttpRangeReader, TextWriter, BlobWriter } =
-        await import('https://cdn.jsdelivr.net/npm/@zip.js/zip.js@2/dist/zip.min.js')
+        await import('./vendor/zip.js')
     if (typeof configure === 'function') configure({ useWebWorkers: false })
     const reader = new ZipReader(new HttpRangeReader(url))
     const entries = await reader.getEntries()
