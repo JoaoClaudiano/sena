@@ -7,16 +7,33 @@ import './foliate/view.js' // registers <foliate-view> custom element
   var params  = new URLSearchParams(window.location.search)
   var bookUrl = params.get('book')
 
-  var titleEl      = document.getElementById('bookTitle')
-  var breadcrumbEl = document.getElementById('breadcrumbTitle')
-  var loadingEl    = document.getElementById('epubLoading')
-  var prevBtn      = document.getElementById('epubPrev')
-  var nextBtn      = document.getElementById('epubNext')
-  var pageInfoEl   = document.getElementById('epubPageInfo')
-  var tocBtn       = document.getElementById('epubToc')
-  var tocPanel     = document.getElementById('epubTocPanel')
-  var tocList      = document.getElementById('epubTocList')
-  var downloadBtn  = document.getElementById('downloadEpubBtn')
+  var titleEl       = document.getElementById('bookTitle')
+  var breadcrumbEl  = document.getElementById('breadcrumbTitle')
+  var loadingEl     = document.getElementById('epubLoading')
+  var prevBtn       = document.getElementById('epubPrev')
+  var nextBtn       = document.getElementById('epubNext')
+  var pageInfoEl    = document.getElementById('epubPageInfo')
+  var tocBtn        = document.getElementById('epubToc')
+  var tocPanel      = document.getElementById('epubTocPanel')
+  var tocList       = document.getElementById('epubTocList')
+  var downloadBtn   = document.getElementById('downloadEpubBtn')
+  var fontDecBtn    = document.getElementById('epubFontDec')
+  var fontResetBtn  = document.getElementById('epubFontReset')
+  var fontIncBtn    = document.getElementById('epubFontInc')
+  var spacingBtn    = document.getElementById('epubSpacing')
+  var fullscreenBtn = document.getElementById('epubFullscreen')
+  var readerWrap    = document.getElementById('epubReaderWrap')
+
+  /* ── Reader settings (persisted in localStorage) ── */
+  var FONT_MIN = 0.7, FONT_MAX = 2.0, FONT_STEP = 0.1
+  var LINE_HEIGHTS = [1.4, 1.6, 1.9, 2.2]
+
+  var readerFontSize = parseFloat(localStorage.getItem('epub-font-size')) || 1.0
+  var storedLH = parseFloat(localStorage.getItem('epub-line-height'))
+  var lineHeightIndex = LINE_HEIGHTS.indexOf(storedLH)
+  if (lineHeightIndex < 0) lineHeightIndex = 1 // default: 1.6
+
+  var isFullscreen = false
 
   function titleFromUrl(url) {
     try {
@@ -112,19 +129,55 @@ import './foliate/view.js' // registers <foliate-view> custom element
     }
   }, 30000)
 
-  /* Inject theme styles into each rendered chapter */
+  /* ── CSS injection for iframe documents ── */
+
+  /* Read a CSS custom property value from the main document (not available inside iframes) */
+  function cssVar(name) {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim()
+  }
+
+  function buildReaderCSS() {
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark'
+    var lh  = LINE_HEIGHTS[lineHeightIndex]
+    var pct = Math.round(readerFontSize * 100)
+    var css = 'html{font-size:' + pct + '%!important}'
+    css += 'body,p,li,div{line-height:' + lh + '!important}'
+    if (isDark) {
+      css += 'html,body{background:' + cssVar('--c-book-bg') + '!important;color:' + cssVar('--c-text') + '!important}'
+      css += 'a{color:' + cssVar('--c-link') + '!important}'
+      css += 'h1,h2,h3,h4,h5,h6{color:' + cssVar('--c-heading') + '!important}'
+    }
+    return css
+  }
+
+  function applyToDoc(doc) {
+    if (!doc || !doc.head) return
+    var existing = doc.getElementById('epub-reader-custom')
+    var style = existing || doc.createElement('style')
+    style.id = 'epub-reader-custom'
+    style.textContent = buildReaderCSS()
+    if (!existing) doc.head.appendChild(style)
+  }
+
+  function updateAllDocs() {
+    if (!view || !view.renderer) return
+    try {
+      var contents = view.renderer.getContents()
+      if (contents && contents.length) {
+        contents.forEach(function (c) { if (c.doc) applyToDoc(c.doc) })
+      }
+    } catch (_) {}
+  }
+
+  /* Watch for theme changes and update iframe styles */
+  var themeObserver = new MutationObserver(updateAllDocs)
+  themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
+
+  /* Inject theme/typography styles into each rendered chapter */
   view.addEventListener('load', function (e) {
     var doc = e.detail && e.detail.doc
     if (!doc) return
-    var isDark = document.documentElement.getAttribute('data-theme') === 'dark'
-    if (isDark) {
-      var style = doc.createElement('style')
-      style.textContent =
-        'html,body{background:#1a1a1a!important;color:#d4af37!important}' +
-        'a{color:#c9a227!important}' +
-        'h1,h2,h3,h4,h5,h6{color:#d4af37!important}'
-      doc.head.appendChild(style)
-    }
+    applyToDoc(doc)
   })
 
   /* Main init */
@@ -157,9 +210,14 @@ import './foliate/view.js' // registers <foliate-view> custom element
       await view.init({ lastLocation: lastLocation, showTextStart: !lastLocation })
 
       clearTimeout(loadTimeout)
-      if (loadingEl) loadingEl.style.display = 'none'
-      if (prevBtn)   prevBtn.disabled = false
-      if (nextBtn)   nextBtn.disabled = false
+      if (loadingEl)    loadingEl.style.display = 'none'
+      if (prevBtn)      prevBtn.disabled = false
+      if (nextBtn)      nextBtn.disabled = false
+      if (fontDecBtn)   fontDecBtn.disabled = false
+      if (fontResetBtn) fontResetBtn.disabled = false
+      if (fontIncBtn)   fontIncBtn.disabled = false
+      if (spacingBtn)   spacingBtn.disabled = false
+      if (fullscreenBtn) fullscreenBtn.disabled = false
 
     } catch (err) {
       clearTimeout(loadTimeout)
@@ -191,6 +249,7 @@ import './foliate/view.js' // registers <foliate-view> custom element
     if (tag === 'INPUT' || tag === 'TEXTAREA') return
     if (e.key === 'ArrowLeft')  view.prev()
     if (e.key === 'ArrowRight') view.next()
+    if (e.key === 'Escape' && isFullscreen) { e.preventDefault(); e.stopPropagation(); exitFullscreen() }
   })
 
   /* TOC panel */
@@ -202,6 +261,51 @@ import './foliate/view.js' // registers <foliate-view> custom element
     if (!tocPanel) return
     if (!tocPanel.contains(e.target) && e.target !== tocBtn)
       tocPanel.classList.remove('open')
+  })
+
+  /* ── Font size controls ── */
+  function setFontSize(size) {
+    readerFontSize = parseFloat(Math.min(FONT_MAX, Math.max(FONT_MIN, size)).toFixed(1))
+    try { localStorage.setItem('epub-font-size', readerFontSize) } catch (_) {}
+    updateAllDocs()
+  }
+
+  if (fontDecBtn)   fontDecBtn.addEventListener('click',   function () { setFontSize(readerFontSize - FONT_STEP) })
+  if (fontResetBtn) fontResetBtn.addEventListener('click', function () { setFontSize(1.0) })
+  if (fontIncBtn)   fontIncBtn.addEventListener('click',   function () { setFontSize(readerFontSize + FONT_STEP) })
+
+  /* ── Line spacing control (cycles through preset values) ── */
+  if (spacingBtn) spacingBtn.addEventListener('click', function () {
+    lineHeightIndex = (lineHeightIndex + 1) % LINE_HEIGHTS.length
+    try { localStorage.setItem('epub-line-height', LINE_HEIGHTS[lineHeightIndex]) } catch (_) {}
+    updateAllDocs()
+  })
+
+  /* ── Fullscreen toggle ── */
+  function exitFullscreen() {
+    isFullscreen = false
+    if (readerWrap) readerWrap.classList.remove('fullscreen')
+    document.body.style.overflow = ''
+    if (fullscreenBtn) {
+      fullscreenBtn.setAttribute('aria-label', 'Tela cheia')
+      fullscreenBtn.title = 'Tela cheia'
+      fullscreenBtn.textContent = '⛶'
+    }
+    window.dispatchEvent(new Event('resize'))
+  }
+
+  if (fullscreenBtn) fullscreenBtn.addEventListener('click', function () {
+    if (isFullscreen) {
+      exitFullscreen()
+    } else {
+      isFullscreen = true
+      if (readerWrap) readerWrap.classList.add('fullscreen')
+      document.body.style.overflow = 'hidden'
+      fullscreenBtn.setAttribute('aria-label', 'Sair da tela cheia')
+      fullscreenBtn.title = 'Sair da tela cheia'
+      fullscreenBtn.textContent = '✕'
+      window.dispatchEvent(new Event('resize'))
+    }
   })
 
   /* Recursively build TOC list */

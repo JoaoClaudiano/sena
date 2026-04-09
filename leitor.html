@@ -26,7 +26,7 @@
   <link rel="manifest" href="site.webmanifest">
   <style>
     .epub-wrapper {
-      max-width: 860px;
+      max-width: 980px;
       margin: 0 auto;
     }
 
@@ -34,37 +34,43 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0.75rem 1rem;
-      background: #f5f1ec;
-      border: 1px solid #ddd;
+      padding: 0.6rem 0.75rem;
+      background: var(--c-surface-3);
+      border: 1px solid var(--c-border);
       border-bottom: none;
       border-radius: 8px 8px 0 0;
       flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 0.4rem;
     }
 
     .epub-nav-controls {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.35rem;
     }
 
     .epub-page-info {
-      font-size: 0.9rem;
-      color: #555;
-      min-width: 100px;
+      font-size: 0.85rem;
+      color: var(--c-text-muted);
+      min-width: 50px;
       text-align: center;
       font-family: 'Lato', sans-serif;
     }
 
+    .epub-tool-btn {
+      font-size: 0.8rem !important;
+      padding: 0.3rem 0.55rem !important;
+      line-height: 1.2;
+    }
+
     .epub-reader-box {
       width: 100%;
-      height: 78vh;
-      min-height: 460px;
-      border: 1px solid #ddd;
+      height: calc(100vh - 220px);
+      min-height: 520px;
+      border: 1px solid var(--c-border);
       border-radius: 0 0 8px 8px;
       overflow: hidden;
-      background: #fff;
+      background: var(--c-book-bg);
       position: relative;
     }
 
@@ -85,7 +91,7 @@
       align-items: center;
       justify-content: center;
       gap: 1rem;
-      color: #666;
+      color: var(--c-text-muted);
       font-family: 'Lato', sans-serif;
       z-index: 5;
       background: inherit;
@@ -94,8 +100,8 @@
     .epub-spinner {
       width: 36px;
       height: 36px;
-      border: 3px solid #ece8e2;
-      border-top-color: #a67c52;
+      border: 3px solid var(--c-border);
+      border-top-color: var(--c-primary);
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
     }
@@ -111,7 +117,7 @@
     }
 
     .epub-error a {
-      color: #a67c52;
+      color: var(--c-primary);
     }
 
     .epub-toc-panel {
@@ -120,8 +126,8 @@
       left: 0;
       width: 260px;
       height: 100%;
-      background: #fff;
-      border-right: 1px solid #ddd;
+      background: var(--c-book-bg);
+      border-right: 1px solid var(--c-border);
       overflow-y: auto;
       z-index: 10;
       display: none;
@@ -136,7 +142,7 @@
       font-size: 0.95rem;
       margin-top: 0;
       margin-bottom: 0.75rem;
-      color: #a67c52;
+      color: var(--c-primary);
     }
 
     .epub-toc-panel ul {
@@ -151,7 +157,7 @@
 
     .epub-toc-panel a {
       font-size: 0.85rem;
-      color: #3d2b1f;
+      color: var(--c-brown-mid);
       display: block;
       padding: 0.3rem 0;
       border-radius: 4px;
@@ -160,35 +166,35 @@
     }
 
     .epub-toc-panel a:hover {
-      color: #a67c52;
+      color: var(--c-primary);
       text-decoration: none;
     }
 
-    [data-theme="dark"] .epub-toolbar {
-      background: #3d2f2f;
-      border-color: #5a4040;
+    /* Fullscreen mode */
+    #epubReaderWrap.fullscreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100vw;
+      z-index: 900;
+      display: flex;
+      flex-direction: column;
+      background: var(--c-book-bg);
     }
 
-    [data-theme="dark"] .epub-reader-box {
-      background: #2a2020;
-      border-color: #5a4040;
+    #epubReaderWrap.fullscreen .epub-toolbar {
+      border-radius: 0;
+      flex-shrink: 0;
     }
 
-    [data-theme="dark"] .epub-page-info {
-      color: #ccc;
-    }
-
-    [data-theme="dark"] .epub-toc-panel {
-      background: #2a2020;
-      border-color: #5a4040;
-    }
-
-    [data-theme="dark"] .epub-toc-panel a {
-      color: #e8ddd5;
-    }
-
-    [data-theme="dark"] .epub-loading {
-      color: #ccc;
+    #epubReaderWrap.fullscreen .epub-reader-box {
+      flex: 1;
+      height: auto;
+      min-height: unset;
+      border-radius: 0;
+      border-top: none;
     }
   </style>
   <script type="application/ld+json">
@@ -268,12 +274,19 @@
         <div id="epubReaderWrap">
           <div class="epub-toolbar" role="toolbar" aria-label="Controles do leitor">
             <div class="epub-nav-controls">
-              <button id="epubPrev" class="btn btn-outline" aria-label="Página anterior" disabled>◀ Anterior</button>
+              <button id="epubPrev" class="btn btn-outline epub-tool-btn" aria-label="Página anterior" disabled>◀ Anterior</button>
               <span class="epub-page-info" aria-live="polite" id="epubPageInfo">—</span>
-              <button id="epubNext" class="btn btn-outline" aria-label="Próxima página" disabled>Próxima ▶</button>
+              <button id="epubNext" class="btn btn-outline epub-tool-btn" aria-label="Próxima página" disabled>Próxima ▶</button>
             </div>
             <div class="epub-nav-controls">
-              <button id="epubToc" class="btn btn-outline" aria-label="Índice" style="font-size:0.85rem;">☰ Índice</button>
+              <button id="epubFontDec" class="btn btn-outline epub-tool-btn" aria-label="Diminuir fonte" title="Diminuir fonte" disabled>A-</button>
+              <button id="epubFontReset" class="btn btn-outline epub-tool-btn" aria-label="Tamanho de fonte padrão" title="Tamanho padrão" disabled>A</button>
+              <button id="epubFontInc" class="btn btn-outline epub-tool-btn" aria-label="Aumentar fonte" title="Aumentar fonte" disabled>A+</button>
+              <button id="epubSpacing" class="btn btn-outline epub-tool-btn" aria-label="Espaçamento entre linhas" title="Espaçamento" disabled>≡</button>
+            </div>
+            <div class="epub-nav-controls">
+              <button id="epubToc" class="btn btn-outline epub-tool-btn" aria-label="Índice" title="Índice">☰ Índice</button>
+              <button id="epubFullscreen" class="btn btn-outline epub-tool-btn" aria-label="Tela cheia" title="Tela cheia">⛶</button>
             </div>
           </div>
 
