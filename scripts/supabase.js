@@ -134,11 +134,19 @@
     var lat = (typeof latitude === 'number' && isFinite(latitude)) ? latitude : FALLBACK_LAT;
     var lng = (typeof longitude === 'number' && isFinite(longitude)) ? longitude : FALLBACK_LNG;
     var localizacao = 'POINT(' + lng + ' ' + lat + ')';
+    var EXPECTED_ERRORS = [
+      /Could not find the (table|column)/i,
+      /Failed to fetch/i,
+      /NetworkError/i,
+      /ERR_NAME_NOT_RESOLVED/i
+    ];
     return db.from('velas').insert({
       localizacao: localizacao,
       intencao: intencao || null
     }).then(function (result) {
-      if (result.error) console.warn('[Supabase] Erro ao acender vela:', result.error.message);
+      if (result.error && !EXPECTED_ERRORS.some(function (re) { return re.test(result.error.message); })) {
+        console.warn('[Supabase] Erro ao acender vela:', result.error.message);
+      }
       return result;
     });
   }
