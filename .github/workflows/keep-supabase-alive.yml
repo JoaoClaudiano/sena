@@ -1,0 +1,27 @@
+name: Keep Supabase Alive
+
+# Executa a cada 6 dias para evitar que o projeto free-tier seja pausado por inatividade.
+# O Supabase pausa projetos após 7 dias sem requisições — este ping garante atividade contínua.
+on:
+  schedule:
+    - cron: '0 12 */6 * *'   # todo dia múltiplo de 6, ao meio-dia UTC
+  workflow_dispatch:           # permite disparo manual pelo dashboard do GitHub
+
+jobs:
+  ping:
+    name: Ping Supabase
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fazer requisição ao Supabase REST API
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            "https://pndwwldjhmblwylwlazk.supabase.co/rest/v1/visitas?select=id&limit=1" \
+            -H "apikey: sb_publishable_ws2eOKUZ-WpLtln-D1OxXg_FiPNHWTO" \
+            -H "Authorization: Bearer sb_publishable_ws2eOKUZ-WpLtln-D1OxXg_FiPNHWTO")
+          echo "HTTP status: $STATUS"
+          if [ "$STATUS" -ge 200 ] && [ "$STATUS" -lt 300 ]; then
+            echo "✅ Supabase está ativo."
+          else
+            echo "⚠️  Resposta inesperada: $STATUS — projeto pode estar pausado."
+            exit 1
+          fi
