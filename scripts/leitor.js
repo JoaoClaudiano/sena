@@ -130,6 +130,12 @@ import './foliate/view.js' // registers <foliate-view> custom element
   }, 30000)
 
   /* ── CSS injection for iframe documents ── */
+
+  /* Read a CSS custom property value from the main document (not available inside iframes) */
+  function cssVar(name) {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim()
+  }
+
   function buildReaderCSS() {
     var isDark = document.documentElement.getAttribute('data-theme') === 'dark'
     var lh  = LINE_HEIGHTS[lineHeightIndex]
@@ -137,9 +143,9 @@ import './foliate/view.js' // registers <foliate-view> custom element
     var css = 'html{font-size:' + pct + '%!important}'
     css += 'body,p,li,div{line-height:' + lh + '!important}'
     if (isDark) {
-      css += 'html,body{background:#1a1520!important;color:#e8ddd5!important}'
-      css += 'a{color:#c9956c!important}'
-      css += 'h1,h2,h3,h4,h5,h6{color:#c9956c!important}'
+      css += 'html,body{background:' + cssVar('--c-book-bg') + '!important;color:' + cssVar('--c-text') + '!important}'
+      css += 'a{color:' + cssVar('--c-link') + '!important}'
+      css += 'h1,h2,h3,h4,h5,h6{color:' + cssVar('--c-heading') + '!important}'
     }
     return css
   }
@@ -243,7 +249,7 @@ import './foliate/view.js' // registers <foliate-view> custom element
     if (tag === 'INPUT' || tag === 'TEXTAREA') return
     if (e.key === 'ArrowLeft')  view.prev()
     if (e.key === 'ArrowRight') view.next()
-    if (e.key === 'Escape' && isFullscreen) exitFullscreen()
+    if (e.key === 'Escape' && isFullscreen) { e.preventDefault(); e.stopPropagation(); exitFullscreen() }
   })
 
   /* TOC panel */
@@ -259,7 +265,7 @@ import './foliate/view.js' // registers <foliate-view> custom element
 
   /* ── Font size controls ── */
   function setFontSize(size) {
-    readerFontSize = Math.round(Math.min(FONT_MAX, Math.max(FONT_MIN, size)) * 10) / 10
+    readerFontSize = parseFloat(Math.min(FONT_MAX, Math.max(FONT_MIN, size)).toFixed(1))
     try { localStorage.setItem('epub-font-size', readerFontSize) } catch (_) {}
     updateAllDocs()
   }
