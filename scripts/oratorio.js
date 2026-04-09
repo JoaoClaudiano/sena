@@ -31,7 +31,6 @@
       var diffMin = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
 
       var anoFesta = proximaFesta.getFullYear();
-      var diasStr = diffDias === 1 ? '1 dia' : diffDias + ' dias';
 
       conteudo.innerHTML =
         '<div class="memoria-countdown">' +
@@ -43,29 +42,24 @@
         '</div>' +
         '</div>';
 
-      /* Atualiza o contador a cada minuto */
-      setInterval(function () {
-        var agora2 = new Date();
-        var diff2 = proximaFesta - agora2;
+      /* Atualiza o contador a cada minuto; para quando a festa chegar */
+      var COUNTDOWN_UPDATE_INTERVAL = 60000;
+      var elDias  = document.getElementById('cdDias');
+      var elHoras = document.getElementById('cdHoras');
+      var elMin   = document.getElementById('cdMin');
+      var intervalId = setInterval(function () {
+        var diff2 = proximaFesta - new Date();
         if (diff2 <= 0) {
-          var cdDias = document.getElementById('cdDias');
-          var cdHoras = document.getElementById('cdHoras');
-          var cdMin = document.getElementById('cdMin');
-          if (cdDias) cdDias.textContent = '0';
-          if (cdHoras) cdHoras.textContent = '0';
-          if (cdMin) cdMin.textContent = '0';
+          if (elDias)  elDias.textContent  = '0';
+          if (elHoras) elHoras.textContent = '0';
+          if (elMin)   elMin.textContent   = '0';
+          clearInterval(intervalId);
           return;
         }
-        var d2 = Math.ceil(diff2 / (1000 * 60 * 60 * 24));
-        var h2 = Math.floor((diff2 % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var m2 = Math.floor((diff2 % (1000 * 60 * 60)) / (1000 * 60));
-        var cdDias = document.getElementById('cdDias');
-        var cdHoras = document.getElementById('cdHoras');
-        var cdMin = document.getElementById('cdMin');
-        if (cdDias) cdDias.textContent = d2;
-        if (cdHoras) cdHoras.textContent = h2;
-        if (cdMin) cdMin.textContent = m2;
-      }, 60000);
+        if (elDias)  elDias.textContent  = Math.ceil(diff2 / (1000 * 60 * 60 * 24));
+        if (elHoras) elHoras.textContent = Math.floor((diff2 % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        if (elMin)   elMin.textContent   = Math.floor((diff2 % (1000 * 60 * 60)) / (1000 * 60));
+      }, COUNTDOWN_UPDATE_INTERVAL);
     }
   })();
 
