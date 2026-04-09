@@ -192,6 +192,27 @@
     margin-bottom: 0;
   }
 
+  /* Melhora legibilidade no lightbox em telas pequenas */
+  .arte-lightbox-titulo {
+    font-size: 1.1rem;
+  }
+
+  .arte-meta-row dt {
+    font-size: 0.75rem;
+  }
+
+  .arte-meta-row dd {
+    font-size: 0.95rem;
+  }
+
+  .arte-lightbox-contexto {
+    font-size: 0.95rem;
+  }
+
+  .arte-lightbox-info {
+    padding: 1.5rem 1.25rem;
+  }
+
   .system-status-grid {
     grid-template-columns: 1fr 1fr;
   }

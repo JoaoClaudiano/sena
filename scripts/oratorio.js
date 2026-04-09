@@ -1,5 +1,74 @@
 /* ===== ORATÓRIO — MAPA DE VELAS E GEOLOCALIZAÇÃO ===== */
 (function () {
+  /* ---- Memória Litúrgica do Dia ---- */
+  (function () {
+    var conteudo = document.getElementById('memoriaLiturgicaConteudo');
+    if (!conteudo) return;
+
+    var agora = new Date();
+    var dia = agora.getDate();
+    var mes = agora.getMonth() + 1; /* 0-based */
+
+    if (dia === 29 && mes === 4) {
+      /* Hoje é a Memória Litúrgica! */
+      conteudo.innerHTML =
+        '<div class="memoria-festa">' +
+        '<span class="memoria-festa-badge" aria-label="Hoje é a festa">🌹 Hoje</span>' +
+        '<p class="memoria-festa-texto">Hoje, <strong>29 de abril</strong>, a Igreja celebra a <strong>Memória Obrigatória de Santa Catarina de Sena</strong> — virgem, mística, Doutora da Igreja, padroeira da Itália e copadroeira da Europa.</p>' +
+        '<p class="memoria-festa-texto">Um dia de oração, devoção e gratidão pela vida desta mulher extraordinária que ousou falar a reis e papas movida unicamente pelo amor a Deus.</p>' +
+        '</div>';
+    } else {
+      /* Calcula contagem regressiva para o próximo 29 de abril */
+      var anoAtual = agora.getFullYear();
+      var proximaFesta = new Date(anoAtual, 3, 29); /* 3 = abril (0-based) */
+      if (agora >= proximaFesta) {
+        proximaFesta = new Date(anoAtual + 1, 3, 29);
+      }
+
+      var diffMs = proximaFesta - agora;
+      var diffDias = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+      var diffHoras = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var diffMin = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+
+      var anoFesta = proximaFesta.getFullYear();
+      var diasStr = diffDias === 1 ? '1 dia' : diffDias + ' dias';
+
+      conteudo.innerHTML =
+        '<div class="memoria-countdown">' +
+        '<p class="memoria-countdown-desc">A Memória Litúrgica de Santa Catarina de Sena (<strong>29 de abril de ' + anoFesta + '</strong>) acontece em:</p>' +
+        '<div class="memoria-countdown-display" id="memoriaCountdownDisplay" aria-live="polite" aria-label="Contagem regressiva para a festa">' +
+        '<div class="memoria-countdown-unit"><span class="memoria-countdown-num" id="cdDias">' + diffDias + '</span><span class="memoria-countdown-label">dias</span></div>' +
+        '<div class="memoria-countdown-unit"><span class="memoria-countdown-num" id="cdHoras">' + diffHoras + '</span><span class="memoria-countdown-label">horas</span></div>' +
+        '<div class="memoria-countdown-unit"><span class="memoria-countdown-num" id="cdMin">' + diffMin + '</span><span class="memoria-countdown-label">minutos</span></div>' +
+        '</div>' +
+        '</div>';
+
+      /* Atualiza o contador a cada minuto */
+      setInterval(function () {
+        var agora2 = new Date();
+        var diff2 = proximaFesta - agora2;
+        if (diff2 <= 0) {
+          var cdDias = document.getElementById('cdDias');
+          var cdHoras = document.getElementById('cdHoras');
+          var cdMin = document.getElementById('cdMin');
+          if (cdDias) cdDias.textContent = '0';
+          if (cdHoras) cdHoras.textContent = '0';
+          if (cdMin) cdMin.textContent = '0';
+          return;
+        }
+        var d2 = Math.ceil(diff2 / (1000 * 60 * 60 * 24));
+        var h2 = Math.floor((diff2 % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var m2 = Math.floor((diff2 % (1000 * 60 * 60)) / (1000 * 60));
+        var cdDias = document.getElementById('cdDias');
+        var cdHoras = document.getElementById('cdHoras');
+        var cdMin = document.getElementById('cdMin');
+        if (cdDias) cdDias.textContent = d2;
+        if (cdHoras) cdHoras.textContent = h2;
+        if (cdMin) cdMin.textContent = m2;
+      }, 60000);
+    }
+  })();
+
   /* ---- Utilitários ---- */
   function formatVelaCount(n) {
     var s = n !== 1 ? 's' : '';

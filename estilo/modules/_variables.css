@@ -11,7 +11,7 @@
 
   /* Text */
   --c-text:                #2c3e50;
-  --c-text-muted:          #7f8c8d;
+  --c-text-muted:          #5f7173;
   --c-text-soft:           #5a6a7a;
   --c-heading:             #a67c52;
   --c-link:                #8e5a4b;
@@ -134,7 +134,7 @@
 
   /* Footer status */
   --c-status-border:       #eee;
-  --c-status-label:        #a0a0a0;
+  --c-status-label:        #6a6e70;
   --c-status-value:        #5a5a5a;
 
   /* System status card */
@@ -271,7 +271,7 @@
   --c-faq-answer:          #b0a0a8;
 
   --c-status-border:       #3d2f3a;
-  --c-status-label:        #6a5a60;
+  --c-status-label:        #9a8e90;
   --c-status-value:        #bfafb0;
 
   --c-system-card:         #2a1f2e;
