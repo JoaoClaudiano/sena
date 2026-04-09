@@ -7,7 +7,6 @@
 
 /* Header */
 header {
-  background-color: var(--c-header-bg);
   /* Glassmorphism: fundo semi-transparente com desfoque */
   background-color: rgba(255, 255, 255, 0.82);
   backdrop-filter: blur(14px) saturate(1.4);
