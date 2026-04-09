@@ -36,12 +36,14 @@ body {
 }
 
 .page-bg-img.bg-1 {
-  background-image: url('../../imagens/Saint_Catherine_by_Andrea_Vanni,_San_Domenico,_Siena.jpg');
+  background-image: -webkit-image-set(url('../../imagens/Saint_Catherine_by_Andrea_Vanni,_San_Domenico,_Siena.webp') type('image/webp'), url('../../imagens/Saint_Catherine_by_Andrea_Vanni,_San_Domenico,_Siena.jpg') type('image/jpeg'));
+  background-image: image-set(url('../../imagens/Saint_Catherine_by_Andrea_Vanni,_San_Domenico,_Siena.webp') type('image/webp'), url('../../imagens/Saint_Catherine_by_Andrea_Vanni,_San_Domenico,_Siena.jpg') type('image/jpeg'));
   background-position: center top;
 }
 
 .page-bg-img.bg-2 {
-  background-image: url('../../imagens/Domenico_Beccafumi_-_Stigmatization_of_St_Catherine_of_Siena_-_WGA01536.jpg');
+  background-image: -webkit-image-set(url('../../imagens/Domenico_Beccafumi_-_Stigmatization_of_St_Catherine_of_Siena_-_WGA01536.webp') type('image/webp'), url('../../imagens/Domenico_Beccafumi_-_Stigmatization_of_St_Catherine_of_Siena_-_WGA01536.jpg') type('image/jpeg'));
+  background-image: image-set(url('../../imagens/Domenico_Beccafumi_-_Stigmatization_of_St_Catherine_of_Siena_-_WGA01536.webp') type('image/webp'), url('../../imagens/Domenico_Beccafumi_-_Stigmatization_of_St_Catherine_of_Siena_-_WGA01536.jpg') type('image/jpeg'));
   background-position: center center;
 }
 
@@ -97,8 +99,14 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Focus visible global */
+/* Focus visible global — borda dourada brilhante (acessibilidade WCAG 2.4.11) */
 :focus-visible {
   outline: 2px solid var(--c-primary);
-  outline-offset: 2px;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(166, 124, 82, 0.28);
+}
+
+[data-theme="dark"] :focus-visible {
+  outline-color: var(--c-primary);
+  box-shadow: 0 0 0 4px rgba(201, 149, 108, 0.35);
 }
