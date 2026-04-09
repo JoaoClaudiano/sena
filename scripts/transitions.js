@@ -5,10 +5,16 @@
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* Skip JS fallback entirely when the browser supports the native
-   * View Transitions API — in that case the CSS @view-transition rule
-   * handles cross-document animations automatically, and intercepting
-   * navigation here would cause "AbortError: Transition was skipped". */
-  var hasNativeTransitions = 'startViewTransition' in document;
+   * cross-document View Transitions API — in that case the CSS @view-transition
+   * rule handles MPA animations automatically, and intercepting navigation here
+   * would cause "AbortError: Transition was skipped".
+   *
+   * `onpagereveal` in window is the reliable signal for cross-document VT
+   * support (Chrome 126+, Safari 18.2+).  Checking `startViewTransition` alone
+   * would incorrectly match Chrome 111-125, which has same-document VT but NOT
+   * cross-document VT, leaving those users with no outgoing fade-out and a
+   * jarring white flash between pages. */
+  var hasNativeTransitions = 'onpagereveal' in window;
 
   /* Helper shared by both pageswap and pagereveal handlers. */
   function suppressAbort(err) {

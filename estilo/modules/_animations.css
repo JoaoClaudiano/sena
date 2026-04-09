@@ -98,6 +98,13 @@ html.vt-active body {
   navigation: auto;
 }
 
+/* Cor de fundo do contêiner de transição — evita flash branco quando os
+   pseudo-elementos old/new estão ambos parcialmente transparentes durante o
+   cross-fade. Herda a variável do elemento <html> (inclui dark mode). */
+::view-transition {
+  background-color: var(--c-surface-2);
+}
+
 /* View Transitions API — navegadores com suporte (Chrome 111+) */
 @media (prefers-reduced-motion: no-preference) {
   ::view-transition-old(root) {
