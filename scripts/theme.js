@@ -38,4 +38,14 @@
       applyTheme(next);
     });
   }
+
+  /* Responder automaticamente a mudanças de preferência do SO,
+     mas apenas se o usuário não tiver feito uma escolha manual */
+  var mq = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+  if (mq) {
+    mq.addEventListener('change', function (e) {
+      if (localStorage.getItem('theme')) return; /* usuário escolheu manualmente */
+      applyTheme(e.matches ? 'dark' : 'light');
+    });
+  }
 })();

@@ -3,7 +3,7 @@
   text-align: center;
   padding: 3rem 1rem;
   background: var(--c-mural-bg);
-  border-radius: 12px;
+  border-radius: 16px;
   margin: 2rem 0;
 }
 
@@ -76,7 +76,7 @@
   font-size: 1.3rem;
   cursor: pointer;
   line-height: 1;
-  transition: background 0.3s;
+  transition: background 0.3s, transform 0.2s cubic-bezier(0.34, 1.5, 0.64, 1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -84,6 +84,7 @@
 
 .mural-prev:hover, .mural-next:hover {
   background: var(--c-primary-hover);
+  transform: scale(1.12);
 }
 
 .mural-pause {
@@ -105,6 +106,103 @@
 .mural-pause:hover {
   background: var(--c-primary);
   color: #fff;
+}
+
+/* ===== BENTO GRID DE CITAÇÕES (desktop) ===== */
+@media (min-width: 768px) {
+  .mural-section {
+    text-align: left;
+    padding: 2.5rem;
+  }
+
+  .mural-section h2 {
+    text-align: center;
+    margin-bottom: 1.75rem;
+  }
+
+  /* Oculta o slideshow e o nav no desktop */
+  .mural-slideshow,
+  .mural-nav {
+    display: none;
+  }
+
+  /* Bento grid visível no desktop */
+  .mural-bento {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1rem;
+  }
+
+  .mural-bento-item {
+    background: var(--c-surface);
+    border-radius: 12px;
+    padding: 1.4rem 1.6rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    transition: transform 0.3s cubic-bezier(0.34, 1.3, 0.64, 1), box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mural-bento-item::before {
+    content: '\201C';
+    position: absolute;
+    top: -0.25rem;
+    left: 0.6rem;
+    font-size: 4rem;
+    line-height: 1;
+    color: var(--c-primary);
+    opacity: 0.15;
+    font-family: Georgia, serif;
+    pointer-events: none;
+  }
+
+  .mural-bento-item:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.1);
+  }
+
+  /* Primeira célula ocupa 2 colunas */
+  .mural-bento-item:first-child {
+    grid-column: span 2;
+  }
+
+  /* Última célula ocupa 2 colunas */
+  .mural-bento-item:last-child {
+    grid-column: span 2;
+  }
+
+  .mural-bento-item blockquote {
+    border: none;
+    background: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .mural-bento-item blockquote p {
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--c-mural-quote);
+    margin-bottom: 0.75rem;
+    line-height: 1.55;
+  }
+
+  .mural-bento-item:first-child blockquote p {
+    font-size: 1.2rem;
+  }
+
+  .mural-bento-item blockquote cite {
+    color: var(--c-primary);
+    font-family: 'Lato', sans-serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.03em;
+  }
+}
+
+/* Oculta o bento no mobile */
+.mural-bento {
+  display: none;
 }
 
 /* ===== PÍLULAS DE SABEDORIA ===== */
@@ -182,14 +280,14 @@
   box-shadow: 0 4px 15px rgba(0,0,0,0.07);
   text-decoration: none;
   color: var(--c-destaque-text);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.34, 1.3, 0.64, 1), box-shadow 0.3s ease, border-bottom-color 0.3s ease;
   display: block;
   border-bottom: 3px solid transparent;
 }
 
 .destaque-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+  transform: translateY(-7px) scale(1.015);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.14);
   border-bottom-color: var(--c-primary);
   text-decoration: none;
   color: var(--c-destaque-text);
