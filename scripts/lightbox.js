@@ -61,6 +61,16 @@
       ondefoi: 'Itália',
       contexto: 'Esta representação anônima da estigmatização de Santa Catarina de Sena segue a iconografia tradicional do episódio ocorrido em Pisa em 1375. Catarina viu raios luminosos vindo das cinco chagas de Cristo crucificado e pediu que permanecessem invisíveis enquanto vivesse — pedido atendido. A cena tornou-se uma das mais representadas na arte devocional italiana dos séculos XVI e XVII.',
       src: 'imagens/Saint_Catherine_of_Siena_Receiving_the_Stigmata.jpg'
+    },
+    'demonios': {
+      titulo: 'Santa Catarina Assediada pelos Demônios',
+      autor: 'Anônimo (escola italiana)',
+      data: 'Século XVII',
+      tipo: 'Óleo sobre tela',
+      localizacao: 'Coleção eclesiástica / museu',
+      ondefoi: 'Itália',
+      contexto: 'Esta composição retrata as tentações e provações espirituais que Santa Catarina enfrentou em sua vida de oração. Em suas cartas e no Diálogo, ela descreve longos períodos de aridez espiritual e assaltos de visões perturbadoras — que ela suportou com fé inabalável, reconhecendo-os como provas de Deus. A santa, em meio a criaturas demoníacas, mantém a serenidade da fé e o olhar fixo em Cristo.',
+      src: 'imagens/St_Catherine_of_Siena_besieged_by_demons.jpg'
     }
   };
 
@@ -189,8 +199,8 @@
       else trapFocus(e);
     });
 
-    /* Adiciona evento de clique a cada item de arte */
-    var items = document.querySelectorAll('.arte-item[data-obra]');
+    /* Adiciona evento de clique a cada item de arte (homepage e siena.html) */
+    var items = document.querySelectorAll('.arte-item[data-obra], .art-piece[data-obra]');
     items.forEach(function (item) {
       item.style.cursor = 'pointer';
       item.setAttribute('tabindex', '0');

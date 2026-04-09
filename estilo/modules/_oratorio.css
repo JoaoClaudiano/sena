@@ -1,4 +1,138 @@
 /* ===== ORATORY / CANDLE ===== */
+
+/* ===== MEMÓRIA LITÚRGICA DO DIA ===== */
+.memoria-liturgica {
+  margin-bottom: 2rem;
+}
+
+.memoria-liturgica-inner {
+  background: var(--c-prayer-bg);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+  border-left: 4px solid var(--c-primary);
+}
+
+.memoria-liturgica-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.memoria-liturgica-icon {
+  font-size: 1.5rem;
+  color: var(--c-primary);
+  flex-shrink: 0;
+}
+
+.memoria-liturgica-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--c-heading);
+}
+
+/* Feast day state */
+.memoria-festa {
+  margin-bottom: 1.5rem;
+}
+
+.memoria-festa-badge {
+  display: inline-block;
+  background: var(--c-primary);
+  color: #fff;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.9rem;
+  border-radius: 20px;
+  margin-bottom: 0.85rem;
+}
+
+.memoria-festa-texto {
+  line-height: 1.7;
+  color: var(--c-text);
+  margin: 0 0 0.6rem;
+}
+
+/* Countdown state */
+.memoria-countdown {
+  margin-bottom: 1.5rem;
+}
+
+.memoria-countdown-desc {
+  color: var(--c-text);
+  margin-bottom: 1.25rem;
+}
+
+.memoria-countdown-display {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.memoria-countdown-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--c-surface-2);
+  border: 1px solid var(--c-border);
+  border-radius: 10px;
+  padding: 0.75rem 1.25rem;
+  min-width: 70px;
+}
+
+.memoria-countdown-num {
+  font-family: 'Lato', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--c-primary);
+  line-height: 1;
+}
+
+.memoria-countdown-label {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--c-text-muted);
+  margin-top: 0.25rem;
+}
+
+/* Collect Prayer */
+.memoria-coleta {
+  border-top: 1px solid var(--c-border);
+  padding-top: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.memoria-coleta-titulo {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  color: var(--c-heading);
+}
+
+.memoria-coleta-intro {
+  font-size: 0.875rem;
+  color: var(--c-text-muted);
+  margin-bottom: 1rem;
+}
+
+.memoria-coleta-texto {
+  font-size: 0.95rem;
+}
+
+.memoria-coleta-fonte {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.8rem;
+  color: var(--c-text-muted);
+  margin-top: 1rem;
+  font-style: italic;
+}
+
 .oratorio-hero {
   text-align: center;
   padding: 3rem 1rem;

@@ -80,19 +80,20 @@
 
     /* Validação e sanitização final antes do envio */
     form.addEventListener('submit', function (e) {
+      /* Sempre impede o envio nativo (evita redirecionamento ao formspree.io) */
+      e.preventDefault();
+
       var valid = true;
 
       if (nomeInput) {
         nomeInput.value = sanitizeName(nomeInput.value);
         if (!isValidName(nomeInput.value)) {
-          e.preventDefault();
           showError(nomeInput, 'O nome deve conter apenas letras, espaços, hífens e apóstrofos (mínimo 2 caracteres).');
           valid = false;
         }
       }
 
       if (emailInput && !emailInput.validity.valid) {
-        e.preventDefault();
         showError(emailInput, 'Digite um endereço de e-mail válido.');
         valid = false;
       }
@@ -100,7 +101,6 @@
       if (assuntoInput) {
         assuntoInput.value = sanitizeText(assuntoInput.value);
         if (!assuntoInput.value.trim()) {
-          e.preventDefault();
           showError(assuntoInput, 'O assunto não pode estar vazio.');
           valid = false;
         }
@@ -109,13 +109,70 @@
       if (mensagemInput) {
         mensagemInput.value = sanitizeText(mensagemInput.value);
         if (!mensagemInput.value.trim()) {
-          e.preventDefault();
           showError(mensagemInput, 'A mensagem não pode estar vazia.');
           valid = false;
         }
       }
 
-      return valid;
+      if (!valid) return;
+
+      /* Envia via fetch para evitar redirecionamento */
+      var submitBtn = form.querySelector('[type="submit"]');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Enviando…';
+      }
+
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      })
+        .then(function (response) {
+          if (response.ok) {
+            /* Substitui o formulário por mensagem de sucesso */
+            var successDiv = document.createElement('div');
+            successDiv.className = 'form-success';
+            successDiv.setAttribute('role', 'alert');
+            successDiv.innerHTML =
+              '<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>' +
+              '<h3>Mensagem enviada!</h3>' +
+              '<p>Obrigado por entrar em contato. Sua mensagem foi recebida com atenção e retornaremos em breve.</p>' +
+              '<p style="font-style:italic;font-size:0.9rem;">Santa Catarina de Sena, rogai por nós.</p>';
+            form.parentNode.replaceChild(successDiv, form);
+          } else {
+            /* Erro HTTP do servidor */
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.textContent = 'Enviar mensagem';
+            }
+            var errorDiv = document.getElementById('form-send-error');
+            if (!errorDiv) {
+              errorDiv = document.createElement('p');
+              errorDiv.id = 'form-send-error';
+              errorDiv.className = 'form-send-error';
+              errorDiv.setAttribute('role', 'alert');
+              form.insertBefore(errorDiv, form.firstChild);
+            }
+            errorDiv.textContent = 'Não foi possível enviar a mensagem. Por favor, tente novamente ou escreva diretamente para jooclaudiano@gmail.com.';
+          }
+        })
+        .catch(function () {
+          /* Erro de rede */
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Enviar mensagem';
+          }
+          var errorDiv = document.getElementById('form-send-error');
+          if (!errorDiv) {
+            errorDiv = document.createElement('p');
+            errorDiv.id = 'form-send-error';
+            errorDiv.className = 'form-send-error';
+            errorDiv.setAttribute('role', 'alert');
+            form.insertBefore(errorDiv, form.firstChild);
+          }
+          errorDiv.textContent = 'Erro de conexão. Verifique sua internet e tente novamente.';
+        });
     });
   }
 

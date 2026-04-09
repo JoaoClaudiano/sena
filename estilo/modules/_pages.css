@@ -88,10 +88,55 @@
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0,0,0,0.07);
   transition: transform 0.3s ease;
+  position: relative;
 }
 
 .art-piece:hover {
   transform: translateY(-4px);
+}
+
+/* Obras clicáveis na página siena.html */
+.art-piece[data-obra] {
+  cursor: pointer;
+}
+
+.art-piece[data-obra]:focus-visible {
+  outline: 2px solid var(--c-primary);
+  outline-offset: 2px;
+}
+
+.art-piece[data-obra]::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(166,124,82,0.45) 0%, transparent 55%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 12px 12px 0 0;
+  pointer-events: none;
+}
+
+.art-piece[data-obra]:hover::after {
+  opacity: 1;
+}
+
+.art-piece[data-obra] .art-info::after {
+  content: 'Ver detalhes →';
+  display: block;
+  margin-top: 0.6rem;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--c-primary);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.art-piece[data-obra]:hover .art-info::after,
+.art-piece[data-obra]:focus-visible .art-info::after {
+  opacity: 1;
 }
 
 .art-image-placeholder {
