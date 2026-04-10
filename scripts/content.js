@@ -10,7 +10,7 @@
   if (anoEl) anoEl.textContent = new Date().getFullYear();
 
   if (tempoEl) {
-    var launch = new Date('2025-04-29T00:00:00');
+    var launch = new Date('2026-02-01T00:00:00');
     var now    = new Date();
     var diff   = now - launch;
     var days   = Math.floor(diff / (1000 * 60 * 60 * 24));
