@@ -444,3 +444,185 @@
 .leaflet-bar a:hover {
   background: var(--c-surface-3);
 }
+
+/* ===== COLEÇÃO DE ORAÇÕES — ORATORIO ===== */
+.oracoes-section {
+  margin: 2.5rem 0;
+}
+
+.oracoes-section-header {
+  text-align: center;
+  margin-bottom: 1.75rem;
+}
+
+.oracoes-section-header h2 {
+  margin-bottom: 0.5rem;
+}
+
+.oracoes-section-header p {
+  font-size: 0.95rem;
+  color: var(--c-text-muted);
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.oracoes-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.oracao-card {
+  background: var(--c-prayer-bg);
+  border: 1px solid var(--c-border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.oracao-toggle {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  gap: 1rem;
+  font-family: 'Merriweather', serif;
+  color: var(--c-heading);
+  transition: background 0.2s;
+}
+
+.oracao-toggle:hover,
+.oracao-toggle:focus-visible {
+  background: var(--c-surface-3);
+  outline: none;
+}
+
+.oracao-toggle:focus-visible {
+  box-shadow: var(--focus-ring);
+}
+
+.oracao-card-titulo {
+  font-size: 1rem;
+  font-weight: 700;
+  flex: 1;
+}
+
+.oracao-toggle-icon {
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: var(--c-primary);
+  flex-shrink: 0;
+  transition: transform 0.25s;
+  line-height: 1;
+}
+
+.oracao-toggle-icon::before {
+  content: '+';
+}
+
+.oracao-toggle[aria-expanded="true"] .oracao-toggle-icon::before {
+  content: '−';
+}
+
+.oracao-body {
+  padding: 0 1.25rem 1.25rem;
+  border-top: 1px solid var(--c-border);
+}
+
+.oracao-body[hidden] {
+  display: none;
+}
+
+.oracao-texto {
+  margin-top: 1rem;
+}
+
+/* ===== ORAÇÃO DO DIA — INDEX ===== */
+.oracao-dia-section {
+  background: var(--c-prayer-bg);
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+  border-left: 4px solid var(--c-primary);
+  margin-bottom: 2rem;
+}
+
+.oracao-dia-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.oracao-dia-badge {
+  display: inline-flex;
+  align-items: center;
+  background: var(--c-primary);
+  color: #fff;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.9rem;
+  border-radius: 20px;
+}
+
+.oracao-dia-data {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.8rem;
+  color: var(--c-text-muted);
+  text-transform: capitalize;
+}
+
+.oracao-dia-content h3 {
+  margin: 0 0 0.6rem;
+  font-size: 1.05rem;
+  color: var(--c-heading);
+}
+
+.oracao-dia-trecho {
+  font-style: italic;
+  color: var(--c-text);
+  line-height: 1.75;
+  margin: 0 0 1rem;
+  border-left: 3px solid var(--c-primary);
+  padding-left: 1rem;
+}
+
+.oracao-dia-rezar {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.875rem;
+  color: var(--c-primary);
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  transition: color 0.2s;
+}
+
+.oracao-dia-rezar:hover {
+  color: var(--c-primary-hover);
+  text-decoration: underline;
+}
+
+.oracao-dia-link {
+  display: block;
+  text-align: right;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.8rem;
+  color: var(--c-text-muted);
+  text-decoration: none;
+  margin-top: 0.75rem;
+  transition: color 0.2s;
+}
+
+.oracao-dia-link:hover {
+  color: var(--c-primary);
+}

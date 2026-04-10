@@ -274,3 +274,48 @@
   });
   mapObserver.observe(mapEl);
 })();
+
+/* ===== ACCORDION DE ORAÇÕES ===== */
+(function () {
+  var toggles = document.querySelectorAll('.oracao-toggle');
+  if (!toggles.length) return;
+
+  toggles.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var expanded = btn.getAttribute('aria-expanded') === 'true';
+      var targetId = btn.getAttribute('aria-controls');
+      var body     = document.getElementById(targetId);
+      if (!body) return;
+
+      if (expanded) {
+        btn.setAttribute('aria-expanded', 'false');
+        body.hidden = true;
+      } else {
+        /* Fecha os demais */
+        toggles.forEach(function (other) {
+          if (other !== btn) {
+            other.setAttribute('aria-expanded', 'false');
+            var otherId   = other.getAttribute('aria-controls');
+            var otherBody = document.getElementById(otherId);
+            if (otherBody) otherBody.hidden = true;
+          }
+        });
+        btn.setAttribute('aria-expanded', 'true');
+        body.hidden = false;
+        /* Rola suavemente para o card aberto */
+        setTimeout(function () {
+          btn.closest('.oracao-card').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 50);
+      }
+    });
+  });
+
+  /* Abre o card cujo id coincide com o hash da URL (ex: #oracao-clareza) */
+  if (window.location.hash) {
+    var hash = window.location.hash.slice(1);
+    var targetBtn = document.querySelector('.oracao-toggle[aria-controls="' + hash + '"]');
+    if (targetBtn) {
+      targetBtn.click();
+    }
+  }
+})();
