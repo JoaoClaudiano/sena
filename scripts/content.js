@@ -144,6 +144,69 @@
     });
   }
 
+  /* ─── ORAÇÃO DO DIA ─── */
+  var oracaoDiaContent = document.getElementById('oracaoDiaContent');
+  var oracaoDiaData    = document.getElementById('oracaoDiaData');
+
+  if (oracaoDiaContent) {
+    var oracoes = [
+      {
+        titulo: 'Oração a Santa Catarina de Sena',
+        ancora: 'oracao-geral',
+        trecho: 'Amada Santa Catarina de Sena, iluminada pelo Espírito Santo, elevamos nossas preces a vós, pedindo vossa intercessão junto a Deus. Inspirados por vossa vida de santidade e serviço, rogamos que nos guieis no caminho da fé e do amor ao próximo.'
+      },
+      {
+        titulo: 'Oração Oficial a Santa Catarina',
+        ancora: 'oracao-oficial',
+        trecho: '"Ó notável maravilha da Igreja, serva virgem, que, por causa de suas extraordinárias virtudes e pelo que conseguistes para a Igreja e a Sociedade, fostes aclamada e abençoada por todos, volte teu bondoso olhar para mim…"'
+      },
+      {
+        titulo: 'Oração pela Clareza',
+        ancora: 'oracao-clareza',
+        trecho: 'Santa Catarina, minha irmã e guia, hoje venho a ti com o pensamento cansado e o coração em busca de abrigo. Tu, que encontraste a paz mais profunda mesmo vivendo em tempos de tanto barulho e conflito, estende a tua mão sobre as minhas ideias.'
+      },
+      {
+        titulo: 'Oração de Gratidão',
+        ancora: 'oracao-gratidao',
+        trecho: 'Querida Santa Catarina, tu que compreendeste como ninguém que tudo vem do amor e tudo é feito para a salvação do ser humano, hoje me aproximo de ti com o coração aberto e cheio de gratidão.'
+      },
+      {
+        titulo: 'Oração pela Iluminação — Santa Catarina à Santíssima Trindade',
+        ancora: 'oracao-iluminacao',
+        trecho: 'Ó Divindade eterna, ó eterna Trindade, que pela união com a natureza divina fizeste tanto valer o sangue do teu Filho único! Tu, Trindade eterna, és um mar profundo, onde quanto mais procuro, mais encontro…'
+      },
+      {
+        titulo: 'Oração para os Jovens — Encontrar a Minha Voz',
+        ancora: 'oracao-voz',
+        trecho: 'Santa Catarina, tu que foste jovem e decidida, que não tiveste medo de ser diferente e de seguir o que o teu coração gritava, olha para mim hoje. Peço-te: ajuda-me a encontrar a minha própria voz.'
+      }
+    ];
+
+    var todayOr    = new Date();
+    var dayOfYearOr = Math.floor((todayOr - new Date(todayOr.getFullYear(), 0, 0)) / 86400000);
+    var oracao     = oracoes[dayOfYearOr % oracoes.length];
+
+    var dayNamesOr   = ['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado'];
+    var monthNamesOr = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+
+    if (oracaoDiaData) {
+      oracaoDiaData.textContent = dayNamesOr[todayOr.getDay()] + ', ' + todayOr.getDate() + ' de ' + monthNamesOr[todayOr.getMonth()];
+    }
+
+    var h3Or  = document.createElement('h3');
+    h3Or.textContent = oracao.titulo;
+    var pOr   = document.createElement('p');
+    pOr.className = 'oracao-dia-trecho';
+    pOr.textContent = oracao.trecho;
+    var aOr   = document.createElement('a');
+    aOr.href = 'oratorio.html#' + oracao.ancora;
+    aOr.className = 'oracao-dia-rezar';
+    aOr.textContent = 'Rezar a oração completa →';
+    oracaoDiaContent.appendChild(h3Or);
+    oracaoDiaContent.appendChild(pOr);
+    oracaoDiaContent.appendChild(aOr);
+  }
+
   /* ─── COMPARTILHAR (Web Share API) ─── */
   var shareSection = document.querySelector('.social-share');
   if (shareSection && navigator.share) {
